@@ -18,7 +18,7 @@
         <groupId>Lab1</groupId>
         <artifactId>Lab1PA</artifactId>
         <version>1.0-SNAPSHOT</version>
-        <classifier>logic</classifier>
+            <type>jar</type>
         </dependency>
        
         <dependency>
