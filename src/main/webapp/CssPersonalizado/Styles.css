@@ -2,3 +2,17 @@
 #search::-moz-placeholder {
   color: white;
 }
+
+#ListNav li:hover a {
+    color: #4A90E2 !important; /* Usa el azul de tu tema o white, según el contraste */
+}
+
+/* Mantén cursor: pointer en el li para que la mano aparezca en toda la fila */
+#ListNav li:hover {
+    cursor: pointer;
+}
+
+
+a,h2,label {
+    font-family: 'Kite One', sans-serif; /* Aplica Kite One a los encabezados */
+}
