@@ -16,3 +16,21 @@
 a,h2,label {
     font-family: 'Kite One', sans-serif; /* Aplica Kite One a los encabezados */
 }
+
+
+.estiloPerfil{
+     
+    display: inline-flex; 
+    align-items: center;
+    justify-content: center;
+    width: 30px; 
+    height: 30px;
+    border-radius: 50%;
+    
+    /* Estilo visual */
+    background-color: #4A90E2; 
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    margin-right: 8px; 
+}

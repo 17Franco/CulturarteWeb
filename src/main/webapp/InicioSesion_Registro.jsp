@@ -16,7 +16,20 @@
         <%@ include file="Componentes/Header.jsp" %>
         
         <div class="container mt-xl-4">
+               
+            <% if (request.getAttribute("successMessage") != null ) { %>
+            <div class="alert alert-success" id="msgExito" role="alert">
+                    <%= request.getAttribute("successMessage") %>
+                </div>
+            <% } %>
+
+            <% if (request.getAttribute("errorMessage") != null) { %>
+            <div class="alert alert-danger" id="msgError" role="alert">
+                    <%= request.getAttribute("errorMessage") %>
+                </div>
+            <% } %>
             
+        
         <div class="row justify-content-around">
             
             <div class="col-md-4 align-items-top"> 
@@ -61,7 +74,7 @@
                         <div class="col">
                             <div class="col-12">
                                 <label for="vPassR" class="form-label">Contrasena</label>
-                                <input type="password" class="form-control border-secondary" id="vPassR" name="password"  required>
+                                <input type="password" class="form-control border-secondary" id="vPassR" name="password2"  required>
                                 <div class="invalid-feedback">
                                    Ingrese Una Contrasena
                                 </div>
@@ -175,7 +188,7 @@
                             
 
                     <div class="col-12 text-center mt-3">
-                        <button class="btn btn-primary" type="submit" >Registrarse</button>
+                        <button class="btn btn-primary" id="btnRegistro" type="submit" >Registrarse</button>
                     </div>
 
                     </form>
@@ -184,6 +197,7 @@
         </div>
         
         <script src="JS/datosProponente.js" ></script> <!-- funcionalidades -->
+        <script src="JS/mostaraMensaje.js" ></script> <!-- funcionalidades -->
         <script src="JS/validacionNickAndEmail.js" ></script> <!-- funcionalidades -->
     </body>
 </html>

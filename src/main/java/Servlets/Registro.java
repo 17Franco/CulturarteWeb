@@ -33,7 +33,7 @@ public class Registro extends HttpServlet {
         try{
             //contenido del input solo controla el input de registro
             String nick = request.getParameter("NickName");
-            String pass = request.getParameter("password");
+            String pass = request.getParameter("password2");
             String nombre = request.getParameter("nombre");
             String apellido= request.getParameter("apellido");
             String email= request.getParameter("email");
@@ -61,14 +61,14 @@ public class Registro extends HttpServlet {
             
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate fechaFormat = LocalDate.parse(fecha, formatter);  
-
+            System.out.println(pass);
             if(tipoUser.equals("Proponente")){
                controller.registroUsuario(nick, pass, nombre, apellido, email,fechaFormat,contenido, fileName, true, direccion, web, biografia);
             }else{
                controller.registroUsuario(nick, pass, nombre, apellido, email,fechaFormat,contenido, fileName, false, direccion, web, biografia);
             }
             
-            request.setAttribute("successMessage", "¡Registro exitoso!."); //por si luego quiero mostrar mensjae
+            request.setAttribute("successMessage", "¡Registro exitoso!"); //por si luego quiero mostrar mensjae
 
           
             request.getRequestDispatcher("/InicioSesion_Registro.jsp").forward(request, response);
@@ -76,7 +76,7 @@ public class Registro extends HttpServlet {
             System.out.println("Error de registro: " + e.getMessage());
             e.printStackTrace(); // Esto es CLAVE para ver la traza en la consola de Tomcat
             
-            request.setAttribute("errorMessage", "No se pudo completar el registro. " + e.getMessage());
+            request.setAttribute("errorMessage", "No se pudo completar el registro. ");
 
             // Se hace un reenvío (forward) a la misma página JSP del formulario.
             // Esto permite que la JSP muestre el mensaje.

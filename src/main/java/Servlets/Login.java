@@ -11,6 +11,10 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import logica.Controller;
+import logica.Fabrica;
+import logica.IController;
 
 
 /**
@@ -20,38 +24,49 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet(name = "Login", urlPatterns = {"/Login"})
 public class Login extends HttpServlet {
 
-   
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Login</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Login at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
-    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        //processRequest(request, response);
     }
 
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+       IController controller= Fabrica.getInstance().getController();
         
-        processRequest(request, response);
+        HttpSession sesion = request.getSession();
+        String nick = request.getParameter("Nickname");
+        String pass = request.getParameter("password"); 
         
-        String nick = request.getParameter("NickName");
+          
+        
+        try{
+           if(controller.login(nick, pass)){
+               if(controller.isProponente(nick)){
+                sesion.setAttribute("logueado", nick); 
+                sesion.setAttribute("tipoUser", "Proponente");
+               }else{
+                sesion.setAttribute("logueado", nick); 
+                sesion.setAttribute("tipoUser", "Colaborador");
+               }
+               request.getRequestDispatcher("/index.jsp").forward(request, response);
+           }else{          
+            request.setAttribute("errorMessage", "Nick o Contrasena Incorrectos.");
+ 
+            request.getRequestDispatcher("/InicioSesion_Registro.jsp").forward(request, response);
+           }
+            
+        }catch(Exception e){
+            
+        System.out.println("Error de registro: " + e.getMessage());
+        e.printStackTrace(); // Esto es CLAVE para ver la traza en la consola de Tomcat
+
+        request.setAttribute("errorMessage", "No se pudo Iniciar Sesion.");
+ 
+        request.getRequestDispatcher("/InicioSesion_Registro.jsp").forward(request, response);
+        
+        }
         
     }
 
