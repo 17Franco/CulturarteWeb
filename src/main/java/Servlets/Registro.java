@@ -63,9 +63,9 @@ public class Registro extends HttpServlet {
             LocalDate fechaFormat = LocalDate.parse(fecha, formatter);  
 
             if(tipoUser.equals("Proponente")){
-               controller.registroUsuario(nick, pass, nombre, apellido, email,fechaFormat,contenido, fileName, false, direccion, web, biografia);
-            }else{
                controller.registroUsuario(nick, pass, nombre, apellido, email,fechaFormat,contenido, fileName, true, direccion, web, biografia);
+            }else{
+               controller.registroUsuario(nick, pass, nombre, apellido, email,fechaFormat,contenido, fileName, false, direccion, web, biografia);
             }
             
             request.setAttribute("successMessage", "¡Registro exitoso!."); //por si luego quiero mostrar mensjae
