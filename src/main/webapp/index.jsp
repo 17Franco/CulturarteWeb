@@ -15,7 +15,8 @@
         <title>JSP Page</title>
         <link rel="stylesheet" href="cssBootstrap/bootstrap.min.css"/> <!-- estilos -->
         <link rel="stylesheet" href="CssPersonalizado/Styles.css"/> <!-- estilos -->
-        <script src="js/bootstrap.bundle.min.js"></script> <!-- funcionalidades -->
+        <script src="jsBoostrap/bootstrap.bundle.min.js"></script> <!-- funcionalidades -->
+        <link href="https://fonts.googleapis.com/css2?family=Kite+One&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     </head>
     <body class="bg-body-secondary">
         <%@ include file="Componentes/Header.jsp" %>
