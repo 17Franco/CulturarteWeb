@@ -18,7 +18,7 @@ import logica.IController;
  *
  * @author fran
  */
-@WebServlet("/emailUsado")
+@WebServlet(name="emailUsado", urlPatterns={"/emailUsado"})
 public class emailUsado extends HttpServlet {
 
     

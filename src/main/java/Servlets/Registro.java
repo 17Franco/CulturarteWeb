@@ -21,7 +21,7 @@ import logica.Fabrica;
 import logica.IController;
 
 @MultipartConfig
-@WebServlet("/Registro")
+@WebServlet(name="Registro", urlPatterns={"/Registro"})
 public class Registro extends HttpServlet {
 
     @Override
