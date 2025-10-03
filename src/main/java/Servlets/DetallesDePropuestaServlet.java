@@ -49,7 +49,7 @@ public class DetallesDePropuestaServlet extends HttpServlet
 
         int permisos = 0;   //Si es visitante, queda en 0
 
-        if( !nickUsr.equals("VISITANTE") && propuestaSel != null)
+        if( !nickUsr.equals("VISITANTE"))
         {
             permisos = controller.accionSobrePropuesta(nickUsr, propuestaSel);  //Se obtienen permisos de usuario en propuesta.
         }
@@ -57,7 +57,7 @@ public class DetallesDePropuestaServlet extends HttpServlet
         if (propuestaSel != null && sesionActual != null)                       //Si no pasó nada raro se envían datos para que puedan ser mostrados.
         {
             request.setAttribute("propuesta", propuestaSel);                                                //Se envian datos de la propuesta elegida al jsp.      
-            request.setAttribute("permisos", permisos);                                                     //Se envia el tipo de permisos de usuario sobre prop al jsp.
+            request.setAttribute("permisos", permisos);                         //Se envia el tipo de permisos de usuario sobre prop al jsp.
             request.getRequestDispatcher("MostrarPropuesta_Colaborar.jsp").forward(request, response);         //Se envían datos a front y se redirige al user hacia la pagina de muestra.
         } 
         else 
@@ -84,6 +84,18 @@ public class DetallesDePropuestaServlet extends HttpServlet
         
         
         IController controller = Fabrica.getInstance().getController();
+
+        String nickUsr = "";
+
+        if (sesionActual != null) //Si sesión aun está online obtengo el nick de el usuario actual.
+        {
+            nickUsr = (String) sesionActual.getAttribute("logueado");
+
+            if (nickUsr == null) //Si se trata de un invitado...
+            {
+                nickUsr = "VISITANTE";
+            }
+        }
         
         //Se almacenan datos provenientes del front
         String accionUsuario = request.getParameter("accion");  //Para saber que decició hacer el usuario.

@@ -17,6 +17,10 @@
 
         <%@ include file="Componentes/Header.jsp" %>
 
+        <%
+                int permisos = (Integer) request.getAttribute("permisos");
+        %>
+        
         <div class="container mt-4">
             <%
                 DTOPropuesta propuesta = (DTOPropuesta) request.getAttribute("propuesta");
@@ -46,9 +50,9 @@
                                 <%= (propuesta.getCategoria() != null) ? propuesta.getCategoria().getNombreCategoria() : "Sin categoría"%>
                             </li>
                         </ul>
+                            
                     </div>
                     <%
-                        int permisos = (session.getAttribute("permisos") != null) ? (Integer) session.getAttribute("permisos") : 0;
                         // Solo si es 3, usuario que no propuso puede colaborar.
                         if (permisos == 3) {
                     %>
