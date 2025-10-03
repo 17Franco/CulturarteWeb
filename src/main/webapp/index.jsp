@@ -1,8 +1,3 @@
-<%-- 
-    Document   : index
-    Created on : 27 sept 2025, 22:10:26
-    Author     : fran
---%>
 
 <%@page import="java.util.Set"%>
 <%@page import="logica.DTO.DTOPropuesta"%>
