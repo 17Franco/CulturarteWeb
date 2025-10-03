@@ -85,6 +85,9 @@
                         <div class="precio">Precio: $<%= pro.getPrecio() %></div>
                         <div class="info"><b>Monto Total:</b> $<%= pro.getMontoTotal() %></div>
                         <div class="info"><b>Publicada:</b> <%= pro.getFechaPublicacion() %></div>
+                        <!-- Redireccionar a mosrtar propuestas-->
+                        <a href="DetallesDePropuestaServlet?id=<%= java.net.URLEncoder.encode(pro.getTitulo(), "UTF-8")%>" 
+                        class="btn btn-primary mt-2">Ver detalles</a>
                     </div>
                 </div>
             <%
