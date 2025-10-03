@@ -9,7 +9,9 @@
         <title>Detalle de Propuesta</title>
         <link rel="stylesheet" href="cssBootstrap/bootstrap.min.css"/> <!-- estilos -->
         <link rel="stylesheet" href="CssPersonalizado/Styles.css"/> <!-- estilos -->
-        <script src="jsBoostrap/bootstrap.bundle.min.js"></script>
+        <script  src="JS/Validacion.js" defer></script> <!-- funcionalidades -->
+        <script src="jsBoostrap/bootstrap.bundle.min.js"></script> <!-- funcionalidades -->
+        <link href="https://fonts.googleapis.com/css2?family=Kite+One&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"/>
     </head>
     <body class="bg-body-secondary">
 
