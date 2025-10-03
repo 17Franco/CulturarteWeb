@@ -4,13 +4,13 @@
  */
 
 
-<script>
+
     // Seleccionamos todos los botones + para desplegar subcategorías
     const toggleButtons = document.querySelectorAll('.toggle-subcategory');
 
     toggleButtons.forEach(button => {
         button.addEventListener('click', (event) => {
-            event.preventDefault(); // evitar acción del enlace
+            event.preventDefault(); // evitar acción del enlaceS
             event.stopPropagation();
 
             const subcategory = button.parentElement.nextElementSibling;
@@ -24,4 +24,3 @@
             }
         });
     });
-</script>

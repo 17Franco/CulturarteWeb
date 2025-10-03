@@ -21,9 +21,9 @@
     <link rel="stylesheet" href="cssBootstrap/bootstrap.min.css"/>
     <link rel="stylesheet" href="CssPersonalizado/Styles.css"/>
     <link rel="stylesheet" href="CssPersonalizado/propuestas.css"/>
-
     <script src="jsBoostrap/bootstrap.bundle.min.js"></script>
-    <script src="JS/DespliegueSubCategorias.js" defer></script>
+    <script src="JS/DespliegueSubCategorias.js" defer></script> 
+
 
     <link href="https://fonts.googleapis.com/css2?family=Kite+One&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
@@ -31,7 +31,7 @@
 <body class="bg-body-secondary">
     <%@ include file="Componentes/Header.jsp" %>
 
-    <!-- Contenedor principal: sidebar + propuestas -->
+    <!-- Contenedor principal-->
     <div class="main-container">
 <jsp:include page="/Categorias" />
         <jsp:include page="/Propuestas" />
@@ -70,7 +70,13 @@
                     for (DTOPropuesta pro : propuestas) {
             %>
                 <div class="propuesta-card">
+                    
+                    
                     <img src="<%= pro.getImagen() %>" alt="Imagen de <%= pro.getTitulo() %>">
+                    
+                    <!-- he probado varias cosas todavia no doy con trareme las malditas imagenes  
+                    <img src="http://servidor-central/IMG/<%= pro.getImagen() %>" alt="Imagen de <%= pro.getTitulo() %>">-->
+
                     <div class="card-body">
                         <h5><%= pro.getTitulo() %></h5>
                         <p><%= pro.getDescripcion() %></p>
@@ -93,27 +99,7 @@
 
     </div>
 
-    <!-- Script para desplegar subcategorías -->
-    <script>
-        const toggleButtons = document.querySelectorAll('.toggle-subcategory');
 
-        toggleButtons.forEach(button => {
-            button.addEventListener('click', (event) => {
-                event.preventDefault();
-                event.stopPropagation();
-
-                const subcategory = button.parentElement.nextElementSibling;
-
-                if (subcategory.hasAttribute('hidden')) {
-                    subcategory.removeAttribute('hidden');
-                    button.textContent = "−";
-                } else {
-                    subcategory.setAttribute('hidden', '');
-                    button.textContent = "+";
-                }
-            });
-        });
-    </script>
 
 </body>
 </html>
