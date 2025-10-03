@@ -18,7 +18,13 @@
         <groupId>Lab1</groupId>
         <artifactId>Lab1PA</artifactId>
         <version>1.0-SNAPSHOT</version>
-            <type>jar</type>
+        <classifier>logica</classifier>
+        </dependency>
+        <dependency>
+        <groupId>Lab1</groupId>
+        <artifactId>Lab1PA</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <classifier>dto</classifier>
         </dependency>
        
         <dependency>
