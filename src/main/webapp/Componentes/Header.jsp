@@ -1,6 +1,6 @@
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
-    <div class="container">
+    <div class="container-fluid">
         <a class="navbar-brand" href="index.jsp">Culturarte</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -23,7 +23,9 @@
                 <!-- aca quiero que accedan al dropdaw solo si esta logueado -->
                 <a class="nav-link dropdown-toggle <%= (session.getAttribute("logueado") == null) ? "disabled" : "" %>" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <!-- si no esta logueado muestro Invitado sino muestro el nombre del usaurios mas Inicial  -->
+                   
                     <%if(session.getAttribute("logueado") == null){ %>
+                     <div class="estiloPerfil">I</div>
                         Invitado
                     <% }else { %>
                     <% 
