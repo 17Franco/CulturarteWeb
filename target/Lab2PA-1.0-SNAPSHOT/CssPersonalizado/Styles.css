@@ -1,0 +1,81 @@
+
+#search::-moz-placeholder {
+  color: white;
+}
+
+#ListNav li:hover a {
+    color: #4A90E2 !important; /* Usa el azul de tu tema o white, según el contraste */
+}
+
+/* Mantén cursor: pointer en el li para que la mano aparezca en toda la fila */
+#ListNav li:hover {
+    cursor: pointer;
+}
+
+
+a,h2,label {
+    font-family: 'Kite One', sans-serif; /* Aplica Kite One a los encabezados */
+}
+
+
+.estiloPerfil{
+     
+    display: inline-flex; 
+    align-items: center;
+    justify-content: center;
+    width: 30px; 
+    height: 30px;
+    border-radius: 50%;
+    
+    /* Estilo visual */
+    background-color: #4A90E2; 
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    margin-right: 8px; 
+}
+
+.sidebar {
+    width: 220px;
+    padding: 15px;
+    border-right: 1px solid #ccc;
+    font-family: Arial, sans-serif;
+  }
+
+  .categories {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .category {
+    margin-bottom: 8px;
+  }
+
+  /* Cabecera de categoría en flex: texto a la izq, símbolo a la der */
+  .category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .category-header a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+  }
+
+
+  /* Subcategorías ocultas */
+  .subcategory {
+    list-style: none;
+    margin: 5px 0 5px 15px;
+    padding: 0;
+  }
+
+  .subcategory li a {
+    text-decoration: none;
+    color: #555;
+    font-weight: normal;
+  }
