@@ -75,6 +75,7 @@
 
             <% } else { %>
             <div class="alert alert-danger">No se pudo cargar la propuesta</div>
+            
             <% }%>
         </div>
 

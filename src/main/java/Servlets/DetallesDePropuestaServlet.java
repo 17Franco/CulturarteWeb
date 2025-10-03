@@ -56,12 +56,14 @@ public class DetallesDePropuestaServlet extends HttpServlet
         
         if (propuestaSel != null && sesionActual != null)                       //Si no pasó nada raro se envían datos para que puedan ser mostrados.
         {
+            System.out.print("BBBBBBBBBBBBBBBBBBBBBBB"+nickUsr+titulo);
             sesionActual.setAttribute("propuesta", propuestaSel);               //Se envian datos de la propuesta elegida al jsp en la sesion definida.      
             sesionActual.setAttribute("permisos", permisos);                 //Se envia el tipo de permisos de usuario sobre prop al jsp.
             response.sendRedirect("MostrarPropuesta_Colaborar.jsp");         //Se envían datos a front y se redirige al user hacia la pagina de muestra.
         } 
         else 
         {
+            System.out.print("AAAAAAAAAAAAAAAAAAAAA"+nickUsr+titulo);
             //Al no existir sesión posiblemente, se envía la variable como request:
             request.setAttribute("mensaje_error", "ERROR, no se encontró la propuesta con el título: " + titulo + ". Revisar que se esté pasando bien el parámetro o que la funcion esté logrando encontrar esa propuesta");
             request.getRequestDispatcher("MostrarPropuesta_Colaborar.jsp").forward(request, response);        //Se muestra en pantalla el error
