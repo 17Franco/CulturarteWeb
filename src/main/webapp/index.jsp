@@ -4,6 +4,7 @@
     Author     : fran
 --%>
 
+<%@page import="logica.DTO.DTOCategoria"%>
 <%@page import="logica.Fabrica"%>
 <%@page import="logica.IController"%>
 <%@page import="java.util.List"%>
@@ -26,18 +27,25 @@
             <nav>
               <ul class="categories">
               <%
-                  List<String> categorias = (List<String>) request.getAttribute("categorias");
-                  if (categorias != null) {
-                      for(String cat : categorias) {
+                  List<DTOCategoria> categorias = ( List<DTOCategoria>) request.getAttribute("categorias");
+                  if (categorias != null) { //    private Set <DTOCategoria> subcategorias;
+
+                      for(DTOCategoria cat : categorias) {
               %>
                       <li class="category">
+                          
                           <div class="category-header">
-                              <a href="#"><%= cat %></a>
-                              
+                              <a href="#"><%= cat.getNombreCategoria() %></a>
                           </div>
                           <ul class="subcategory">
-                              <li><a href="#">Sub1</a></li>
-                              <li><a href="#">Sub2</a></li>
+                               <%  //    private Set <DTOCategoria> subcategorias;
+
+                                   for(DTOCategoria sub: cat.getSubcategorias()){
+                              %>
+                              <li><a href="#"><%= sub.getNombreCategoria() %></a></li>
+                              <%
+                                  }
+                          %>
                           </ul>
                       </li>
               <%

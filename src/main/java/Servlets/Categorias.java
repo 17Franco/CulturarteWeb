@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
+import logica.DTO.DTOCategoria;
 import logica.Fabrica;
 import logica.IController;
 
@@ -26,7 +27,7 @@ public class Categorias extends HttpServlet {
         IController controller= Fabrica.getInstance().getController();
         // TODO: listaCategiras tiene que devolver un mapa de categorias 
         // con la lista de subcategorias
-        List<String> categorias = controller.ListaCategoria();
+       List<DTOCategoria> categorias = controller.getCategorias();
         request.setAttribute("categorias", categorias);
       //  request.getRequestDispatcher("/index.jsp").forward(request, response);
     }
