@@ -1,4 +1,9 @@
+# Ignorar la carpeta de compilación de Maven (target)
 /target/
-*.class
-*.jar
-*.war
+
+# Ignorar archivos de lista temporal
+*.lst
+
+# Ignorar archivos de configuración específicos de NetBeans
+/nbproject/private/
+*.nbattrs
