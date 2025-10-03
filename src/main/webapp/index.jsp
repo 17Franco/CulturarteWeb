@@ -20,7 +20,5 @@
     </head>
     <body class="bg-body-secondary">
         <%@ include file="Componentes/Header.jsp" %>
-
-        
     </body>
 </html>

@@ -1,6 +1,6 @@
 const vNick = document.getElementById('vNickR');
 const msg = document.getElementById('vNickMsg');
-const formRegistro = document.getElementById("formRegistro");
+
 vNick.addEventListener("blur", async ()=>{
     let valor = vNick.value.trim(); //obtengo el valor y saco espacios de sobra (inicio o final)
     //no debe ser vacio

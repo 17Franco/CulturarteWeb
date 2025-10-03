@@ -12,7 +12,7 @@ import logica.Fabrica;
 import logica.IController;
 
 
-@WebServlet("/existeNickName")
+@WebServlet(name="existeNickName", urlPatterns={"/existeNickName"})
 public class existeNickName extends HttpServlet {
 
    @Override

@@ -21,7 +21,7 @@
             
             <div class="col-md-4 align-items-top"> 
                 <h2 class="">Iniciar Sesion</h2>
-                <form class="row g-3 needs-validation" novalidate>
+                <form class="row g-3 needs-validation" method="post" action="Login" novalidate>
 
                     <div class="col-12">
                         <label for="vNick" class="form-label">NickName</label>
