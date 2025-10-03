@@ -12,7 +12,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Set;
 import logica.DTO.DTOCategoria;
+import logica.DTO.DTOPropuesta;
 import logica.Fabrica;
 import logica.IController;
 
@@ -25,10 +27,14 @@ public class Categorias extends HttpServlet {
             throws ServletException, IOException {
         
         IController controller= Fabrica.getInstance().getController();
-        // TODO: listaCategiras tiene que devolver un mapa de categorias 
-        // con la lista de subcategorias
+     
        List<DTOCategoria> categorias = controller.getCategorias();
+       
         request.setAttribute("categorias", categorias);
+        
+        
       //  request.getRequestDispatcher("/index.jsp").forward(request, response);
     }
+    // traer todas las propuestas =  Set<DTOPropuesta> obtenerPropuestas(String estado);
+
 }
