@@ -1,6 +1,6 @@
 package Servlets;
-
 import logica.DTO.DTOPropuesta;
+import logica.DTO.DTOColaboracion;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -8,6 +8,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.time.LocalDate;
+import java.util.Set;
+import logica.DTO.DTOColaborador;
+import logica.DTO.TipoRetorno;
 import logica.Fabrica;
 import logica.IController;
 
@@ -24,56 +28,121 @@ public class DetallesDePropuestaServlet extends HttpServlet
             throws ServletException, IOException 
     {
 
-        response.setContentType("text/plain;charset=UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
         String titulo = request.getParameter("tituloProp"); //Se obtiene el parámetro del titulo desde el jsp que muestra las propuestas.
 
         IController controller = Fabrica.getInstance().getController();
         DTOPropuesta propuestaSel = controller.getPropuestaDTO(titulo);
         
-        HttpSession dataDeSesion = request.getSession(false);   //Se obtienen datos de la sesion en curso.
+        HttpSession sesionActual = request.getSession(true);   //Se obtienen datos de la sesion en curso.
 
-        String usuario = null;
+        String nickUsr = "";
 
-        if(dataDeSesion  != null) //Si la sesion aún existe...
+        if(sesionActual  != null) //Si sesión aun está online
         {
-            usuario = (String) dataDeSesion.getAttribute("usuario"); //Esto es para saber que puede hacer el user en la propuesta.
+            nickUsr = request.getParameter("nickUsr");
         }
 
         int permisos = 0;   //Si no hay user, queda en 0
 
-        if(usuario != null && propuestaSel != null)
+        if( !nickUsr.isEmpty() && propuestaSel != null)
         {
-            permisos = controller.accionSobrePropuesta(usuario, propuestaSel);  //Se obtienen permisos de usuario en propuesta.
+            permisos = controller.accionSobrePropuesta(nickUsr, propuestaSel);  //Se obtienen permisos de usuario en propuesta.
         }
         
-        if (propuestaSel != null)   //Si no pasó nada raro se envían datos para que puedan ser mostrados.
+        if (propuestaSel != null && sesionActual != null)           //Si no pasó nada raro se envían datos para que puedan ser mostrados.
         {
-            request.setAttribute("propuesta", propuestaSel);        //Se envian datos de la propuesta elegida al jsp
-            request.setAttribute("permisos", permisos);                 //Se envia el tipo de permisos de usuario sobre prop al jsp.
-            request.getRequestDispatcher("detallePropuesta.jsp").forward(request, response);    //Se pasa al siguiente jsp
+            sesionActual.setAttribute("propuesta", propuestaSel);     //Se envian datos de la propuesta elegida al jsp en la sesion definida.
+                  
+            sesionActual.setAttribute("permisos", permisos);                 //Se envia el tipo de permisos de usuario sobre prop al jsp.
+            response.sendRedirect("MostrarPropuestaColaborar.jsp"); //Se envían datos a front y se redirige al user hacia la pagina de muestra.
         } 
         else 
         {
-            request.setAttribute("mensaje_error", "ERROR, no se encontró la propuesta con el título: " + titulo + ". Revisar que se esté pasando bien el parámetro o que la funcion esté logrando encontrar esa propuesta");
-            request.getRequestDispatcher("detallePropuesta.jsp").forward(request, response);
+            sesionActual.setAttribute("mensaje_error", "ERROR, no se encontró la propuesta con el título: " + titulo + ". Revisar que se esté pasando bien el parámetro o que la funcion esté logrando encontrar esa propuesta");
+            response.sendRedirect("resultadoAccion.jsp");   //Se muestra pantalla de resultado
+        }    
+    }
+    
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException 
+    {
+        
+        //RETORNOS AL FRONT en "resultadoOperacion":
+        // 0: El usuario no hizo ningún cambio.
+        // 1: Colaborador envía un comentario.
+        // 2: Proponente cancela la propuesta.
+        // 3: Proponente extiende financiación.
+        // 4: Colaborador nuevo.
+        
+        int resultadoOperacion = 0;     //Esto notificará al jsp que todo salió bien y que tipo de transacción es...       
+        HttpSession sesionActual = request.getSession(true);
+        
+        
+        IController controller = Fabrica.getInstance().getController();
+        
+        //Se almacenan datos provenientes del front
+        String accionUsuario = request.getParameter("accion");  //Para saber que decició hacer el usuario.
+        String userNick = request.getParameter("nickUsuario");
+        DTOPropuesta propuestaActual = controller.getPropuestaDTO(request.getParameter("tituloPropuesta"));     //Se usa el titulo obtenido del front para buscar la propuesta en la bd
+        String montoStr = request.getParameter("monto"); 
+        String tipo = request.getParameter("tipoRetorno");
+        String nuevaFecha = request.getParameter("nuevaFechaExtension");    //Se obtiene la fecha nueva para el plazo de financiación o lo que sea eso
+        String comentario = request.getParameter("comentario");
+        
+        
+        TipoRetorno retorno = null;
+        
+        //Seteo tipos de retorno.
+        if(tipo.equals("EntradaGratis"))     { retorno = TipoRetorno.EntradaGratis; }
+        if(tipo.equals("PorcentajeGanancia")){ retorno = TipoRetorno.PorcentajeGanancia; }
+        
+        //Si es proponente...
+        if(controller.isProponente(userNick))   
+        {        
+            //Se verifica que sea una propuesta de este proponente (esto puede ser pasado a una funcion en controller).
+            Set<DTOPropuesta> temp = controller.getPropuestasCreadasPorProponente(userNick);
+            
+            for(DTOPropuesta ct : temp)
+            {
+                if(ct.nickProponenteToString().equals(userNick))
+                {
+                    resultadoOperacion = controller.extenderOCancelarPropuesta(accionUsuario,nuevaFecha,ct.getTitulo());
+                    //resultado 3, logra extender, resultado 2, logra cancelar, 0, no sucedió nada.
+                }
+            }
+        }  
+    
+        //Si es colaborador que ya colaboró...
+        if(controller.colaboracionExiste(userNick, propuestaActual.getTitulo()))
+        {
+            if(accionUsuario.equals("COMENTAR"))
+            {
+                //controller.nuevoComentario(comentario,userNick);
+                resultadoOperacion = 1; //Usuario logra comentar.
+            }   
         }
         
+        //Si es colaborador que no colaboró aún y decide colaborar con la propuesta...
+        if(resultadoOperacion == 0) 
+        {   
+            if(accionUsuario.equals("COLABORAR"))
+            {
+                int monto = controller.string_A_Int_Con_verificacion(montoStr); //Aca se verifica que esté correcto el ingreso
+                
+                DTOColaborador usuarioActual = (DTOColaborador) controller.getDTOColaborador(userNick);
+                DTOColaboracion nuevaColaboracion = new DTOColaboracion(retorno,monto,usuarioActual.getNickname(),propuestaActual.getTitulo(),LocalDate.now(),usuarioActual,propuestaActual);
+                controller.altaColaboracion(nuevaColaboracion);    
+                resultadoOperacion = 4;
+            }
+        }
+
+        sesionActual.setAttribute("resultado", resultadoOperacion); 
+        response.sendRedirect("resultadoAccion.jsp"); //Se envia al jsp el resultado de la operacion usada.
+
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Muestra detalles de propuesta elegida por user";
