@@ -1,0 +1,7 @@
+Servlets\Login.class
+Servlets\existeNickName.class
+Servlets\logout.class
+Servlets\Registro.class
+Servlets\Propuestas.class
+Servlets\Categorias.class
+Servlets\emailUsado.class
