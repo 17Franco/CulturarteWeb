@@ -22,7 +22,6 @@ import logica.IController;
 @WebServlet(name = "DetallesDePropuestaServlet", urlPatterns = {"/DetallesDePropuesta"})
 public class DetallesDePropuestaServlet extends HttpServlet 
 {
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException 
@@ -63,7 +62,6 @@ public class DetallesDePropuestaServlet extends HttpServlet
             response.sendRedirect("resultadoAccion.jsp");   //Se muestra pantalla de resultado
         }    
     }
-    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException 
