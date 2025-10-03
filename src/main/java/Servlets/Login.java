@@ -27,7 +27,8 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
+        //si agregas login a http://localhost:8080/Lab2PA/index.jsp t manda al jsp
+        response.sendRedirect(request.getContextPath() + "/InicioSesion_Registro.jsp"); 
     }
 
     
@@ -50,7 +51,8 @@ public class Login extends HttpServlet {
                 sesion.setAttribute("logueado", nick); 
                 sesion.setAttribute("tipoUser", "Colaborador");
                }
-               request.getRequestDispatcher("/index.jsp").forward(request, response);
+               response.sendRedirect(request.getContextPath() + "/index.jsp"); 
+               //request.getRequestDispatcher("/index.jsp").forward(request, response);
            }else{          
             request.setAttribute("errorMessage", "Nick o Contrasena Incorrectos.");
  
