@@ -20,5 +20,36 @@
     </head>
     <body class="bg-body-secondary">
         <%@ include file="Componentes/Header.jsp" %>
+        <jsp:include page="/Categorias" />
+        
+        <aside class="sidebar">
+            <nav>
+              <ul class="categories">
+              <%
+                  List<String> categorias = (List<String>) request.getAttribute("categorias");
+                  if (categorias != null) {
+                      for(String cat : categorias) {
+              %>
+                      <li class="category">
+                          <div class="category-header">
+                              <a href="#"><%= cat %></a>
+                              
+                          </div>
+                          <ul class="subcategory">
+                              <li><a href="#">Sub1</a></li>
+                              <li><a href="#">Sub2</a></li>
+                          </ul>
+                      </li>
+              <%
+                      }
+                  } else {
+              %>
+                      <li>No hay categorías cargadas</li>
+              <%
+                  }
+              %>
+              </ul>
+            </nav>
+        </aside>
     </body>
 </html>
