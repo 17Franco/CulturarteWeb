@@ -1,8 +1,3 @@
-<%-- 
-    Document   : index
-    Created on : 27 sept 2025, 22:10:26
-    Author     : fran
---%>
 
 <%@page import="logica.Fabrica"%>
 <%@page import="logica.IController"%>
