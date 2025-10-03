@@ -28,18 +28,18 @@ public class DetallesDePropuestaServlet extends HttpServlet
     {
 
         response.setContentType("text/html;charset=UTF-8");
-        String titulo = request.getParameter("tituloProp"); //Se obtiene el parámetro del titulo desde el jsp que muestra las propuestas.
+        String titulo = request.getParameter("id"); //Se obtiene el parámetro del titulo desde el jsp que muestra las propuestas.
 
         IController controller = Fabrica.getInstance().getController();
         DTOPropuesta propuestaSel = controller.getPropuestaDTO(titulo);
         
-        HttpSession sesionActual = request.getSession(true);   //Se obtienen datos de la sesion en curso.
+        HttpSession sesionActual = request.getSession(true);   //Se obtienen datos almacenados en la sesion.
 
         String nickUsr = "";
 
-        if(sesionActual  != null) //Si sesión aun está online
+        if(sesionActual  != null) //Si sesión aun está online obtengo el nick de el usuario actual.
         {
-            nickUsr = request.getParameter("nickUsr");
+            nickUsr = (String) sesionActual.getAttribute("logueado");
         }
 
         int permisos = 0;   //Si no hay user, queda en 0
@@ -49,17 +49,17 @@ public class DetallesDePropuestaServlet extends HttpServlet
             permisos = controller.accionSobrePropuesta(nickUsr, propuestaSel);  //Se obtienen permisos de usuario en propuesta.
         }
         
-        if (propuestaSel != null && sesionActual != null)           //Si no pasó nada raro se envían datos para que puedan ser mostrados.
+        if (propuestaSel != null && sesionActual != null)                       //Si no pasó nada raro se envían datos para que puedan ser mostrados.
         {
-            sesionActual.setAttribute("propuesta", propuestaSel);     //Se envian datos de la propuesta elegida al jsp en la sesion definida.
-                  
+            sesionActual.setAttribute("propuesta", propuestaSel);               //Se envian datos de la propuesta elegida al jsp en la sesion definida.      
             sesionActual.setAttribute("permisos", permisos);                 //Se envia el tipo de permisos de usuario sobre prop al jsp.
-            response.sendRedirect("MostrarPropuestaColaborar.jsp"); //Se envían datos a front y se redirige al user hacia la pagina de muestra.
+            response.sendRedirect("MostrarPropuesta_Colaborar.jsp");         //Se envían datos a front y se redirige al user hacia la pagina de muestra.
         } 
         else 
         {
-            sesionActual.setAttribute("mensaje_error", "ERROR, no se encontró la propuesta con el título: " + titulo + ". Revisar que se esté pasando bien el parámetro o que la funcion esté logrando encontrar esa propuesta");
-            response.sendRedirect("resultadoAccion.jsp");   //Se muestra pantalla de resultado
+            //Al no existir sesión posiblemente, se envía la variable como request:
+            request.setAttribute("mensaje_error", "ERROR, no se encontró la propuesta con el título: " + titulo + ". Revisar que se esté pasando bien el parámetro o que la funcion esté logrando encontrar esa propuesta");
+            request.getRequestDispatcher("MostrarPropuesta_Colaborar.jsp").forward(request, response);        //Se muestra en pantalla el error
         }    
     }
     @Override
