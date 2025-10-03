@@ -34,3 +34,48 @@ a,h2,label {
     font-size: 14px;
     margin-right: 8px; 
 }
+
+.sidebar {
+    width: 220px;
+    padding: 15px;
+    border-right: 1px solid #ccc;
+    font-family: Arial, sans-serif;
+  }
+
+  .categories {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .category {
+    margin-bottom: 8px;
+  }
+
+  /* Cabecera de categoría en flex: texto a la izq, símbolo a la der */
+  .category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .category-header a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+  }
+
+
+  /* Subcategorías ocultas */
+  .subcategory {
+    list-style: none;
+    margin: 5px 0 5px 15px;
+    padding: 0;
+  }
+
+  .subcategory li a {
+    text-decoration: none;
+    color: #555;
+    font-weight: normal;
+  }

@@ -1,4 +1,5 @@
 
+<%@page import="logica.DTO.DTOCategoria"%>
 <%@page import="logica.Fabrica"%>
 <%@page import="logica.IController"%>
 <%@page import="java.util.List"%>
@@ -15,5 +16,43 @@
     </head>
     <body class="bg-body-secondary">
         <%@ include file="Componentes/Header.jsp" %>
+        <jsp:include page="/Categorias" />
+        
+        <aside class="sidebar">
+            <nav>
+              <ul class="categories">
+              <%
+                  List<DTOCategoria> categorias = ( List<DTOCategoria>) request.getAttribute("categorias");
+                  if (categorias != null) { //    private Set <DTOCategoria> subcategorias;
+
+                      for(DTOCategoria cat : categorias) {
+              %>
+                      <li class="category">
+                          
+                          <div class="category-header">
+                              <a href="#"><%= cat.getNombreCategoria() %></a>
+                          </div>
+                          <ul class="subcategory">
+                               <%  //    private Set <DTOCategoria> subcategorias;
+
+                                   for(DTOCategoria sub: cat.getSubcategorias()){
+                              %>
+                              <li><a href="#"><%= sub.getNombreCategoria() %></a></li>
+                              <%
+                                  }
+                          %>
+                          </ul>
+                      </li>
+              <%
+                      }
+                  } else {
+              %>
+                      <li>No hay categorías cargadas</li>
+              <%
+                  }
+              %>
+              </ul>
+            </nav>
+        </aside>
     </body>
 </html>
