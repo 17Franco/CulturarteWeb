@@ -56,14 +56,12 @@ public class DetallesDePropuestaServlet extends HttpServlet
         
         if (propuestaSel != null && sesionActual != null)                       //Si no pasó nada raro se envían datos para que puedan ser mostrados.
         {
-            System.out.print("BBBBBBBBBBBBBBBBBBBBBBB"+nickUsr+titulo);
-            sesionActual.setAttribute("propuesta", propuestaSel);               //Se envian datos de la propuesta elegida al jsp en la sesion definida.      
-            sesionActual.setAttribute("permisos", permisos);                 //Se envia el tipo de permisos de usuario sobre prop al jsp.
-            response.sendRedirect("MostrarPropuesta_Colaborar.jsp");         //Se envían datos a front y se redirige al user hacia la pagina de muestra.
+            request.setAttribute("propuesta", propuestaSel);                                                //Se envian datos de la propuesta elegida al jsp.      
+            request.setAttribute("permisos", permisos);                                                     //Se envia el tipo de permisos de usuario sobre prop al jsp.
+            request.getRequestDispatcher("MostrarPropuesta_Colaborar.jsp").forward(request, response);         //Se envían datos a front y se redirige al user hacia la pagina de muestra.
         } 
         else 
         {
-            System.out.print("AAAAAAAAAAAAAAAAAAAAA"+nickUsr+titulo);
             //Al no existir sesión posiblemente, se envía la variable como request:
             request.setAttribute("mensaje_error", "ERROR, no se encontró la propuesta con el título: " + titulo + ". Revisar que se esté pasando bien el parámetro o que la funcion esté logrando encontrar esa propuesta");
             request.getRequestDispatcher("MostrarPropuesta_Colaborar.jsp").forward(request, response);        //Se muestra en pantalla el error
@@ -103,8 +101,15 @@ public class DetallesDePropuestaServlet extends HttpServlet
         if(tipo.equals("EntradaGratis"))     { retorno = TipoRetorno.EntradaGratis; }
         if(tipo.equals("PorcentajeGanancia")){ retorno = TipoRetorno.PorcentajeGanancia; }
         
+        int permisos = 0;   //Si es visitante, queda en 0
+
+        if (!userNick.equals("VISITANTE") && propuestaActual.getTitulo() != null) {
+            permisos = controller.accionSobrePropuesta(userNick, propuestaActual);  //Se obtienen permisos de usuario en propuesta.
+        }
+        
+        
         //Si es proponente...
-        if(controller.isProponente(userNick))   
+        if(permisos == 1)   
         {        
             //Se verifica que sea una propuesta de este proponente (esto puede ser pasado a una funcion en controller).
             Set<DTOPropuesta> temp = controller.getPropuestasCreadasPorProponente(userNick);
@@ -120,7 +125,7 @@ public class DetallesDePropuestaServlet extends HttpServlet
         }  
     
         //Si es colaborador que ya colaboró...
-        if(controller.colaboracionExiste(userNick, propuestaActual.getTitulo()))
+        if(permisos == 2)
         {
             if(accionUsuario.equals("COMENTAR"))
             {
@@ -130,7 +135,7 @@ public class DetallesDePropuestaServlet extends HttpServlet
         }
         
         //Si es colaborador que no colaboró aún y decide colaborar con la propuesta...
-        if(resultadoOperacion == 0) 
+        if(permisos == 3) 
         {   
             if(accionUsuario.equals("COLABORAR"))
             {
