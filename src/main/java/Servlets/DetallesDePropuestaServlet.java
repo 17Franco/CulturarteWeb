@@ -41,11 +41,16 @@ public class DetallesDePropuestaServlet extends HttpServlet
         if(sesionActual  != null) //Si sesión aun está online obtengo el nick de el usuario actual.
         {
             nickUsr = (String) sesionActual.getAttribute("logueado");
+            
+            if(nickUsr == null) //Si se trata de un invitado...
+            {
+                nickUsr = "VISITANTE";
+            }    
         }
 
-        int permisos = 0;   //Si no hay user, queda en 0
+        int permisos = 0;   //Si es visitante, queda en 0
 
-        if( !nickUsr.isEmpty() && propuestaSel != null)
+        if( !nickUsr.equals("VISITANTE") && propuestaSel != null)
         {
             permisos = controller.accionSobrePropuesta(nickUsr, propuestaSel);  //Se obtienen permisos de usuario en propuesta.
         }
