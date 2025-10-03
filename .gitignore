@@ -6,4 +6,8 @@
 
 # Ignorar archivos de configuración específicos de NetBeans
 /nbproject/private/
+<<<<<<< HEAD
 *.nbattrs
+=======
+*.nbattrs
+>>>>>>> origin/main

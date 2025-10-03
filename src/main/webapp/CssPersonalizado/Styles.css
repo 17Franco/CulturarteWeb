@@ -85,3 +85,7 @@ a, h2, label {
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 20px;
 }
+
+#ListNav{
+    align-items: center;
+}
