@@ -65,3 +65,20 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     font-size: 1rem;
     margin-top: 10px;
 }
+.categories-container {
+    max-height: 250px;
+    max-width: 150px;
+    overflow-y: auto;
+    border: 1px solid #ced4da;
+    border-radius: .375rem;
+    padding: .5rem;
+}
+.categorias .category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: .25rem;
+}
+.subcat {
+    margin-left: 20px;
+}
