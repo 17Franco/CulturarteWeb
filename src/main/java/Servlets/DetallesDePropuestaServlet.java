@@ -36,6 +36,7 @@ public class DetallesDePropuestaServlet extends HttpServlet
         HttpSession sesionActual = request.getSession(true);   //Se obtienen datos almacenados en la sesion.
 
         String nickUsr = "";
+        
 
         if(sesionActual  != null) //Si sesión aun está online obtengo el nick de el usuario actual.
         {
@@ -49,16 +50,38 @@ public class DetallesDePropuestaServlet extends HttpServlet
 
         int permisos = 0;   //Si es visitante, queda en 0
 
-        if( !nickUsr.equals("VISITANTE"))
+        String tipoUsuario = (String) sesionActual.getAttribute("tipoUser");
+        
+        if( !nickUsr.equals("VISITANTE") && tipoUsuario != null)
         {
             if(!propuestaSel.usuarioHaComentadoSN(nickUsr))
             {
                 permisos = controller.accionSobrePropuesta(nickUsr, propuestaSel);  //Se obtienen permisos de usuario en propuesta.
-            }  
+            }
+            
+            if(permisos == 3 && tipoUsuario.equals("Proponente"))   //Esto es por si un proponente visita otras props...
+            {
+                permisos = 0;   //Le quito el permiso de colaborar, lo dejo por si más adelante se agrega que puede o algo así.
+            }
         }
+        
+        String estado = propuestaSel.getUltimoEstado().getEstado().toString();
+        
+        switch (estado) 
+        {
+            case "INGRESADA":estado= " Ingresada";break;
+            case "PUBLICADA":estado= " Publicada";break;
+            case "EN_FINANCIACION":estado= " En financiación";break;
+            case "FINANCIADA":estado= " Financiada";break;
+            case "NO_FINANCIADA":estado= " No financiada";break;
+            case "CANCELADA":estado= " Cancelada";break;
+            default:estado= " Desconocido";break;
+        }
+
         
         if (propuestaSel != null && sesionActual != null)                       //Si no pasó nada raro se envían datos para que puedan ser mostrados.
         {
+            request.setAttribute("estadoFormateado", estado);
             request.setAttribute("propuesta", propuestaSel);                                                //Se envian datos de la propuesta elegida al jsp.      
             request.setAttribute("permisos", permisos);                         //Se envia el tipo de permisos de usuario sobre prop al jsp.
             request.getRequestDispatcher("MostrarPropuesta_Colaborar.jsp").forward(request, response);         //Se envían datos a front y se redirige al user hacia la pagina de muestra.
@@ -119,12 +142,19 @@ public class DetallesDePropuestaServlet extends HttpServlet
 
         
         int permisos = 0;   //Si es visitante, queda en 0
+        String tipoUsuario = (String) sesionActual.getAttribute("tipoUser");
 
-        if (userNick != null && !userNick.equals("VISITANTE") && propuestaActual.getTitulo() != null) {
+        if (userNick != null && tipoUsuario != null &&!userNick.equals("VISITANTE") && propuestaActual.getTitulo() != null) 
+        {
             
             if(!propuestaActual.usuarioHaComentadoSN(userNick))
             {
                 permisos = controller.accionSobrePropuesta(userNick, propuestaActual);  //Se obtienen permisos de usuario en propuesta.
+            }
+            
+            if(permisos == 3 && tipoUsuario.equals("Proponente"))   //Esto es por si un proponente visita otras props...
+            {
+                permisos = 0;   //Le quito el permiso de colaborar, lo dejo por si más adelante se agrega que puede o algo así.
             }
             
         }
