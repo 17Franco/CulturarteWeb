@@ -1,3 +1,4 @@
+<%@page import="java.util.Map"%>
 <%@page import="logica.DTO.DTOPropuesta"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -138,7 +139,36 @@
             <% } %>
 
             <% }%>
+            
+            <p class="h5">COMENTARIOS</p>
+            <div id="boxComentarios" class="p-3 border rounded bg-light mx-5">
+                <%
+                    Map<String, String> comentarios = propuesta.getComentarios();
+                    if (comentarios != null && !comentarios.isEmpty()) {
+                        for (Map.Entry<String, String> entry : comentarios.entrySet()) {
+                            String usuario = entry.getKey();
+                            String comentario = entry.getValue();
+                %>
+                <div class="card mb-2 shadow-sm">
+                    <div class="card-body p-2">
+                        <p class="mb-1"><b><%= usuario%>:</b></p>
+                        <p class="mb-0"><%= comentario%></p>
+                    </div>
+                </div>
+                <%
+                    }
+                } else {
+                %>
+                <p class="text-muted">Propuesta sin comentarios.</p>
+                <%
+                    }
+                %>
+            </div>
+            
+            
         </div>
+
+        
 
     </body>
 </html>

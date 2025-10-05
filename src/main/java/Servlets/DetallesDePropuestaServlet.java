@@ -51,7 +51,10 @@ public class DetallesDePropuestaServlet extends HttpServlet
 
         if( !nickUsr.equals("VISITANTE"))
         {
-            permisos = controller.accionSobrePropuesta(nickUsr, propuestaSel);  //Se obtienen permisos de usuario en propuesta.
+            if(!propuestaSel.usuarioHaComentadoSN(nickUsr))
+            {
+                permisos = controller.accionSobrePropuesta(nickUsr, propuestaSel);  //Se obtienen permisos de usuario en propuesta.
+            }  
         }
         
         if (propuestaSel != null && sesionActual != null)                       //Si no pasó nada raro se envían datos para que puedan ser mostrados.
@@ -85,38 +88,45 @@ public class DetallesDePropuestaServlet extends HttpServlet
         
         IController controller = Fabrica.getInstance().getController();
 
-        String nickUsr = "";
+        String userNick = "";
 
         if (sesionActual != null) //Si sesión aun está online obtengo el nick de el usuario actual.
         {
-            nickUsr = (String) sesionActual.getAttribute("logueado");
+            userNick = (String) sesionActual.getAttribute("logueado");
 
-            if (nickUsr == null) //Si se trata de un invitado...
+            if (userNick == null) //Si se trata de un invitado...
             {
-                nickUsr = "VISITANTE";
+                userNick = "VISITANTE";
             }
         }
         
         //Se almacenan datos provenientes del front
         String accionUsuario = request.getParameter("accion");  //Para saber que decició hacer el usuario.
-        String userNick = request.getParameter("nickUsuario");
         DTOPropuesta propuestaActual = controller.getPropuestaDTO(request.getParameter("tituloPropuesta"));     //Se usa el titulo obtenido del front para buscar la propuesta en la bd
         String montoStr = request.getParameter("monto"); 
         String tipo = request.getParameter("tipoRetorno");
-        String nuevaFecha = request.getParameter("nuevaFechaExtension");    //Se obtiene la fecha nueva para el plazo de financiación o lo que sea eso
         String comentario = request.getParameter("comentario");
         
         
         TipoRetorno retorno = null;
         
         //Seteo tipos de retorno.
-        if(tipo.equals("EntradaGratis"))     { retorno = TipoRetorno.EntradaGratis; }
-        if(tipo.equals("PorcentajeGanancia")){ retorno = TipoRetorno.PorcentajeGanancia; }
+        if(tipo != null)
+        {
+            if(tipo.equals("EntradaGratis"))     { retorno = TipoRetorno.EntradaGratis; }
+            if(tipo.equals("PorcentajeGanancia")){ retorno = TipoRetorno.PorcentajeGanancia; }
+        }
+
         
         int permisos = 0;   //Si es visitante, queda en 0
 
-        if (!userNick.equals("VISITANTE") && propuestaActual.getTitulo() != null) {
-            permisos = controller.accionSobrePropuesta(userNick, propuestaActual);  //Se obtienen permisos de usuario en propuesta.
+        if (userNick != null && !userNick.equals("VISITANTE") && propuestaActual.getTitulo() != null) {
+            
+            if(!propuestaActual.usuarioHaComentadoSN(userNick))
+            {
+                permisos = controller.accionSobrePropuesta(userNick, propuestaActual);  //Se obtienen permisos de usuario en propuesta.
+            }
+            
         }
         
         
@@ -130,7 +140,7 @@ public class DetallesDePropuestaServlet extends HttpServlet
             {
                 if(ct.nickProponenteToString().equals(userNick))
                 {
-                    resultadoOperacion = controller.extenderOCancelarPropuesta(accionUsuario,nuevaFecha,ct.getTitulo());
+                    resultadoOperacion = controller.extenderOCancelarPropuesta(accionUsuario,ct.getTitulo());
                     //resultado 3, logra extender, resultado 2, logra cancelar, 0, no sucedió nada.
                 }
             }
@@ -141,8 +151,11 @@ public class DetallesDePropuestaServlet extends HttpServlet
         {
             if(accionUsuario.equals("COMENTAR"))
             {
-                //controller.nuevoComentario(comentario,userNick);
-                resultadoOperacion = 1; //Usuario logra comentar.
+                if(controller.nuevoComentario(comentario,userNick,propuestaActual.getTitulo()))
+                {
+                    resultadoOperacion = 1; //Usuario logra comentar.
+                }
+                
             }   
         }
         
@@ -160,9 +173,18 @@ public class DetallesDePropuestaServlet extends HttpServlet
             }
         }
 
-        sesionActual.setAttribute("resultado", resultadoOperacion); 
-        response.sendRedirect("resultadoAccion.jsp"); //Se envia al jsp el resultado de la operacion usada.
-
+        request.setAttribute("resultado", resultadoOperacion);
+        
+        switch (resultadoOperacion) 
+        {
+            case 1 : request.setAttribute("accionLograda", "Comentado en la propuesta"); break;
+            case 2 : request.setAttribute("accionLograda", "Cancelado la propuesta"); break;
+            case 3 : request.setAttribute("accionLograda", "Extendido la propuesta"); break;
+            case 4 : request.setAttribute("accionLograda", "Colaborado en la propuesta"); break;
+            default: request.setAttribute("accionLograda", "Error"); break;
+        }
+        
+        request.getRequestDispatcher("resultadoAccion.jsp").forward(request, response);
     }
 
     @Override
