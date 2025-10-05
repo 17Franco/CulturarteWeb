@@ -25,15 +25,15 @@
         <%@ include file="Componentes/Header.jsp" %>
 
         <%
-                int permisos = (Integer) request.getAttribute("permisos");
+            int permisos = (Integer) request.getAttribute("permisos");
+            DTOPropuesta propuesta = (DTOPropuesta) request.getAttribute("propuesta");
+            
+            
+            if (propuesta != null) 
+            {
         %>
-        
-        <div class="container mt-4">
-            <%
-                DTOPropuesta propuesta = (DTOPropuesta) request.getAttribute("propuesta");
-                if (propuesta != null) {
-            %>
-
+            
+            <div class="container mt-4">
             <div class="card shadow-lg p-4">
             <div class="row g-4">
             <div class="col-md-6">
@@ -158,7 +158,11 @@
                 </div>
                 </div>
 
-            <% } else { %>
+    <%      
+            }
+            else 
+            { 
+    %>
             <div class="alert alert-danger">No se pudo cargar la propuesta</div>
             <%
                 String mensajeError = (String) request.getAttribute("mensaje_error");
