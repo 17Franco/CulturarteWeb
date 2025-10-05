@@ -20,6 +20,7 @@
 
         <%
                 int permisos = (Integer) request.getAttribute("permisos");
+                Boolean esFavorita = (Boolean) request.getAttribute("esFavorita");
         %>
         
         <div class="container mt-4">
@@ -36,7 +37,32 @@
                         <% } else { %>
                         <img src="imagenes/default-propuesta.png" class="img-fluid rounded shadow mb-3" alt="Sin Imagen">
                         <% }%>
-
+                        <%
+                            if (permisos != 0 ) {
+                        %>
+                        <div class="d-flex align-items-center mb-3">
+                            <form action="FavoritoServlet" method="post">
+                                <input type="hidden" name="tituloPropuesta" value="<%= propuesta.getTitulo()%>">
+                                <%
+                                    if (esFavorita) {
+                                %>
+                                <button type="submit" name="accion" value="quitar" class="btn btn-danger btn-sm">
+                                    ❤️ Quitar Favorito
+                                </button>
+                                <%
+                                } else {
+                                %>
+                                <button type="submit" name="accion" value="agregar" class="btn btn-outline-primary btn-sm">
+                                    ❤️ Marcar Favorito
+                                </button>
+                                <%
+                                    }
+                                %>
+                            </form>
+                        </div>
+                        <%
+                            }
+                        %>
                         <h2 class="mb-3"><%= propuesta.getTitulo()%></h2>
                         <p class="text-muted"><%= propuesta.getDescripcion()%></p>
 
@@ -163,7 +189,7 @@
             
             
         </div>
-
+            
         
 
     </body>

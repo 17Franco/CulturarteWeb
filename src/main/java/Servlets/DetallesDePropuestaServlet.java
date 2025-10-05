@@ -36,7 +36,7 @@ public class DetallesDePropuestaServlet extends HttpServlet
         HttpSession sesionActual = request.getSession(true);   //Se obtienen datos almacenados en la sesion.
 
         String nickUsr = "";
-
+        
         if(sesionActual  != null) //Si sesión aun está online obtengo el nick de el usuario actual.
         {
             nickUsr = (String) sesionActual.getAttribute("logueado");
@@ -46,7 +46,10 @@ public class DetallesDePropuestaServlet extends HttpServlet
                 nickUsr = "VISITANTE";
             }    
         }
-
+        boolean esFavorita = false;
+        if (!nickUsr.equals("VISITANTE") && propuestaSel != null) {
+            esFavorita = controller.esFavorita(nickUsr, propuestaSel.getTitulo());
+        }
         int permisos = 0;   //Si es visitante, queda en 0
 
         if( !nickUsr.equals("VISITANTE"))
@@ -59,6 +62,7 @@ public class DetallesDePropuestaServlet extends HttpServlet
         
         if (propuestaSel != null && sesionActual != null)                       //Si no pasó nada raro se envían datos para que puedan ser mostrados.
         {
+            request.setAttribute("esFavorita", esFavorita);
             request.setAttribute("propuesta", propuestaSel);                                                //Se envian datos de la propuesta elegida al jsp.      
             request.setAttribute("permisos", permisos);                         //Se envia el tipo de permisos de usuario sobre prop al jsp.
             request.getRequestDispatcher("MostrarPropuesta_Colaborar.jsp").forward(request, response);         //Se envían datos a front y se redirige al user hacia la pagina de muestra.
