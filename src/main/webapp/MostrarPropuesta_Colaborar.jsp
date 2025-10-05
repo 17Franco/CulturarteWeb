@@ -46,6 +46,7 @@
                             <li class="list-group-item"><strong>Precio entrada:</strong> $<%= propuesta.getPrecio()%></li>
                             <li class="list-group-item"><strong>Monto total:</strong> $<%= propuesta.getMontoTotal()%></li>
                             <li class="list-group-item"><strong>Estado:</strong> <%= propuesta.getUltimoEstado().getEstado().toString()%></li>
+                            <li class="list-group-item"><strong>Fecha de finalización:</strong> <%= propuesta.getFechaExpiracion()%></li>
                             <li class="list-group-item"><strong>Proponente:</strong> <%= propuesta.nickProponenteToString()%></li>
                             <li class="list-group-item"><strong>Categoría:</strong> 
                                 <%= (propuesta.getCategoria() != null) ? propuesta.getCategoria().getNombreCategoria() : "Sin categoría"%>
@@ -108,11 +109,6 @@
                                 <form action="DetallesDePropuesta" method="post" id="formProponente">
                                     <input type="hidden" name="tituloPropuesta" value="<%= propuesta.getTitulo()%>">
                                     <input type="hidden" name="accion" id="accionProponente">
-
-                                    <div class="mb-3">
-                                        <label for="nuevaFechaExtension" class="form-label">Nueva Fecha (si extiende)</label>
-                                        <input type="date" class="form-control" id="nuevaFechaExtension" name="nuevaFechaExtension">
-                                    </div>
 
                                     <button type="submit" class="btn btn-success w-100 mb-2" 
                                             onclick="document.getElementById('accionProponente').value='EXTENDER';">
