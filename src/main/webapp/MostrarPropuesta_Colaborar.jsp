@@ -1,3 +1,9 @@
+<%-- 
+    Document   : MostrarPropuesta_Colaborar
+    Created on : 3 oct 2025, 17:32:12
+    Author     : asus/klaas
+--%>
+
 <%@page import="java.util.Map"%>
 <%@page import="logica.DTO.DTOPropuesta"%>
 <%@page import="java.util.List"%>
@@ -19,16 +25,16 @@
         <%@ include file="Componentes/Header.jsp" %>
 
         <%
-                int permisos = (Integer) request.getAttribute("permisos");
-                Boolean esFavorita = (Boolean) request.getAttribute("esFavorita");
+            int permisos = (Integer) request.getAttribute("permisos");
+            Boolean esFavorita = (Boolean) request.getAttribute("esFavorita");
+            DTOPropuesta propuesta = (DTOPropuesta) request.getAttribute("propuesta");
+            
+            
+            if (propuesta != null) 
+            {
         %>
-        
-        <div class="container mt-4">
-            <%
-                DTOPropuesta propuesta = (DTOPropuesta) request.getAttribute("propuesta");
-                if (propuesta != null) {
-            %>
-
+            
+            <div class="container mt-4">
             <div class="card shadow-lg p-4">
                 <div class="row g-4">
                     <div class="col-md-6">
@@ -63,15 +69,35 @@
                         <%
                             }
                         %>
+            <div class="row g-4">
+            <div class="col-md-6">
+                        
+                    <%
+                         if (propuesta.getImagen() != null && !propuesta.getImagen().isEmpty()) 
+                    {%>    
+                            <img src="<%= propuesta.getImagen()%>" class="img-fluid rounded shadow mb-3" alt="Imagen Propuesta">
+                    <%  } 
+                        else 
+                        { 
+                    %>
+                            <img src="imagenes/default-propuesta.png" class="img-fluid rounded shadow mb-3" alt="Sin Imagen">
+                    <% 
+                        }
+                    %>
+
                         <h2 class="mb-3"><%= propuesta.getTitulo()%></h2>
                         <p class="text-muted"><%= propuesta.getDescripcion()%></p>
 
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item"><strong>Lugar:</strong> <%= propuesta.getLugar()%></li>
-                            <li class="list-group-item"><strong>Fecha:</strong> <%= propuesta.getFecha()%></li>
+                            <li class="list-group-item"><strong>Fecha de inicio de evento:</strong> <%= propuesta.getFecha()%></li>
                             <li class="list-group-item"><strong>Precio entrada:</strong> $<%= propuesta.getPrecio()%></li>
-                            <li class="list-group-item"><strong>Monto total:</strong> $<%= propuesta.getMontoTotal()%></li>
-                            <li class="list-group-item"><strong>Estado:</strong> <%= propuesta.getUltimoEstado().getEstado().toString()%></li>
+                            <li class="list-group-item"><strong>Monto total:</strong> $<%= propuesta.getMontoTotal()%></li>                            
+                    <%
+                        //Dejo el estado en un formato más aceptable
+                            String estadoFormateado = (String) request.getAttribute("estadoFormateado");
+                    %>
+                            <li class="list-group-item"><strong>Estado:</strong> <%= estadoFormateado%></li>
                             <li class="list-group-item"><strong>Fecha de finalización:</strong> <%= propuesta.getFechaExpiracion()%></li>
                             <li class="list-group-item"><strong>Proponente:</strong> <%= propuesta.nickProponenteToString()%></li>
                             <li class="list-group-item"><strong>Categoría:</strong> 
@@ -80,12 +106,14 @@
                         </ul>
                             
                     </div>
-                    <%
+                <%
                         // Solo si es 3, usuario que no propuso puede colaborar.
-                        if (permisos == 3) {
-                    %>
-                    <div class="col-md-6">
+                    if (permisos == 3) 
+                    {
+                %>
+                        <div class="col-md-6">
                         <div class="card p-3 shadow-sm">
+                            
                             <h4 class="mb-3">Colaborar</h4>
                             <form action="DetallesDePropuesta" method="post">
                                 <input type="hidden" name="tituloPropuesta" value="<%= propuesta.getTitulo()%>">
@@ -105,53 +133,70 @@
                             </form>
 
                         </div>
-                    </div>
-                    <% } //Si el usuario es colaborador de esta propuestsa
-                        if(permisos == 2){%>
+                        </div>
+                <%
+                        
+                    } 
+                    //Si el usuario es colaborador de esta propuestsa
+                    if(permisos == 2)
+                    {
+                %>
                         
                         <div class="col-md-6">
-                            <div class="card p-3 shadow-sm">
-                                <h4 class="mb-3">Agregar Comentario</h4>
-                                <form action="DetallesDePropuesta" method="post">
-                                    <input type="hidden" name="tituloPropuesta" value="<%= propuesta.getTitulo()%>">
-                                    <input type="hidden" name="accion" value="COMENTAR">
+                        <div class="card p-3 shadow-sm">
+                            
+                            <h4 class="mb-3">Agregar Comentario</h4>
+                            <form action="DetallesDePropuesta" method="post">
+                                        
+                                <input type="hidden" name="tituloPropuesta" value="<%= propuesta.getTitulo()%>">
+                                <input type="hidden" name="accion" value="COMENTAR">
 
                                     <div class="mb-3">
                                         <label for="comentario" class="form-label">Comentario</label>
                                         <textarea class="form-control" id="comentario" name="comentario" rows="4" required></textarea>
                                     </div>
 
-                                    <button type="submit" class="btn btn-primary w-100">Enviar Comentario</button>
-                                </form>
+                                <button type="submit" class="btn btn-primary w-100">Enviar Comentario</button>
+                                    
+                            </form>
 
-                            </div>
+                        </div>
                         </div>
                                     
-                    <% } //Si el usuario es el proponente
-                        if(permisos == 1){%>
+                <% 
+                    } //Si el usuario es el proponente
+                    
+                    if(permisos == 1)
+                    {
+                %>
                         <div class="col-md-6">
-                            <div class="card p-3 shadow-sm">
+                        <div class="card p-3 shadow-sm">
+                                
                                 <h4 class="mb-3">Acciones del Proponente</h4>
-                                <form action="DetallesDePropuesta" method="post" id="formProponente">
+                                <form 
+                                    
+                                    action="DetallesDePropuesta" method="post" id="formProponente">
+                                    
                                     <input type="hidden" name="tituloPropuesta" value="<%= propuesta.getTitulo()%>">
                                     <input type="hidden" name="accion" id="accionProponente">
 
-                                    <button type="submit" class="btn btn-success w-100 mb-2" 
-                                            onclick="document.getElementById('accionProponente').value='EXTENDER';">
-                                        Extender Financiación
-                                    </button>
-                                    <button type="submit" class="btn btn-danger w-100" 
-                                            onclick="document.getElementById('accionProponente').value='CANCELAR';">
-                                        Cancelar Propuesta
-                                    </button>
+                                    <button type="submit" class="btn btn-success w-100 mb-2" onclick="document.getElementById('accionProponente').value='EXTENDER';"> Extender Financiación </button>
+                                    <button type="submit" class="btn btn-danger w-100" onclick="document.getElementById('accionProponente').value='CANCELAR';"> Cancelar Propuesta </button>
+                                
                                 </form>
-                            </div>
                         </div>
-                   <% } %>    
+                        </div>
+                <% 
+                    } 
+                %>    
                 </div>
-            </div>
+                </div>
 
-            <% } else { %>
+    <%      
+            }
+            else 
+            { 
+    %>
             <div class="alert alert-danger">No se pudo cargar la propuesta</div>
             <%
                 String mensajeError = (String) request.getAttribute("mensaje_error");
