@@ -62,6 +62,8 @@
                 </div> 
             <% } %>  
         </div>
+        <script src="JS/InteraccionSeguidos.js"></script>
         <script src="JS/DejarDeSeguir.js"></script>
+        
     </body>
 </html>

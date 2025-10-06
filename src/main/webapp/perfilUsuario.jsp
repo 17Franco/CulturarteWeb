@@ -72,6 +72,8 @@
                 <!---->
             </div>   
         </div>
-        <script src="JS/SigueAUsuario.js"></script>
+        <script src="JS/MostrarIconoSeguirODejarDeSeguir.js"></script>
+        <script src="JS/Seguir.js"></script>
+        <script src="JS/DejarDeSeguir.js"></script>
     </body>
 </html>

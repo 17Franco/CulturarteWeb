@@ -41,92 +41,19 @@ async function verificarEstadoInicial() {
             
             
         if (btnSeguir) {
-             btnSeguir.addEventListener("click", seguir); 
+             btnSeguir.addEventListener("click", ()=> seguir(seguidor,objetivo)); 
         }
         if (btnDejarDeSeguir ) {
-             btnDejarDeSeguir .addEventListener("click", dejarDeSeguir); 
+             btnDejarDeSeguir .addEventListener("click", ()=> dejarDeSeguir(seguidor,objetivo,null,"Perfil")); 
         }
         
     } catch (err) {
         console.error("Error fatal durante la verificación:", err.message);
     }
 }
-
-async function seguir() {
-    const objetivo = USUARIO_OBJETIVO; 
-    const seguidor = USUARIO_LOGUEADO;
-    
-    //lo envio con formatoFormulario
-    const datos = new URLSearchParams();
-        datos.append('seguidor', seguidor);
-        datos.append('seguido', objetivo);
-      
-    try {   
-        
-        let resp = await fetch(`Seguir`,{
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, 
-            body: datos 
-            
-        }); 
-
-        let data = await resp.json(); 
-        //console.log(data.resp);
-        
-        if (data.resp) {
-           verificarEstadoInicial();
-        } else {
-           console.log("nada");
-        }
-     
-    } catch (err) {
-        console.error("Error fatal durante la verificación:", err.message);
-    }
-    
-    
-    
-}
-
-
-async function dejarDeSeguir() {
-    
-   const objetivo = USUARIO_OBJETIVO; 
-    const seguidor = USUARIO_LOGUEADO;
-    
-    //lo envio con formatoFormulario
-    const datos = new URLSearchParams();
-        datos.append('seguidor', seguidor);
-        datos.append('seguido', objetivo);
-      
-    try {   
-        
-        let resp = await fetch(`DejarDeSeguir`,{
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, 
-            body: datos 
-            
-        }); 
-
-        let data = await resp.json(); 
-        console.log(data.resp);
-        
-        if (data.resp) {
-           verificarEstadoInicial();
-        } else {
-           console.log("generar mensaje");
-        }
-     
-    } catch (err) {
-        console.error("Error fatal durante la verificación:", err.message);
-    }
-}
-
+//cuando carga la pagina para decidir que icono va esto seria solo en el icono 
 document.addEventListener('DOMContentLoaded', function() {
 
     verificarEstadoInicial();
-    
-    
-    
-      
-    
+ 
 });
