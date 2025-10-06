@@ -84,6 +84,7 @@ public class DetallesDePropuestaServlet extends HttpServlet
         
         if (propuestaSel != null && sesionActual != null)                       //Si no pasó nada raro se envían datos para que puedan ser mostrados.
         {
+            request.setAttribute("esFavorita", esFavorita);
             request.setAttribute("estadoFormateado", estado);
             request.setAttribute("propuesta", propuestaSel);                                                //Se envian datos de la propuesta elegida al jsp.      
             request.setAttribute("permisos", permisos);                         //Se envia el tipo de permisos de usuario sobre prop al jsp.
