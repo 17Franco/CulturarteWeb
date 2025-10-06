@@ -16,7 +16,8 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>JSP Page</title>
+    
+    <title>CULTURARTE</title>
 
     <link rel="stylesheet" href="cssBootstrap/bootstrap.min.css"/>
     <link rel="stylesheet" href="CssPersonalizado/Styles.css"/>
@@ -72,10 +73,13 @@
                 <div class="propuesta-card">
                     
                     
-                    <img src="<%= pro.getImagen() %>" alt="Imagen de <%= pro.getTitulo() %>">
+                <img src="http://localhost:8080/Culturarte/IMG/PIM/pim.jpg">
+               
+
                     
                     <!-- he probado varias cosas todavia no doy con trareme las malditas imagenes  
-                    <img src="http://servidor-central/IMG/<%= pro.getImagen() %>" alt="Imagen de <%= pro.getTitulo() %>">-->
+                    
+                    <img src="http://localhost:8080/Culturarte/IMG/<%= pro.getImagen() %>" alt="Imagen de <%= pro.getTitulo() %>">-->
 
                     <div class="card-body">
                         <h5><%= pro.getTitulo() %></h5>
