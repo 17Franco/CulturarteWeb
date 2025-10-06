@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
+
 package Servlets;
 
 import java.io.IOException;
@@ -47,16 +44,16 @@ public class Registro extends HttpServlet {
             String fileName = filePart.getSubmittedFileName(); // Obtiene el nombre del archivo
             
             
-            byte[] contenido = null;
-            try (InputStream input = filePart.getInputStream();
-                 ByteArrayOutputStream buffer = new ByteArrayOutputStream()) {
+            byte[] contenido = null;//lo que se mandara al controller
+            try (InputStream input = filePart.getInputStream(); // input estara el archivo subidor imgperfil 
+                 ByteArrayOutputStream buffer = new ByteArrayOutputStream()) { //array de bytes dinamico
 
-                byte[] data = new byte[1024];
-                int nRead;
-                while ((nRead = input.read(data, 0, data.length)) != -1) {
-                    buffer.write(data, 0, nRead);
+                byte[] data = new byte[1024];//aux
+                int nRead;//almacena la cantidad de bytes leidos
+                while ((nRead = input.read(data, 0, data.length)) != -1) { //codicion input read almacena en data hasta 1024 bytes de la img eso queda en nread
+                    buffer.write(data, 0, nRead); //aca escribe en el byfer diinamico la cant de byte que tiene nread de data
                 }
-                contenido = buffer.toByteArray();  
+                contenido = buffer.toByteArray(); //asigno a contenido 
             }
             
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
