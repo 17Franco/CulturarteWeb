@@ -32,59 +32,29 @@
             
             if (propuesta != null) 
             {
-        %>
-            
+        %>  
             <div class="container mt-4">
             <div class="card shadow-lg p-4">
-                <div class="row g-4">
-                    <div class="col-md-6">
-                        <% if (propuesta.getImagen() != null && !propuesta.getImagen().isEmpty()) {%>
-                        <img src="<%= propuesta.getImagen()%>" class="img-fluid rounded shadow mb-3" alt="Imagen Propuesta">
-                        <% } else { %>
+            <div class="row g-4">
+            <div class="col-md-6">
+                
+                <%
+                    if (propuesta.getImagen() != null && !propuesta.getImagen().isEmpty()) 
+                {%>    
+                       <img src="<%= propuesta.getImagen()%>" class="img-fluid rounded shadow mb-3" alt="Imagen Propuesta">
+                <%  } 
+                    else 
+                    {
+                %>
                         <img src="imagenes/default-propuesta.png" class="img-fluid rounded shadow mb-3" alt="Sin Imagen">
-                        <% }%>
-                        <%
-                            if (permisos != 0 ) {
-                        %>
-                        <div class="d-flex align-items-center mb-3">
-                            <form action="FavoritoServlet" method="post">
-                                <input type="hidden" name="tituloPropuesta" value="<%= propuesta.getTitulo()%>">
-                                <%
-                                    if (esFavorita) {
-                                %>
-                                <button type="submit" name="accion" value="quitar" class="btn btn-danger btn-sm">
-                                    ❤️ Quitar Favorito
-                                </button>
-                                <%
-                                } else {
-                                %>
-                                <button type="submit" name="accion" value="agregar" class="btn btn-outline-primary btn-sm">
-                                    ❤️ Marcar Favorito
-                                </button>
-                                <%
-                                    }
-                                %>
-                            </form>
-                        </div>
-                        <%
-                            }
-                        %>
+                <%
+                    }
+                %>
+            </div>            
             <div class="row g-4">
             <div class="col-md-6">
                         
-                    <%
-                         if (propuesta.getImagen() != null && !propuesta.getImagen().isEmpty()) 
-                    {%>    
-                            <img src="<%= propuesta.getImagen()%>" class="img-fluid rounded shadow mb-3" alt="Imagen Propuesta">
-                    <%  } 
-                        else 
-                        { 
-                    %>
-                            <img src="imagenes/default-propuesta.png" class="img-fluid rounded shadow mb-3" alt="Sin Imagen">
-                    <% 
-                        }
-                    %>
-
+                 
                         <h2 class="mb-3"><%= propuesta.getTitulo()%></h2>
                         <p class="text-muted"><%= propuesta.getDescripcion()%></p>
 
@@ -104,7 +74,7 @@
                                 <%= (propuesta.getCategoria() != null) ? propuesta.getCategoria().getNombreCategoria() : "Sin categoría"%>
                             </li>
                         </ul>
-                            
+      
                     </div>
                 <%
                         // Solo si es 3, usuario que no propuso puede colaborar.
@@ -112,8 +82,21 @@
                     {
                 %>
                         <div class="col-md-6">
+                            <div class="d-flex mb-2">
+                                <form action="FavoritoServlet" method="post" class="ms-auto">
+                                    <input type="hidden" name="tituloPropuesta" value="<%= propuesta.getTitulo()%>">
+                                    <% if (esFavorita) { %>
+                                    <button type="submit" name="accion" value="quitar" class="btn btn-danger btn-sm">
+                                        ❤️ Quitar Favorito
+                                    </button>
+                                    <% } else { %>
+                                    <button type="submit" name="accion" value="agregar" class="btn btn-outline-primary btn-sm">
+                                        ❤️ Marcar Favorito
+                                    </button>
+                                    <% } %>
+                                </form>
+                            </div>      
                         <div class="card p-3 shadow-sm">
-                            
                             <h4 class="mb-3">Colaborar</h4>
                             <form action="DetallesDePropuesta" method="post">
                                 <input type="hidden" name="tituloPropuesta" value="<%= propuesta.getTitulo()%>">
@@ -221,7 +204,7 @@
                         <p class="mb-1"><b><%= usuario%>:</b></p>
                         <p class="mb-0"><%= comentario%></p>
                     </div>
-                </div>
+                </div>    
                 <%
                     }
                 } else {
@@ -230,9 +213,7 @@
                 <%
                     }
                 %>
-            </div>
-            
-            
+            </div>     
         </div>
             
         

@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.net.URLEncoder;
 import logica.Fabrica;
 import logica.IController;
 
@@ -34,16 +35,11 @@ public class FavoritoServlet extends HttpServlet {
         if ("agregar".equals(accion)) {
             controller.marcarComoFavorita(nickname, tituloPropuesta);
             request.setAttribute("accionLograda", "Agredada a Favorita");
-            request.setAttribute("resultado", 1);
-            request.getRequestDispatcher("resultadoAccion.jsp").forward(request, response);
         } else if ("quitar".equals(accion)) {
             controller.quitarFavorita(nickname, tituloPropuesta);
             request.setAttribute("accionLograda", "Se a removido de Favorita");
-            request.setAttribute("resultado", 1);
-            request.getRequestDispatcher("resultadoAccion.jsp").forward(request, response);
         }
-        
-        
+        response.sendRedirect("DetallesDePropuesta?id="+ URLEncoder.encode(tituloPropuesta, "UTF-8"));
     }
 
 }
