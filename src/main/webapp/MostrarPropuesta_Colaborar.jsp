@@ -37,24 +37,20 @@
             <div class="card shadow-lg p-4">
             <div class="row g-4">
             <div class="col-md-6">
-                
-                <%
-                    if (propuesta.getImagen() != null && !propuesta.getImagen().isEmpty()) 
-                {%>    
-                       <img src="<%= propuesta.getImagen()%>" class="img-fluid rounded shadow mb-3" alt="Imagen Propuesta">
-                <%  } 
-                    else 
-                    {
-                %>
-                        <img src="imagenes/default-propuesta.png" class="img-fluid rounded shadow mb-3" alt="Sin Imagen">
-                <%
-                    }
-                %>
-            </div>            
-            <div class="row g-4">
-            <div class="col-md-6">
                         
-                 
+                    <%
+                         if (propuesta.getImagen() != null && !propuesta.getImagen().isEmpty()) 
+                    {%>    
+                            <img src="<%= propuesta.getImagen()%>" class="img-fluid rounded shadow mb-3" alt="Imagen Propuesta">
+                    <%  } 
+                        else 
+                        { 
+                    %>
+                            <img src="imagenes/default-propuesta.png" class="img-fluid rounded shadow mb-3" alt="Sin Imagen">
+                    <% 
+                        }
+                    %>
+
                         <h2 class="mb-3"><%= propuesta.getTitulo()%></h2>
                         <p class="text-muted"><%= propuesta.getDescripcion()%></p>
 
@@ -97,6 +93,7 @@
                                 </form>
                             </div>      
                         <div class="card p-3 shadow-sm">
+                            
                             <h4 class="mb-3">Colaborar</h4>
                             <form action="DetallesDePropuesta" method="post">
                                 <input type="hidden" name="tituloPropuesta" value="<%= propuesta.getTitulo()%>">

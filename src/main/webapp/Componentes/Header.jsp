@@ -35,15 +35,17 @@
                         %>
                         <div class="estiloPerfil"><%=inicial%></div>
                         <sapan><%=logueado%></span>
-                            <%}%>
+                        <%}%>
                     </a>
                
                 <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" href="PerfilUsuario?nick=novick">Perfil</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#UsuariosSeguidos.jsp">Usuarios Seguidos</a></li>
+                    <li><a class="dropdown-item" href="PerfilUsuario?nick=<%=session.getAttribute("logueado")%>&tipo=<%=session.getAttribute("tipoUser")%>">Perfil</a></li>
+                   
+                    <li><a class="dropdown-item" href="UsuariosSeguidos?nick=<%=session.getAttribute("logueado")%>&tipo=<%=session.getAttribute("tipoUser")%>">Usuarios Seguidos</a></li>
                     <li><a class="dropdown-item" href="#PropeustasFavorias.jsp">Propuestas Favoritas</a></li>
                     <!-- este campo solo estara si es Proponente -->
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="">Seguir Usuarios</a></li>
                     <% if(("Proponente").equals(session.getAttribute("tipoUser"))) { %>
                     <li><a class="dropdown-item" href="${pageContext.request.contextPath}/AltaPropuesta">CrearPropuesta</a></li>
                     <% }%>
