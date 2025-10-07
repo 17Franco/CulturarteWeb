@@ -1,4 +1,4 @@
-async function seguir(seguidor,objetivo) {
+async function seguir(seguidor,objetivo,contenedorIcono,accion) {
 
     //lo envio con formatoFormulario
     const datos = new URLSearchParams();
@@ -18,7 +18,8 @@ async function seguir(seguidor,objetivo) {
         //console.log(data.resp);
         
         if (data.resp) {
-           verificarEstadoInicial();
+            
+           actualizarIcono(seguidor,objetivo,contenedorIcono);
         } else {
            console.log("nada");
         }

@@ -212,7 +212,7 @@ a, h2, label {
     border-top-left-radius:0.5rem;
     border-top-right-radius: 0.5rem ;
 }
-#iconoSeguir{
+.iconoSeguir{
     
   display: flex;
   justify-content: end;
@@ -233,5 +233,14 @@ a, h2, label {
 .btnsDeS{
     border: none;
     background: #f8f9fa;
+    
+}
+
+.main-containerS{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    justify-content: center;
     
 }

@@ -19,6 +19,9 @@
                     <a class="nav-link" href="InicioSesion_Registro.jsp">Login/Registro</a>
                 </li>
                 <% }%>
+                <% if(session.getAttribute("logueado")==null) { %>
+                <li><a class="dropdown-item" href="listarUsuarios">Ver Usuarios</a></li>
+                <%}%>
                 <li class="nav-item dropdown">
                     <!-- aca quiero que accedan al dropdaw solo si esta logueado -->
                     <a class="nav-link dropdown-toggle <%= (session.getAttribute("logueado") == null) ? "disabled" : ""%>" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -45,7 +48,7 @@
                     <li><a class="dropdown-item" href="#PropeustasFavorias.jsp">Propuestas Favoritas</a></li>
                     <!-- este campo solo estara si es Proponente -->
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="">Seguir Usuarios</a></li>
+                    <li><a class="dropdown-item" href="listarUsuarios">Seguir Usuarios</a></li>
                     <% if(("Proponente").equals(session.getAttribute("tipoUser"))) { %>
                     <li><a class="dropdown-item" href="${pageContext.request.contextPath}/AltaPropuesta">CrearPropuesta</a></li>
                     <% }%>
@@ -54,7 +57,8 @@
                     <li><a class="dropdown-item" href="logout">Cerrar Sesion</a></li>
                     
                     
-                </ul>                       
+                </ul>
+                
             </li>
         </ul>
         </div>
