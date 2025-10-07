@@ -45,7 +45,7 @@
                     <li><a class="dropdown-item" href="PerfilUsuario?nick=<%=session.getAttribute("logueado")%>&tipo=<%=session.getAttribute("tipoUser")%>">Perfil</a></li>
                    
                     <li><a class="dropdown-item" href="UsuariosSeguidos?nick=<%=session.getAttribute("logueado")%>&tipo=<%=session.getAttribute("tipoUser")%>">Usuarios Seguidos</a></li>
-                    <li><a class="dropdown-item" href="#PropeustasFavorias.jsp">Propuestas Favoritas</a></li>
+                    <li><a class="dropdown-item" href="PropuestasFavoritaUsuario?nick=<%=session.getAttribute("logueado")%>&tipo=<%=session.getAttribute("tipoUser")%>">Propuestas Favoritas</a></li>
                     <!-- este campo solo estara si es Proponente -->
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="listarUsuarios">Seguir Usuarios</a></li>
