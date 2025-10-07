@@ -211,10 +211,10 @@ public class DetallesDePropuestaServlet extends HttpServlet
         String accionLograda = "";
         switch (resultadoOperacion) 
         {
-            case 1 : accionLograda = "Comentado";  break;
-            case 2 : accionLograda = "Cancelado";  break;
-            case 3 : accionLograda = "Extendido";  break;
-            case 4 : accionLograda = "Colaborado"; break;
+            case 1 : accionLograda = "comentado en";  break;
+            case 2 : accionLograda = "cancelado";  break;
+            case 3 : accionLograda = "extendido";  break;
+            case 4 : accionLograda = "colaborado en"; break;
             default: accionLograda = "Error";      break;
         }
 
