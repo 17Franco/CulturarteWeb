@@ -34,6 +34,7 @@
         %>
             
             <div class="container mt-4">
+                
 
                         
 <%
@@ -42,19 +43,19 @@
                     String accionEfectuada = request.getParameter("accionLograda");
                     String resultadoString = request.getParameter("resultadoOperacion");
                     int resultadoDeAccion = (resultadoString != null) ? Integer.parseInt(resultadoString) : 0;
-              
+                    
                     if(accionEfectuada != null && !accionEfectuada.isEmpty() && resultadoDeAccion != 0)
                     {
 %>
                         <body>
                         <div class="alert alert-success">
-                        <i class="bi bi-check-circle"></i> Usted ha <%=accionEfectuada%> en la propuesta exitosamente.
+                        <i class="bi bi-check-circle"></i> Usted ha <%=accionEfectuada%> la propuesta exitosamente.
                         </div>
                         </body>
 
 <%
                     }
-                    if(accionEfectuada != null && !accionEfectuada.isEmpty() && permisos != 0 && resultadoDeAccion == 0) 
+                    if(accionEfectuada != null && accionEfectuada.equals("Error")) 
                     {
 %>                         
                         <body>
@@ -157,7 +158,7 @@
                         
                     } 
                     //Si el usuario es el proponente
-                    if(permisos == 1)
+                    if(permisos == 1 && !propuesta.getUltimoEstado().getEstadoString().equals("CANCELADA"))
                     {
                 %>
                         <div class="col-md-6"> 
