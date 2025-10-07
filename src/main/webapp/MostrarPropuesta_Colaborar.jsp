@@ -154,6 +154,20 @@
                     {
                 %>
                         <div class="col-md-6">
+                            <div class="d-flex mb-2">
+                                <form action="FavoritoServlet" method="post" class="ms-auto">
+                                    <input type="hidden" name="tituloPropuesta" value="<%= propuesta.getTitulo()%>">
+                                    <% if (esFavorita) { %>
+                                    <button type="submit" name="accion" value="quitar" class="btn btn-danger btn-sm">
+                                        ❤️ Quitar Favorito
+                                    </button>
+                                    <% } else { %>
+                                    <button type="submit" name="accion" value="agregar" class="btn btn-outline-primary btn-sm">
+                                        ❤️ Marcar Favorito
+                                    </button>
+                                    <% }%>
+                                </form>
+                            </div>  
                         <div class="card p-3 shadow-sm">
                                 
                                 <h4 class="mb-3">Acciones del Proponente</h4>
@@ -197,8 +211,7 @@
                     //Si el usuario es colaborador de esta propuestsa
                     if(permisos == 2)
                     {
-                %>
-                        
+                %>  
                         <div class="col-md-12">
     
                     <form action="DetallesDePropuesta" method="post">
