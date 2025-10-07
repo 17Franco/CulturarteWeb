@@ -37,7 +37,7 @@
                             <p><strong>Categoria</strong> <%=p.getCategorioToString()%></p>
                             <p><strong>Estado</strong> <%=p.getEstadoAct() %></p>
                             <p><strong>Fecha Publicacion</strong> <%=p.getFechaPublicacion()%></p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <a href="${pageContext.request.contextPath}/DetallesDePropuesta?id=<%= p.getTitulo()%>" class="btn btn-primary">Ver Detalle</a>
                         </div>
 
                     </div>

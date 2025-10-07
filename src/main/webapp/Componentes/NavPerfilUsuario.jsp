@@ -18,7 +18,7 @@
             <a class="navPefil" href="UsuariosSeguidos?nick=<%=nick%>&tipo=<%=tipoUsr%>"><li class="ItemUsuario">Usuario Seguidos</li></a>
             <a class="navPefil" href="PropuestasFavoritaUsuario?nick=<%=nick%>&tipo=<%=tipoUsr%>"><li class="ItemUsuario">Propuestas Favoritas</li></a>
             <%if(("Proponente").equals(tipoUsr) && UsuarioLogueado!=null && UsuarioLogueado.equals(nick)){%>
-            <a class="navPefil"><li class="ItemUsuario">Propuestas Creadas</li></a>
+            <a class="navPefil" href="PropuestasCreadas?nick=<%=nick%>&tipo=<%=tipoUsr%>"><li class="ItemUsuario">Propuestas Creadas</li></a>
             <%}else if (("Colaborador").equals(tipoUsr) && UsuarioLogueado!=null && UsuarioLogueado.equals(nick)) {%>
             <a class="navPefil"><li class="ItemUsuario">Colaboraciones</li></a>
             <%}%>
