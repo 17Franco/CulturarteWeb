@@ -212,7 +212,7 @@ a, h2, label {
     border-top-left-radius:0.5rem;
     border-top-right-radius: 0.5rem ;
 }
-#iconoSeguir{
+.iconoSeguir{
     
   display: flex;
   justify-content: end;
@@ -235,3 +235,52 @@ a, h2, label {
     background: #f8f9fa;
     
 }
+
+.main-containerS{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    justify-content: center;
+    
+}
+
+.propuestas-contenedor {
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); 
+    gap: 30px; 
+    padding: 20px ;
+    background: #f8f9fa;
+}
+
+
+.tarjeta-propuesta-horizontal {
+    width: 400px; 
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    height: 250px;
+}
+
+
+.imagen-area {
+    /* La imagen ocupará un ancho fijo para que el texto tenga espacio */
+    flex: 0 0 120px; /* Ancho fijo de 120px para la imagen */
+    margin-right: 15px;
+    /* CENTRADO SOLICITADO: Centra la imagen dentro de su área */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.propuesta-img {
+   
+    width: 100%;
+    
+}
+

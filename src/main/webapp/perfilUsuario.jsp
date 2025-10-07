@@ -4,7 +4,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>PerfilUsuario</title>
         <link rel="stylesheet" href="cssBootstrap/bootstrap.min.css"/>
         <link rel="stylesheet" href="CssPersonalizado/Styles.css"/>
          <link href="https://fonts.googleapis.com/css2?family=Kite+One&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -16,34 +16,26 @@
        
         <%@ include file="Componentes/NavPerfilUsuario.jsp" %>
         
-         <%
-            
+            <%
+            //me Traigo de la request el dto
             DTOUsuario usr = (DTOUsuario) request.getAttribute("infoPerfil");
             
-            //String tipoUsr= (String)request.getAttribute("tipo"); //esta en el componente nav
-            //el tipo lo saco asi porque se reutiliza para los perfiles de otros usuarios
-           // if(("Colaborador").equals(tipoUsr) ){
-                 //Tipo="Colaborador";
-                // usr = (DTOColaborador)request.getAttribute("infoPerfil");
-           // }else{
-                //Tipo="Proponente";
-                // usr =(DTOProponente)request.getAttribute("infoPerfil");
-           // }*/
-
-        %>
+            %>
             <div class="ContenedorInfoUsuario">
                 
                 <div class="contenedorImg">
+                     <!--muestro img llamando al sevlet IMG pasandole la ruta de la img por paremtro en la url-->
                     <img class="img" src="Img?ruta=<%= usr.getRutaImg()%>" alt="Imagen del usuario">
                 </div>
                 <div class="infoUsuario">
                     <script>
-                        
+                        //variable golabl para usar en js
                         const USUARIO_OBJETIVO = "<%= usr.getNickname() %>"; 
                         const USUARIO_LOGUEADO = "<%= UsuarioLogueado %>"; 
                     </script>
-                    <% if(!UsuarioLogueado.equals(nick)){ %>
-                    <div id="iconoSeguir">
+                    <!--mostrara el icono para seguir si no es el perfil de usuario logueado-->
+                    <% if(UsuarioLogueado != null && !UsuarioLogueado.equals(nick)){ %>
+                    <div id="iconoSeguir" class="iconoSeguir">
                         
                     </div>
                    <%}%>
@@ -56,7 +48,7 @@
 
 
                         <% 
-                            //tipoUsr esta en el nav 
+                            //tipoUsr esta me lo traigo del include del navPefilUsuario 
                             if("Proponente".equals(tipoUsr)){
                              //para acceder a los get de Proponentes 
                              DTOProponente p= (DTOProponente) request.getAttribute("infoPerfil");
@@ -71,9 +63,14 @@
                 </div>
                 <!---->
             </div>   
+        
         </div>
+        <script src="JS/actualizarIcono.js"></script>
+         <!--este js al cargar la pagina se ejecuta una funcion que verifica si el usuario del que veo perfil lo sigo o no y muestra icono correspondiente-->
         <script src="JS/MostrarIconoSeguirODejarDeSeguir.js"></script>
+         <!--Este js llama a serlvet seguir y luego reactualiza el icono-->
         <script src="JS/Seguir.js"></script>
+        <!--Este js llama a serlvet DejarDeseguir y luego reactualiza el icono -->
         <script src="JS/DejarDeSeguir.js"></script>
     </body>
 </html>

@@ -12,8 +12,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
-import logica.DTO.DTOColaborador;
-import logica.DTO.DTOProponente;
+import logica.DTO.DTOPropuesta;
 import logica.DTO.DTOUsuario;
 import logica.Fabrica;
 import logica.IController;
@@ -22,41 +21,39 @@ import logica.IController;
  *
  * @author fran
  */
-@WebServlet(name = "UsuariosSeguidos", urlPatterns = {"/UsuariosSeguidos"})
-public class UsuariosSeguidos extends HttpServlet {
+@WebServlet(name = "PropuestasFavoritaUsuario", urlPatterns = {"/PropuestasFavoritaUsuario"})
+public class PropuestasFavoritaUsuario extends HttpServlet {
 
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
          IController controller= Fabrica.getInstance().getController();
          String usrPerfil = request.getParameter("nick");
          String usrTipo = request.getParameter("tipo");
         try{
            if(!("").equals(usrPerfil)){
-               
-            List<DTOUsuario> p=controller.Seguidos(usrPerfil);
+               //obtener favoritas del usuario
+            List<DTOPropuesta> p=controller.getFavoritas(usrPerfil);
 
-            request.setAttribute("UsuariosSeguidos", p);
+            request.setAttribute("propuestasFavoritas", p);
             request.setAttribute("nick", usrPerfil);
             request.setAttribute("tipo", usrTipo);
-            request.getRequestDispatcher("/UsuarioSeguidos.jsp").forward(request, response);
+            request.getRequestDispatcher("/PropuestasFavoritas.jsp").forward(request, response);
             
            }
            
         }catch(Exception e){
             e.printStackTrace();
         }
+        
     }
 
- 
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-  
    
- 
-
 }

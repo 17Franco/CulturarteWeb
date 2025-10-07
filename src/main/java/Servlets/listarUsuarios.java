@@ -12,8 +12,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
-import logica.DTO.DTOColaborador;
-import logica.DTO.DTOProponente;
 import logica.DTO.DTOUsuario;
 import logica.Fabrica;
 import logica.IController;
@@ -22,41 +20,37 @@ import logica.IController;
  *
  * @author fran
  */
-@WebServlet(name = "UsuariosSeguidos", urlPatterns = {"/UsuariosSeguidos"})
-public class UsuariosSeguidos extends HttpServlet {
+@WebServlet(name = "listarUsuarios", urlPatterns = {"/listarUsuarios"})
+public class listarUsuarios extends HttpServlet {
 
+ 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-         IController controller= Fabrica.getInstance().getController();
-         String usrPerfil = request.getParameter("nick");
-         String usrTipo = request.getParameter("tipo");
+       IController controller= Fabrica.getInstance().getController();
+         
         try{
-           if(!("").equals(usrPerfil)){
+           
                
-            List<DTOUsuario> p=controller.Seguidos(usrPerfil);
+            List<DTOUsuario> p=controller.ListaDTOUsuarios();
 
-            request.setAttribute("UsuariosSeguidos", p);
-            request.setAttribute("nick", usrPerfil);
-            request.setAttribute("tipo", usrTipo);
-            request.getRequestDispatcher("/UsuarioSeguidos.jsp").forward(request, response);
+            request.setAttribute("Usuarios", p);
             
-           }
+            request.getRequestDispatcher("/SeguirUsuarios.jsp").forward(request, response);
+            
+           
            
         }catch(Exception e){
             e.printStackTrace();
         }
+        
     }
 
- 
+   
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-  
-   
- 
 
 }
