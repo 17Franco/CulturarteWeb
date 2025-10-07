@@ -109,6 +109,18 @@ public class AltaPropuesta extends HttpServlet {
                 }
             }
         }
+        if (retorno == null || retorno.isEmpty()) {
+            request.setAttribute("error", "Debe seleccionar un Retorno.");
+            request.setAttribute("categorias", controller.getCategorias());
+            request.getRequestDispatcher("/AltaPropuesta.jsp").forward(request, response);
+            return;
+        }
+        if (categoria == null || categoria.isEmpty()) {
+            request.setAttribute("error", "Debe seleccionar una Categoria.");
+            request.setAttribute("categorias", controller.getCategorias());
+            request.getRequestDispatcher("/AltaPropuesta.jsp").forward(request, response);
+            return;
+        }
         controller.altaPropuesta(titulo, descripcion, imagen, lugar, fechaFormat,precio, montoTotal, LocalDate.now(), retorno,categoria, nick, Estado.INGRESADA);
 
         sesion.setAttribute("exito", "Propuesta creada correctamente.");
