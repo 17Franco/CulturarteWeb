@@ -28,6 +28,7 @@
             int permisos = (Integer) request.getAttribute("permisos");
             DTOPropuesta propuesta = (DTOPropuesta) request.getAttribute("propuesta");
             Boolean esFavorita = (Boolean) request.getAttribute("esFavorita");
+            String tipoUsuario = (String) request.getAttribute("tipoUsuario");
             
             if (propuesta != null) 
             {
@@ -69,9 +70,8 @@
 
                     <div class="card shadow-lg p-4">
                     <%
-                    if (permisos != 0) 
+                    if (tipoUsuario != null) 
                     {%> 
-                        
                         <div class="d-flex mb-2">
                                 <form action="FavoritoServlet" method="post" class="ms-auto">
                                     <input type="hidden" name="tituloPropuesta" value="<%= propuesta.getTitulo()%>">
