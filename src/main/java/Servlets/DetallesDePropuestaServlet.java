@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.net.URLEncoder;
+import java.util.HashSet;
 import logica.Fabrica;
 import logica.IController;
 
@@ -59,7 +60,7 @@ public class DetallesDePropuestaServlet extends HttpServlet
             DTOPropuesta propuestaSel = controller.getPropuestaDTO(titulo);
             String estado = propuestaSel.getUltimoEstado().getEstado().toString();
 
-            if (!nickUsr.equals("VISITANTE") && propuestaSel != null) {
+            if (propuestaSel != null) {
                 esFavorita = controller.esFavorita(nickUsr, propuestaSel.getTitulo());
             }
 
@@ -84,6 +85,8 @@ public class DetallesDePropuestaServlet extends HttpServlet
                 request.setAttribute("estadoFormateado", estado);
                 request.setAttribute("propuesta", propuestaSel);                                                //Se envian datos de la propuesta elegida al jsp.      
                 request.setAttribute("permisos", permisos);                         //Se envia el tipo de permisos de usuario sobre prop al jsp.
+                request.setAttribute("tipoUsuario",tipoUsuario);
+                
                 request.getRequestDispatcher("MostrarPropuesta_Colaborar.jsp").forward(request, response);         //Se envían datos a front y se redirige al user hacia la pagina de muestra.
             } 
             
