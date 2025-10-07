@@ -34,10 +34,42 @@
         %>
             
             <div class="container mt-4">
-            <div class="card shadow-lg p-4">
-            <div class="row g-4">
-            <div class="col-md-6">
+
                         
+<%
+    //POPUPS de aviso de acción:
+    
+                    String accionEfectuada = request.getParameter("accionLograda");
+                    String resultadoString = request.getParameter("resultadoOperacion");
+                    int resultadoDeAccion = (resultadoString != null) ? Integer.parseInt(resultadoString) : 0;
+              
+                    if(accionEfectuada != null && !accionEfectuada.isEmpty() && resultadoDeAccion != 0)
+                    {
+%>
+                        <body>
+                        <div class="alert alert-success">
+                        <i class="bi bi-check-circle"></i> Usted ha <%=accionEfectuada%> en la propuesta exitosamente.
+                        </div>
+                        </body>
+
+<%
+                    }
+                    if(accionEfectuada != null && !accionEfectuada.isEmpty() && permisos != 0 && resultadoDeAccion == 0) 
+                    {
+%>                         
+                        <body>
+                        <div class="alert alert-danger">
+                            <i class="bi bi-x-circle"></i> Ocurrió un error o no se pudo modificar, intente nuevamente.
+                        </div>
+                        </body>
+<%
+                    }               
+%>             
+
+                    <div class="card shadow-lg p-4">
+                    <div class="row g-4">
+                    <div class="col-md-6">
+                
                     <%
                          if (propuesta.getImagen() != null && !propuesta.getImagen().isEmpty()) 
                     {%>    
@@ -117,35 +149,7 @@
                 <%
                         
                     } 
-                    //Si el usuario es colaborador de esta propuestsa
-                    if(permisos == 2)
-                    {
-                %>
-                        
-                        <div class="col-md-6">
-                        <div class="card p-3 shadow-sm">
-                            
-                            <h4 class="mb-3">Agregar Comentario</h4>
-                            <form action="DetallesDePropuesta" method="post">
-                                        
-                                <input type="hidden" name="tituloPropuesta" value="<%= propuesta.getTitulo()%>">
-                                <input type="hidden" name="accion" value="COMENTAR">
-
-                                    <div class="mb-3">
-                                        <label for="comentario" class="form-label">Comentario</label>
-                                        <textarea class="form-control" id="comentario" name="comentario" rows="4" required></textarea>
-                                    </div>
-
-                                <button type="submit" class="btn btn-primary w-100">Enviar Comentario</button>
-                                    
-                            </form>
-
-                        </div>
-                        </div>
-                                    
-                <% 
-                    } //Si el usuario es el proponente
-                    
+                    //Si el usuario es el proponente
                     if(permisos == 1)
                     {
                 %>
@@ -183,12 +187,39 @@
                 if (mensajeError != null) {
             %>
             <div class="alert alert-danger"><%= mensajeError%></div>
-            <% } %>
+            <% } 
 
-            <% }%>
+                }
+            %>
+                <div class="card mb-5"></div>
+                <h4 class="mb-3">COMENTARIOS</h4>
+<%
+                    //Si el usuario es colaborador de esta propuestsa
+                    if(permisos == 2)
+                    {
+                %>
+                        
+                        <div class="col-md-12">
+    
+                    <form action="DetallesDePropuesta" method="post">
+                        <input type="hidden" name="tituloPropuesta" value="<%= propuesta.getTitulo()%>">
+                            <input type="hidden" name="accion" value="COMENTAR">
+
+                            <div class="mb-3 d-flex align-items-start gap-2">
+                                    <textarea class="form-control" id="comentario" name="comentario" rows="2" style="width:500px;" placeholder="Hacer Comentario" required></textarea>
+                                    <button type="submit" class="btn btn-primary">Publicar</button>
+                            </div> 
+                    </form>
+
+
+                        </div>
+                                    
+                <% 
+                    }
             
-            <p class="h5">COMENTARIOS</p>
-            <div id="boxComentarios" class="p-3 border rounded bg-light mx-5">
+            %>
+            
+            <div id="boxComentarios" >
                 <%
                     Map<String, String> comentarios = propuesta.getComentarios();
                     if (comentarios != null && !comentarios.isEmpty()) {
