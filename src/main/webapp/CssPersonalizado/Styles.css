@@ -283,4 +283,7 @@ a, h2, label {
     width: 100%;
     
 }
-
+#btnFavorito {
+    display: inline-block;
+    position: relative;
+}

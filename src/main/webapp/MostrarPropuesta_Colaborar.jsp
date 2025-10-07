@@ -74,22 +74,20 @@
                     <%
                     if (tipoUsuario != null) 
                     {%> 
-                        <div class="d-flex mb-2">
-                                <form action="FavoritoServlet" method="post" class="ms-auto">
-                                    <input type="hidden" name="tituloPropuesta" value="<%= propuesta.getTitulo()%>">
-                                    <% if (esFavorita) { %>
-                                    <button type="submit" name="accion" value="quitar" class="btn btn-danger btn-sm">
-                                        ❤️ Quitar Favorito
-                                    </button>
-                                    <% } else { %>
-                                    <button type="submit" name="accion" value="agregar" class="btn btn-outline-primary btn-sm">
-                                        ❤️ Marcar Favorito
-                                    </button>
-                                    <% }%>
-                                </form>
-                            </div>  
-                                
-                      <%  } %>         
+                        <div class="ms-auto">
+                            <button 
+                                id="btnFavorito"
+                                data-titulo="<%= propuesta.getTitulo()%>"
+                                data-estado="<%= esFavorita ? "true" : "false"%>"
+                                class="btn <%= esFavorita ? "btn-danger" : "btn-outline-primary"%> btn-sm">
+                                ❤️ <%= esFavorita ? "Quitar Favorito" : "Marcar Favorito"%>
+                            </button>
+                                <script>
+                                    const contextPath = '<%= request.getContextPath()%>';
+                                </script>
+                                <script src="JS/Favorito.js" defer></script>
+                        </div>             
+                    <%  } %>         
                     <div class="row g-4">
                     <div class="col-md-6">
                 
