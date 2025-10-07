@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.net.URLEncoder;
 import java.time.LocalDate;
 import java.util.Set;
 import logica.DTO.DTOColaborador;
@@ -206,19 +207,19 @@ public class DetallesDePropuestaServlet extends HttpServlet
                 resultadoOperacion = 4;
             }
         }
-
-        request.setAttribute("resultado", resultadoOperacion);
         
+        String accionLograda = "";
         switch (resultadoOperacion) 
         {
-            case 1 : request.setAttribute("accionLograda", "Comentado en la propuesta"); break;
-            case 2 : request.setAttribute("accionLograda", "Cancelado la propuesta"); break;
-            case 3 : request.setAttribute("accionLograda", "Extendido la propuesta"); break;
-            case 4 : request.setAttribute("accionLograda", "Colaborado en la propuesta"); break;
-            default: request.setAttribute("accionLograda", "Error"); break;
+            case 1 : accionLograda = "Comentado";  break;
+            case 2 : accionLograda = "Cancelado";  break;
+            case 3 : accionLograda = "Extendido";  break;
+            case 4 : accionLograda = "Colaborado"; break;
+            default: accionLograda = "Error";      break;
         }
-        
-        request.getRequestDispatcher("resultadoAccion.jsp").forward(request, response);
+
+        response.sendRedirect("DetallesDePropuesta?id=" + URLEncoder.encode(propuestaActual.getTitulo(), "UTF-8") + "&resultadoOperacion=" + URLEncoder.encode((String.valueOf(resultadoOperacion)), "UTF-8") + "&accionLograda=" + URLEncoder.encode(accionLograda, "UTF-8"));
+
     }
 
     @Override
