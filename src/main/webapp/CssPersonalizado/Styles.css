@@ -79,7 +79,7 @@ a, h2, label {
     padding: 15px;
 }
 
-/* Propuestas mantiene tu grid actual */
+
 .propuestas-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -172,10 +172,10 @@ a, h2, label {
 }
 
 .info-seguido-texto a {
-    /* Hace que el enlace ocupe el espacio y permite formatear el texto */
+    
     display: flex; 
-    flex-direction: column; /* Apila Nickname y Tipo */
-    text-decoration: none; /* Quita el subrayado */
+    flex-direction: column; 
+    text-decoration: none; 
     color: #333;
 }
 
@@ -247,7 +247,7 @@ a, h2, label {
 
 .propuestas-contenedor {
     display: grid; 
-    grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); 
+    grid-template-columns: 1fr 1fr 1fr; 
     gap: 30px; 
     padding: 20px ;
     background: #f8f9fa;
@@ -263,15 +263,15 @@ a, h2, label {
     padding: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     background-color: #fff;
-    height: 250px;
+    height: 300px;
 }
 
 
 .imagen-area {
-    /* La imagen ocupará un ancho fijo para que el texto tenga espacio */
-    flex: 0 0 120px; /* Ancho fijo de 120px para la imagen */
+    
+    flex: 0 0 120px;
     margin-right: 15px;
-    /* CENTRADO SOLICITADO: Centra la imagen dentro de su área */
+    
     display: flex;
     justify-content: center;
     align-items: center;
@@ -282,6 +282,16 @@ a, h2, label {
    
     width: 100%;
     
+}
+
+.Activo{
+    background: #4A90E2; 
+    border-top-left-radius:0.5rem;
+    border-top-right-radius: 0.5rem ;
+}
+
+.card-title{
+    margin-bottom: 7px;
 }
 #btnFavorito {
     display: inline-block;

@@ -67,7 +67,7 @@
                 <div class="propuesta-card">
                     
                     
-                    <img src="Img?ruta=<%= pro.getImagen() %>" alt="Imagen de <%= pro.getTitulo() %>">
+                    <img src="<%= pro.getImagen() %>" alt="Imagen de <%= pro.getTitulo() %>">
                     
                     <!-- he probado varias cosas todavia no doy con trareme las malditas imagenes
                     <img src="http://servidor-central/IMG/<%= pro.getImagen() %>" alt="Imagen de <%= pro.getTitulo() %>">-->

@@ -38,6 +38,7 @@ public class PropuestasFavoritaUsuario extends HttpServlet {
             request.setAttribute("propuestasFavoritas", p);
             request.setAttribute("nick", usrPerfil);
             request.setAttribute("tipo", usrTipo);
+            request.setAttribute("pagina", "Favoritas");
             request.getRequestDispatcher("/PropuestasFavoritas.jsp").forward(request, response);
             
            }
