@@ -47,6 +47,7 @@ public class PropuestasCreadas extends HttpServlet {
             request.setAttribute("propuestasCreadas", p);
             request.setAttribute("nick", usrPerfil);
             request.setAttribute("tipo", usrTipo);
+            request.setAttribute("pagina", "Creadas");
             request.getRequestDispatcher("/PropuestasCreadas.jsp").forward(request, response);
             
            }

@@ -37,12 +37,14 @@ public class PerfilUsuario extends HttpServlet {
                 request.setAttribute("infoPerfil", p);
                 request.setAttribute("nick", usrPerfil);
                 request.setAttribute("tipo", usrTipo);
+                request.setAttribute("pagina", "Perfil");
                 request.getRequestDispatcher("/perfilUsuario.jsp").forward(request, response);
                }else{
                 DTOColaborador c=controller.getDTOColaborador(usrPerfil);
                 request.setAttribute("infoPerfil", c);
                 request.setAttribute("nick", usrPerfil);
                 request.setAttribute("tipo", usrTipo);
+                request.setAttribute("pagina", "Perfil");
                 request.getRequestDispatcher("/perfilUsuario.jsp").forward(request, response);
                
                }

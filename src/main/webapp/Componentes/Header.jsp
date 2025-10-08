@@ -43,15 +43,20 @@
                
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li><a class="dropdown-item" href="PerfilUsuario?nick=<%=session.getAttribute("logueado")%>&tipo=<%=session.getAttribute("tipoUser")%>">Perfil</a></li>
-                   
+                    <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="UsuariosSeguidos?nick=<%=session.getAttribute("logueado")%>&tipo=<%=session.getAttribute("tipoUser")%>">Usuarios Seguidos</a></li>
+                    <li><a class="dropdown-item" href="Seguidores?nick=<%=session.getAttribute("logueado")%>&tipo=<%=session.getAttribute("tipoUser")%>">Seguidores</a></li>
+                    <li><a class="dropdown-item" href="listarUsuarios">Seguir Usuarios</a></li>
+                    <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="PropuestasFavoritaUsuario?nick=<%=session.getAttribute("logueado")%>&tipo=<%=session.getAttribute("tipoUser")%>">Propuestas Favoritas</a></li>
                     <% if(("Proponente").equals(session.getAttribute("tipoUser"))) { %>
                     <li><a class="dropdown-item" href="PropuestasCreadas?nick=<%=session.getAttribute("logueado")%>&tipo=<%=session.getAttribute("tipoUser")%>">Propuestas Creadas</a></li>
                     <% }%>
+                    <% if(("Colaborador").equals(session.getAttribute("tipoUser"))) { %>
+                    <li><a class="dropdown-item" href="Colaboraciones?nick=<%=session.getAttribute("logueado")%>&tipo=<%=session.getAttribute("tipoUser")%>">Colaboracion</a></li>
+                    <% }%>
                     <!-- este campo solo estara si es Proponente -->
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="listarUsuarios">Seguir Usuarios</a></li>
+                   
                     <% if(("Proponente").equals(session.getAttribute("tipoUser"))) { %>
                     <li><a class="dropdown-item" href="${pageContext.request.contextPath}/AltaPropuesta">CrearPropuesta</a></li>
                     <% }%>

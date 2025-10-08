@@ -1,4 +1,5 @@
-
+<%@page import="logica.DTO.DTOColaboracion"%>
+<%@page import="java.util.Set"%>
 <%@page import="logica.DTO.DTOPropuesta"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -21,26 +22,30 @@
         
             <%
             //me Traigo de la request el dto
-            List<DTOPropuesta> prop = (List<DTOPropuesta>) request.getAttribute("propuestasFavoritas");
+            List<DTOColaboracion> c = (List<DTOColaboracion>) request.getAttribute("Colaboraciones");
             
             %>
             <div class="propuestas-contenedor">
-                <%for(DTOPropuesta p:prop){%>
+                <%for(DTOColaboracion colab:c){%>
+                    <!--si estoy en sesion invitado o veo el perfil de otro usuario solo puedo ver las que no son ingresada-->
+                    
                     <div class="tarjeta-propuesta-horizontal"> 
-    
+
                         <div class="imagen-area">
-                            <img src="<%= p.getImagen() %>" alt="<%= p.getTitulo() %>" class="propuesta-img">
+                            <img src="<%= colab.getImgDePropuesta() %>" alt="<%= colab.getPropuesta() %>" class="propuesta-img">
                         </div>
 
                         <div class="texto-area">
-                            <h5 class="card-title"><%=p.getTitulo()%> </h5>
-                            <p><strong>Categoria</strong> <%=p.getCategorioToString()%></p>
-                            <p><strong>Estado</strong> <%=p.getEstadoAct() %></p>
-                            <p><strong>Fecha Publicacion</strong> <%=p.getFechaPublicacion()%></p>
-                            <a href="${pageContext.request.contextPath}/DetallesDePropuesta?id=<%= p.getTitulo()%>" class="btn btn-primary">Ver Detalle</a>
+                            <h5 class="card-title">Colaboracio Realizada</h5>
+                            <p><strong>Titulo</strong> <%=colab.getPropuesta()%></p>
+                            <p><strong>Moto Colaborado</strong> <%=colab.getMonto() %></p>
+                            <p><strong>Fecha Realizada</strong> <%=colab.getCreado() %></p>
+                            <p><strong>Retorno Elegido</strong> <%=colab.getTipoRetorno().toString()%></p>
+                            <a href="${pageContext.request.contextPath}/DetallesDePropuesta?id=<%= colab.getPropuesta() %>" class="btn btn-primary">Ver Detalle</a>
                         </div>
 
                     </div>
+                 
                 <%}%>
                 <!---->
             </div>   

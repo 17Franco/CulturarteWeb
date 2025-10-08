@@ -26,21 +26,42 @@
             %>
             <div class="propuestas-contenedor">
                 <%for(DTOPropuesta p:prop){%>
-                    <div class="tarjeta-propuesta-horizontal"> 
-    
-                        <div class="imagen-area">
-                            <img src="Img?ruta=<%= p.getImagen() %>" alt="<%= p.getTitulo() %>" class="propuesta-img">
-                        </div>
+                    <!--si estoy en sesion invitado o veo el perfil de otro usuario solo puedo ver las que no son ingresada-->
+                    <%if((UsuarioLogueado==null || !UsuarioLogueado.equals(nick)) && !p.getEstadoAct().toString().equals("INGRESADA")) {%>
+                        <div class="tarjeta-propuesta-horizontal"> 
 
-                        <div class="texto-area">
-                            <h5 class="card-title"><%=p.getTitulo()%> </h5>
-                            <p><strong>Categoria</strong> <%=p.getCategorioToString()%></p>
-                            <p><strong>Estado</strong> <%=p.getEstadoAct() %></p>
-                            <p><strong>Fecha Publicacion</strong> <%=p.getFechaPublicacion()%></p>
-                            <a href="${pageContext.request.contextPath}/DetallesDePropuesta?id=<%= p.getTitulo()%>" class="btn btn-primary">Ver Detalle</a>
-                        </div>
+                            <div class="imagen-area">
+                                <img src="<%= p.getImagen() %>" alt="<%= p.getTitulo() %>" class="propuesta-img">
+                            </div>
 
-                    </div>
+                            <div class="texto-area">
+                                <h5 class="card-title"><%=p.getTitulo()%> </h5>
+                                <p><strong>Categoria</strong> <%=p.getCategoria().getNombreCategoria() %></p>
+                                <p><strong>Estado</strong> <%=p.getEstadoAct() %></p>
+                                <p><strong>Fecha Publicacion</strong> <%=p.getFechaPublicacion()%></p>
+                                <a href="${pageContext.request.contextPath}/DetallesDePropuesta?id=<%= p.getTitulo()%>" class="btn btn-primary">Ver Detalle</a>
+                            </div>
+
+                        </div>
+                    <!--si veo el perfil logueado veo todas las creadas-->
+                    <%}else if (UsuarioLogueado != null && UsuarioLogueado.equals(nick)) { %>
+                        <div class="tarjeta-propuesta-horizontal"> 
+
+                            <div class="imagen-area">
+                                <img src="Img?ruta=<%= p.getImagen() %>" alt="<%= p.getTitulo() %>" class="propuesta-img">
+                            </div>
+
+                            <div class="texto-area">
+                                <h5 class="card-title"><%=p.getTitulo()%> </h5>
+                                <p><strong>Categoria</strong> <%=p.getCategoria().getNombreCategoria() %></p>
+                                <p><strong>Estado</strong> <%=p.getEstadoAct() %></p>
+                                <p><strong>Fecha Publicacion</strong> <%=p.getFechaPublicacion()%></p>
+                                <a href="${pageContext.request.contextPath}/DetallesDePropuesta?id=<%= p.getTitulo()%>" class="btn btn-primary">Ver Detalle</a>
+                            </div>
+
+                        </div>
+                    
+                    <% } %>
                 <%}%>
                 <!---->
             </div>   

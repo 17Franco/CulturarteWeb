@@ -25,7 +25,7 @@
                 
                 <div class="contenedorImg">
                      <!--muestro img llamando al sevlet IMG pasandole la ruta de la img por paremtro en la url-->
-                    <img class="img" src="Img?ruta=<%= usr.getRutaImg()%>" alt="Imagen del usuario">
+                    <img class="img" src="<%= usr.getRutaImg()%>" alt="Imagen del usuario">
                 </div>
                 <div class="infoUsuario">
                     <script>
