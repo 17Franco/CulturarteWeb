@@ -262,22 +262,33 @@
             <div id="boxComentarios" >
                 <%
                     Map<String, String> comentarios = propuesta.getComentarios();
-                    if (comentarios != null && !comentarios.isEmpty()) {
-                        for (Map.Entry<String, String> entry : comentarios.entrySet()) {
+                    if (comentarios != null && !comentarios.isEmpty()) 
+                    {
+                        for (Map.Entry<String, String> entry : comentarios.entrySet()) 
+                        {
+                %>        
+                        
+                <%        
                             String usuario = entry.getKey();
                             String comentario = entry.getValue();
                 %>
-                <div class="card mb-2 shadow-sm">
-                    <div class="card-body p-2">
-                        <p class="mb-1"><b><%= usuario%>:</b></p>
-                        <p class="mb-0"><%= comentario%></p>
-                    </div>
-                </div>    
+                            <div class="card mb-2 shadow-sm">
+                                <div class="card-body p-2">
+                                    <div class="card-body p-2 d-flex align-items-center">
+                                        <div class="estiloPerfil"><%=entry.getKey().substring(0,1)%></div>
+                                        <p class="mb-1"><b><%= usuario%>:</b></p>
+                                    </div>
+                                    <div class="mb-0 ms-5"><%= comentario%></div>
+                                    
+                                </div>
+                            </div>    
                 <%
-                    }
-                } else {
+                        }
+                    } 
+                    else 
+                    {
                 %>
-                <p class="text-muted">Propuesta sin comentarios.</p>
+                        <p class="text-muted">Propuesta sin comentarios.</p>
                 <%
                     }
                 %>
