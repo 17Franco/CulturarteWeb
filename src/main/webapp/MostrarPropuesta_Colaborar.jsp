@@ -28,8 +28,11 @@
             int permisos = (Integer) request.getAttribute("permisos");
             DTOPropuesta propuesta = (DTOPropuesta) request.getAttribute("propuesta");
             Boolean esFavorita = (Boolean) request.getAttribute("esFavorita");
+            String mensaje_error = request.getParameter("mensaje_error");
+            String accionEfectuada = request.getParameter("accionLograda");
+            String tipoUsuario = (String) request.getAttribute("tipoUsuario");
             
-            if (propuesta != null) 
+            if (propuesta != null && mensaje_error == null) 
             {
         %>
             
@@ -40,7 +43,7 @@
 <%
     //POPUPS de aviso de acción:
     
-                    String accionEfectuada = request.getParameter("accionLograda");
+                    
                     String resultadoString = request.getParameter("resultadoOperacion");
                     int resultadoDeAccion = (resultadoString != null) ? Integer.parseInt(resultadoString) : 0;
                     
@@ -69,9 +72,8 @@
 
                     <div class="card shadow-lg p-4">
                     <%
-                    if (permisos != 0) 
+                    if (tipoUsuario != null) 
                     {%> 
-                        
                         <div class="d-flex mb-2">
                                 <form action="FavoritoServlet" method="post" class="ms-auto">
                                     <input type="hidden" name="tituloPropuesta" value="<%= propuesta.getTitulo()%>">
@@ -189,16 +191,18 @@
             else 
             { 
     %>
-            <div class="alert alert-danger">No se pudo cargar la propuesta</div>
+                <div class="alert alert-danger">error al cargar la propuesta</div>
             <%
-                String mensajeError = (String) request.getAttribute("mensaje_error");
-                if (mensajeError != null) {
+                
+                if (mensaje_error != null) 
+                {
             %>
-            <div class="alert alert-danger"><%= mensajeError%></div>
-            <% } 
+                    <div class="alert alert-danger"><%= mensaje_error%></div>
+            <%  
+                } 
 
-                }
-            %>
+            }
+    %>
                 <div class="card mb-5"></div>
                 <h4 class="mb-3">COMENTARIOS</h4>
 <%
@@ -254,4 +258,12 @@
         
 
     </body>
+                    <%if("cancelado".equals(accionEfectuada)){%>
+                        <script>
+                            setTimeout(function() 
+                            {window.location.href = 'index.jsp';}, 2000);
+                        </script>
+                   <%}%>
+
+    
 </html>
