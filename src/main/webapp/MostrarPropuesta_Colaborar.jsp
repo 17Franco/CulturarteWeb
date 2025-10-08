@@ -272,7 +272,7 @@
                             String usuario = entry.getKey();
                             String comentario = entry.getValue();
                 %>
-                            <div class="card mb-2 shadow-sm">
+                            <div class="card mb-2 shadow-sm w-50">
                                 <div class="card-body p-2">
                                     <div class="card-body p-2 d-flex align-items-center">
                                         <div class="estiloPerfil"><%=entry.getKey().substring(0,1)%></div>
