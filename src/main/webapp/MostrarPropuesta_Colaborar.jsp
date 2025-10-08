@@ -6,6 +6,7 @@
 
 <%@page import="java.util.Map"%>
 <%@page import="logica.DTO.DTOPropuesta"%>
+<%@page import="logica.DTO.TipoRetorno"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -129,6 +130,25 @@
                         // Solo si es 3, usuario que no propuso puede colaborar.
                     if (permisos == 3) 
                     {
+                    
+                        boolean retornoEntradaGratis = false;
+                        boolean retornoPorcentajeGanancia = false;
+
+                        for(TipoRetorno ct : propuesta.getRetorno())
+                        {
+                            if(ct.toString().equals("Entrada Gratis"))
+                            {
+                                retornoEntradaGratis = true;
+                            }
+                            
+                            if(ct.toString().equals("Porcentaje de Ganancia"))
+                            {
+                                retornoPorcentajeGanancia = true;
+                            }
+                        }
+
+
+
                 %>
                         <div class="col-md-6">
                               
@@ -144,10 +164,21 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="tipoRetorno" class="form-label">Tipo de retorno</label>
+                                   
                                     <select class="form-select" id="tipoRetorno" name="tipoRetorno" required>
-                                        <option value="PorcentajeGanancia">Porcentaje de Ganancia</option>
-                                        <option value="EntradaGratis">Entrada Gratis</option>
+                                <%
+                                        if(retornoPorcentajeGanancia)
+                                        {
+                                            %><option value="PorcentajeGanancia">Porcentaje de Ganancia</option><%       
+                                        }
+                                
+                                        if(retornoEntradaGratis)
+                                        {
+                                            %><option value="EntradaGratis">Entrada Gratis</option><%           
+                                        }
+                                %>        
                                     </select>
+                                
                                 </div>
                                 <button type="submit" class="btn btn-primary w-100">Aportar</button>
                             </form>
