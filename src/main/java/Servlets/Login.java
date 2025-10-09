@@ -62,7 +62,7 @@ public class Login extends HttpServlet {
         }catch(Exception e){
             
         System.out.println("Error de registro: " + e.getMessage());
-        e.printStackTrace(); // Esto es CLAVE para ver la traza en la consola de Tomcat
+        e.printStackTrace(); 
 
         request.setAttribute("errorMessage", "No se pudo Iniciar Sesion.");
  

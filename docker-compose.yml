@@ -1,0 +1,43 @@
+services:
+  # definicion de servicios
+  culturarte: 
+    build:
+      #indica donde se encuentra el dokerfile . es el directorio actual osea doker compose esta en el mismo directorio que dockerfile 
+      context: .
+      # esto es para que ejecute el dokerile, hacer  build 
+      dockerfile: Dockerfile
+      #nnombre contenedor
+    container_name: appCulturarteWeb
+    #le decimos que depende del servicio de la db (primero se inicia la bd luego este)
+    depends_on:
+      - dbculturarteWeb
+    ports:
+      #mapeamos puerto externo local  y el interno docker 
+      - "8080:8080"
+    volumes:
+      #volumen para acceder a la carpeta IMG
+      - /home/fran/Escritorio/Lab2PA/IMG:/IMG
+      #Servicio de BD
+  dbculturarteWeb:
+    # el mysql que va a contener el contenedor
+    image: mysql:8.0.17
+    #nombre contenedor
+    container_name: BaseDatosC
+    environment:
+      #nombre de la db que se creaara al crear el contenedor
+      MYSQL_DATABASE: Culturarte
+      #contrasena para el usuario root
+      MYSQL_ROOT_PASSWORD: tecnologo
+      #la pass para el usuario
+      MYSQL_PASSWORD: tecnologo 
+      #usuario no root es el que usuamos para conectarnos a la bd
+      MYSQL_USER: tecnologo
+    volumes:
+      #volumen donde se guardara la bd creada dentro del docker
+      - db_data:/var/lib/mysql
+    ports:
+      # puerto local:interno docker
+      - "3307:3306"
+
+volumes:
+  db_data:
