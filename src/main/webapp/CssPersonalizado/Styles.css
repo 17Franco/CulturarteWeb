@@ -293,3 +293,7 @@ a, h2, label {
 .card-title{
     margin-bottom: 7px;
 }
+#btnFavorito {
+    display: inline-block;
+    position: relative;
+}

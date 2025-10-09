@@ -6,6 +6,7 @@
 
 <%@page import="java.util.Map"%>
 <%@page import="logica.DTO.DTOPropuesta"%>
+<%@page import="logica.DTO.TipoRetorno"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -74,22 +75,20 @@
                     <%
                     if (tipoUsuario != null) 
                     {%> 
-                        <div class="d-flex mb-2">
-                                <form action="FavoritoServlet" method="post" class="ms-auto">
-                                    <input type="hidden" name="tituloPropuesta" value="<%= propuesta.getTitulo()%>">
-                                    <% if (esFavorita) { %>
-                                    <button type="submit" name="accion" value="quitar" class="btn btn-danger btn-sm">
-                                        ❤️ Quitar Favorito
-                                    </button>
-                                    <% } else { %>
-                                    <button type="submit" name="accion" value="agregar" class="btn btn-outline-primary btn-sm">
-                                        ❤️ Marcar Favorito
-                                    </button>
-                                    <% }%>
-                                </form>
-                            </div>  
-                                
-                      <%  } %>         
+                        <div class="ms-auto">
+                            <button 
+                                id="btnFavorito"
+                                data-titulo="<%= propuesta.getTitulo()%>"
+                                data-estado="<%= esFavorita ? "true" : "false"%>"
+                                class="btn <%= esFavorita ? "btn-danger" : "btn-outline-primary"%> btn-sm">
+                                ❤️ <%= esFavorita ? "Quitar Favorito" : "Marcar Favorito"%>
+                            </button>
+                                <script>
+                                    const contextPath = '<%= request.getContextPath()%>';
+                                </script>
+                                <script src="JS/Favorito.js" defer></script>
+                        </div>             
+                    <%  } %>         
                     <div class="row g-4">
                     <div class="col-md-6">
                 
@@ -131,6 +130,25 @@
                         // Solo si es 3, usuario que no propuso puede colaborar.
                     if (permisos == 3) 
                     {
+                    
+                        boolean retornoEntradaGratis = false;
+                        boolean retornoPorcentajeGanancia = false;
+
+                        for(TipoRetorno ct : propuesta.getRetorno())
+                        {
+                            if(ct.toString().equals("Entrada Gratis"))
+                            {
+                                retornoEntradaGratis = true;
+                            }
+                            
+                            if(ct.toString().equals("Porcentaje de Ganancia"))
+                            {
+                                retornoPorcentajeGanancia = true;
+                            }
+                        }
+
+
+
                 %>
                         <div class="col-md-6">
                               
@@ -146,10 +164,21 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="tipoRetorno" class="form-label">Tipo de retorno</label>
+                                   
                                     <select class="form-select" id="tipoRetorno" name="tipoRetorno" required>
-                                        <option value="PorcentajeGanancia">Porcentaje de Ganancia</option>
-                                        <option value="EntradaGratis">Entrada Gratis</option>
+                                <%
+                                        if(retornoPorcentajeGanancia)
+                                        {
+                                            %><option value="PorcentajeGanancia">Porcentaje de Ganancia</option><%       
+                                        }
+                                
+                                        if(retornoEntradaGratis)
+                                        {
+                                            %><option value="EntradaGratis">Entrada Gratis</option><%           
+                                        }
+                                %>        
                                     </select>
+                                
                                 </div>
                                 <button type="submit" class="btn btn-primary w-100">Aportar</button>
                             </form>
@@ -233,22 +262,33 @@
             <div id="boxComentarios" >
                 <%
                     Map<String, String> comentarios = propuesta.getComentarios();
-                    if (comentarios != null && !comentarios.isEmpty()) {
-                        for (Map.Entry<String, String> entry : comentarios.entrySet()) {
+                    if (comentarios != null && !comentarios.isEmpty()) 
+                    {
+                        for (Map.Entry<String, String> entry : comentarios.entrySet()) 
+                        {
+                %>        
+                        
+                <%        
                             String usuario = entry.getKey();
                             String comentario = entry.getValue();
                 %>
-                <div class="card mb-2 shadow-sm">
-                    <div class="card-body p-2">
-                        <p class="mb-1"><b><%= usuario%>:</b></p>
-                        <p class="mb-0"><%= comentario%></p>
-                    </div>
-                </div>    
+                            <div class="card mb-2 shadow-sm w-50">
+                                <div class="card-body p-2">
+                                    <div class="card-body p-2 d-flex align-items-center">
+                                        <div class="estiloPerfil"><%=entry.getKey().substring(0,1)%></div>
+                                        <p class="mb-1"><b><%= usuario%>:</b></p>
+                                    </div>
+                                    <div class="mb-0 ms-5"><%= comentario%></div>
+                                    
+                                </div>
+                            </div>    
                 <%
-                    }
-                } else {
+                        }
+                    } 
+                    else 
+                    {
                 %>
-                <p class="text-muted">Propuesta sin comentarios.</p>
+                        <p class="text-muted">Propuesta sin comentarios.</p>
                 <%
                     }
                 %>
