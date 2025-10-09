@@ -29,7 +29,7 @@
     <!-- Contenedor principal-->
     <div class="main-container">
     <jsp:include page="/Categorias" />
-        <jsp:include page="/Propuestas" />
+        <!--jsp:include page="/Propuestas" />
         <!-- Sidebar Categorías -->
         <aside class="sidebar">
             <nav>
@@ -46,7 +46,7 @@
                             </div>
                             <ul class="subcategory" hidden>
                                 <% for(DTOCategoria sub: cat.getSubcategorias()){ %>
-                                    <li><a href="#"><%= sub.getNombreCategoria() %></a></li>
+                                    <li class="propuesta" data-id="<%= sub.getNombreCategoria() %>"><%= sub.getNombreCategoria() %></li>
                                 <% } %>
                             </ul>
                         </li>
@@ -100,7 +100,16 @@
 
     </div>
 
+<script>
+  document.querySelectorAll('.propuesta').forEach(item => {
+    item.addEventListener('click', () => {
+      const id = item.getAttribute('data-id');
 
+      // Enviamos el id al servlet /propuestas como query param
+     window.location.href = "/Lab2PA/Propuestas?Subcategoria=" + encodeURIComponent(id);
+    });
+  });
+</script>
 
 </body>
 </html>
