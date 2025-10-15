@@ -1,5 +1,6 @@
 package Servlets;
 import logica.DTO.DTOPropuesta;
+import logica.DTO.Estado;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -8,7 +9,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.net.URLEncoder;
-import java.util.HashSet;
 import logica.Fabrica;
 import logica.IController;
 
@@ -76,8 +76,7 @@ public class DetallesDePropuestaServlet extends HttpServlet
                     permisos = 0;   //Le quito el permiso de colaborar, lo dejo por si más adelante se agrega que puede o algo así.
                 }
             }
-
-            estado = controller.formateoEstado(estado); //Se formatea el estado para ser mostrado en la propuesta
+            estado = Estado.formateoEstado(estado); //Se formatea el estado para ser mostrado en la propuesta
 
             if (propuestaSel != null && sesionActual != null)                       //Si no pasó nada raro se envían datos para que puedan ser mostrados.
             {
