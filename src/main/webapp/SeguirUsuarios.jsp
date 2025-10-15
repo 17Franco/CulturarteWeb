@@ -33,8 +33,8 @@
                         <div class="contenedorImg2">
                             <img class="img2" src="<%= u.getRutaImg() %>" alt="Imagen de <%= u.getNickname() %>">
                         </div>
-
-
+                        
+                        
                         <div class="info-seguido-texto">
 
                             <a href="PerfilUsuario?nick=<%=u.getNickname()%>&tipo=<%=u.getTipoUsr()%>">
@@ -51,7 +51,7 @@
                     </div> 
                 <% } %> 
                 <%}%>
+            </div>
         </div>
-        
     </body>
 </html>
