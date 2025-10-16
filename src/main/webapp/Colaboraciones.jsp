@@ -32,7 +32,7 @@
                     <div class="tarjeta-propuesta-horizontal"> 
 
                         <div class="imagen-area">
-                            <img src="<%= colab.getImgDePropuesta() %>" alt="<%= colab.getPropuesta() %>" class="propuesta-img">
+                            <img src="Img?ruta=<%= colab.getImgDePropuesta() %>" alt="<%= colab.getPropuesta() %>" class="propuesta-img">
                         </div>
 
                         <div class="texto-area">

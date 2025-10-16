@@ -29,7 +29,7 @@
                     <div class="tarjeta-propuesta-horizontal"> 
     
                         <div class="imagen-area">
-                            <img src="<%= p.getImagen() %>" alt="<%= p.getTitulo() %>" class="propuesta-img">
+                            <img src="Img?ruta=<%= p.getImagen() %>" alt="<%= p.getTitulo() %>" class="propuesta-img">
                         </div>
 
                         <div class="texto-area">

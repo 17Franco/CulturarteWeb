@@ -26,7 +26,7 @@
                     <div class="tarjetaSeguidos" data-objetivo="<%= u.getNickname()%>"> 
 
                         <div class="contenedorImg2">
-                            <img class="img2" src="<%= u.getRutaImg() %>" alt="Imagen de <%= u.getNickname() %>">
+                            <img class="img2" src="Img?ruta=<%= u.getRutaImg() %>" alt="Imagen de <%= u.getNickname() %>">
                         </div>
                         <div class="info-seguido-texto">
 

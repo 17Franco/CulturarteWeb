@@ -95,7 +95,7 @@
                     <%
                          if (propuesta.getImagen() != null && !propuesta.getImagen().isEmpty()) 
                     {%>    
-                            <img src="<%= propuesta.getImagen()%>" class="img-fluid rounded shadow mb-3" alt="Imagen Propuesta">
+                            <img src="Img?ruta=<%= propuesta.getImagen()%>" class="img-fluid rounded shadow mb-3" alt="Imagen Propuesta">
                     <%  } 
                         else 
                         { 
