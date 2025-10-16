@@ -106,7 +106,7 @@
       const id = item.getAttribute('data-id');
 
       // Enviamos el id al servlet /propuestas como query param
-     window.location.href = "/Lab2PA/Propuestas?Subcategoria=" + encodeURIComponent(id);
+     window.location.href = "${pageContext.request.contextPath}/Propuestas?Subcategoria=" + encodeURIComponent(id);
     });
   });
 </script>
