@@ -27,7 +27,7 @@ public class logout extends HttpServlet {
             session.invalidate();
         }
         
-        response.sendRedirect("index.jsp"); // lo mandás al inicio
+        response.sendRedirect(request.getContextPath() + "/"); // lo mandás al inicio
         
     }
 
