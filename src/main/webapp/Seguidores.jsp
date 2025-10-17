@@ -26,7 +26,12 @@
                     <div class="tarjetaSeguidos" data-objetivo="<%= u.getNickname()%>"> 
 
                         <div class="contenedorImg2">
-                            <img class="img2" src="Img?ruta=<%= u.getRutaImg() %>" alt="Imagen de <%= u.getNickname() %>">
+                            <%if(u.getRutaImg()!=null && !"".equals(u.getRutaImg())){%>
+                                <img class="img2" src="Img?ruta=<%= u.getRutaImg() %>" alt="Imagen de <%= u.getNickname() %>">
+                            <%}else{ %>
+                            <!--le agrego una img generica si no tiene imagen -->
+                                <img class="img2" src="https://img.freepik.com/vector-gratis/circulo-azul-usuario-blanco_78370-4707.jpg" alt="Imagen de <%= u.getNickname() %>">
+                            <%}%>
                         </div>
                         <div class="info-seguido-texto">
 

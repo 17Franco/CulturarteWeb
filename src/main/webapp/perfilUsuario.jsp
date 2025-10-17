@@ -24,8 +24,12 @@
             <div class="ContenedorInfoUsuario">
                 
                 <div class="contenedorImg">
-                     <!--muestro img llamando al sevlet IMG pasandole la ruta de la img por paremtro en la url-->
-                    <img class="img" src="Img?ruta=<%= usr.getRutaImg()%>" alt="Imagen del usuario">
+                    <%if(usr.getRutaImg()!=null && !"".equals(usr.getRutaImg())){%>
+                        <!--muestro img llamando al sevlet IMG pasandole la ruta de la img por paremtro en la url-->
+                        <img class="img" src="Img?ruta=<%= usr.getRutaImg()%>" alt="Imagen del usuario">
+                    <%}else{ %>
+                       <img class="img" src="https://img.freepik.com/vector-gratis/circulo-azul-usuario-blanco_78370-4707.jpg" alt="Imagen de <%= usr.getNickname() %>">
+                    <%}%>
                 </div>
                 <div class="infoUsuario">
                     <script>

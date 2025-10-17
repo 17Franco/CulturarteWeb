@@ -31,7 +31,12 @@
                         <div class="tarjeta-propuesta-horizontal"> 
 
                             <div class="imagen-area">
-                                <img src="Img?ruta=<%= p.getImagen() %>" alt="<%= p.getTitulo() %>" class="propuesta-img">
+                                <%if(p.getImagen()!=null && !"".equals(p.getImagen())){%>
+                                    <img src="Img?ruta=<%= p.getImagen() %>" alt="<%= p.getTitulo() %>" class="propuesta-img">
+                                <%}else{ %>
+                                    <!--le agrego una img generica si no tiene imagen -->
+                                    <img class="propuesta-img" src="https://alunarte.com/wp-content/uploads/2017/07/la-propuesta.png" alt="Imagen de propuesta>">
+                                <%}%>
                             </div>
 
                             <div class="texto-area">
