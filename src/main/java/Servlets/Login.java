@@ -51,7 +51,7 @@ public class Login extends HttpServlet {
                 sesion.setAttribute("logueado", nick); 
                 sesion.setAttribute("tipoUser", "Colaborador");
                }
-               response.sendRedirect(request.getContextPath() + "/index.jsp"); 
+               response.sendRedirect(request.getContextPath() + "/"); 
                //request.getRequestDispatcher("/index.jsp").forward(request, response);
            }else{          
             request.setAttribute("errorMessage", "Nick o Contrasena Incorrectos.");

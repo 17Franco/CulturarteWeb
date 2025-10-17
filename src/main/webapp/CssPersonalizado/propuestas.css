@@ -1,19 +1,50 @@
-/*
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
-*/
-/* 
-    Created on : 3 oct 2025, 11:49:00
-    Author     : acer
-*/
-
-.propuestas-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-    padding: 20px;
+/* --- Pestañas de Bootstrap personalizadas --- */
+.nav-tabs {
+    border-bottom: 2px solid #dee2e6;
+    margin-top: 15px;
 }
 
+.nav-tabs .nav-link {
+    border-radius: 8px 8px 0 0;
+    margin-right: 5px;
+    background-color: #e9ecef;
+    color: #495057;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.nav-tabs .nav-link:hover {
+    background-color: #dee2e6;
+    color: #4A90E2; /* usa tu color de marca */
+}
+
+.nav-tabs .nav-link.active {
+    background-color: #fff;
+    color: #4A90E2;
+    border-color: #dee2e6 #dee2e6 #fff;
+    font-weight: bold;
+}
+
+/* --- Contenedor de cada pestaña  tunear despues--- */
+.tab-content {
+    background: #fff;
+    border: 1px solid #dee2e6;
+    border-top: none;
+    border-radius: 0 0 12px 12px;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+/* --- Ajuste tarjetas dentro de pestañas  re ver futuro--- */
+ .propuestas-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+    padding: 10px;
+}
+
+/* --- Estilos para las cards de propuestas  re ver final para que quede mas flama
+--- */
 .propuesta-card {
     background: #fff;
     border-radius: 12px;
@@ -21,16 +52,17 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    transition: transform 0.2s ease-in-out;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
 .propuesta-card:hover {
-    transform: scale(1.02);
+    transform: translateY(-4px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
 }
 
 .propuesta-card img {
     width: 100%;
-    height: 160px;
+    height: 180px;
     object-fit: cover;
 }
 
@@ -42,9 +74,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 }
 
 .propuesta-card h5 {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     font-weight: bold;
     margin-bottom: 10px;
+    color: #333;
 }
 
 .propuesta-card p {
@@ -56,7 +89,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 .propuesta-card .info {
     font-size: 0.85rem;
     color: #333;
-    margin: 5px 0;
+    margin: 4px 0;
 }
 
 .propuesta-card .precio {
@@ -65,20 +98,93 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     font-size: 1rem;
     margin-top: 10px;
 }
-.categories-container {
-    max-height: 250px;
-    max-width: 150px;
-    overflow-y: auto;
-    border: 1px solid #ced4da;
-    border-radius: .375rem;
-    padding: .5rem;
+
+/* --- Colores personalizados por pestaña activa  ver mas tarde colorcito y pelotudeces--- */
+#INGRESADA-tab.active { color: #6c757d; }       /* gris */
+#PUBLICADA-tab.active { color: #0d6efd; }       /* azul */
+#EN_FINANCIACION-tab.active { color: #fd7e14; } /* naranja */
+#FINANCIADA-tab.active { color: #198754; }      /* verde */
+#NO_FINANCIADA-tab.active { color: #dc3545; }   /* rojo */
+#CANCELADA-tab.active { color: #6f42c1; }       /* violeta */
+
+    .nav-tabs { border-bottom: 2px solid #dee2e6; margin-top: 15px; }
+    .nav-tabs .nav-link {
+      border-radius: 8px 8px 0 0; margin-right: 5px;
+      background-color: #e9ecef; color: #495057; font-weight: 500;
+      transition: background-color .3s ease;
+    }
+    .nav-tabs .nav-link:hover { background-color: #dee2e6; color: #4A90E2; }
+    .nav-tabs .nav-link.active {
+      background-color: #fff; color: #4A90E2;
+      border-color: #dee2e6 #dee2e6 #fff; font-weight: bold;
+    }
+    .tab-content {
+      background: #fff; border: 1px solid #dee2e6; border-top: none;
+      border-radius: 0 0 12px 12px; padding: 20px; margin-bottom: 30px;
+    }
+    .tab-content .propuestas-container { padding: 10px; }
+  /* Contenedor de categorías */
+.categories {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
-.categorias .category-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: .25rem;
+
+/* Item categoría */
+.category {
+  margin-bottom: 10px;
 }
-.subcat {
-    margin-left: 20px;
+
+/* Header de categoría */
+.category-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  padding: 8px 10px;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+}
+
+.category-header:hover {
+  background-color: #f0f0f0;
+}
+
+.category-header a {
+  text-decoration: none;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Botón toggle */
+.toggle-subcategory {
+  border: none;
+  background: none;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 1;
+  cursor: pointer;
+  color: #4A90E2;
+}
+
+.toggle-subcategory:hover {
+  color: #0056b3;
+}
+
+/* Subcategorías */
+.subcategory {
+  list-style: none;
+  padding-left: 20px;
+  margin: 5px 0;
+}
+
+.subcategory li {
+  padding: 5px 0;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.subcategory li:hover {
+  color: #4A90E2;
+  text-decoration: underline;
 }
