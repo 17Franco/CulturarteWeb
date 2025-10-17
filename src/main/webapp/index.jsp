@@ -66,6 +66,8 @@
         
     <%
         boolean mostrarTabs = (Boolean) request.getAttribute("mostrarEstados");
+        List<DTOPropuesta> todasLasPropuestas = (List<DTOPropuesta>)request.getAttribute("propuestas");// trae las propuestas y abajo .size las cuenta guardandolas en Cantidad Propuestas
+        Integer cantidadPropuestas = todasLasPropuestas.size();
     %>
 
     <!-- Columna de contenido (derecha) -->
@@ -78,7 +80,7 @@
         estados.addAll(propuestasPorEstado.keySet());
         // estados.sort(Comparator.comparing(Estado::name));
       %>
-
+      <p> Total propuestas encontradas <%= cantidadPropuestas %></p>
       <!-- Pestañas -->
       <ul class="nav nav-tabs" id="estadoTabs" role="tablist">
         <%
@@ -110,7 +112,7 @@
                aria-labelledby="<%= estado.name() %>-tab">
             <div class="propuestas-container">
               <%
-                List<DTOPropuesta> lista = (propuestasPorEstado != null) ? propuestasPorEstado.get(estado) : null;
+                List<DTOPropuesta> lista = propuestasPorEstado.get(estado);
                 if (lista != null && !lista.isEmpty()) {
                   for (DTOPropuesta pro : lista) {
               %>
@@ -147,10 +149,10 @@
     </section>
     <section style="<%= mostrarTabs? "display:none" : ""%>">
         <div class="propuestas-container">
+            
               <%
-                List<DTOPropuesta> lista = (List<DTOPropuesta>)request.getAttribute("propuestas");
-                if (lista != null && !lista.isEmpty()) {
-                  for (DTOPropuesta pro : lista) {
+                if (todasLasPropuestas != null && !todasLasPropuestas.isEmpty()) {
+                  for (DTOPropuesta pro : todasLasPropuestas) {
               %>
                 <div class="propuesta-card">
                   <img src="<%= pro.getImagen() %>" alt="Imagen de <%= pro.getTitulo() %>">
