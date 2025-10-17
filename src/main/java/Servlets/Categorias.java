@@ -11,6 +11,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import logica.DTO.DTOCategoria;
@@ -28,8 +29,9 @@ public class Categorias extends HttpServlet {
         
         IController controller= Fabrica.getInstance().getController();
      
+        
        List<DTOCategoria> categorias = controller.getCategorias();
-       
+       categorias.sort(Comparator.comparing(DTOCategoria::getNombreCategoria));
         request.setAttribute("categorias", categorias);
         
         

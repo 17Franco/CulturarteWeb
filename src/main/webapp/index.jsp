@@ -1,115 +1,184 @@
-
-<%@page import="java.util.Set"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.Comparator"%>
+<%@page import="java.util.Arrays"%>
+<%@page import="java.util.Map"%>
+<%@page import="logica.DTO.Estado"%>
+<%@page import="java.util.List"%>
 <%@page import="logica.DTO.DTOPropuesta"%>
 <%@page import="logica.DTO.DTOCategoria"%>
-<%@page import="logica.Fabrica"%>
-<%@page import="logica.IController"%>
-<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>JSP Page</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Propuestas por Estado</title>
 
-    <link rel="stylesheet" href="cssBootstrap/bootstrap.min.css"/>
-    <link rel="stylesheet" href="CssPersonalizado/Styles.css"/>
-    <link rel="stylesheet" href="CssPersonalizado/propuestas.css"/>
-    <script src="jsBoostrap/bootstrap.bundle.min.js"></script>
-    <script src="JS/DespliegueSubCategorias.js" defer></script> 
+  <link rel="stylesheet" href="cssBootstrap/bootstrap.min.css"/>
+
+  <link rel="stylesheet" href="CssPersonalizado/Styles.css"/>
+  <link rel="stylesheet" href="CssPersonalizado/propuestas.css"/>
+
+  <script src="jsBoostrap/bootstrap.bundle.min.js"></script>
+
+  <script src="JS/DespliegueSubCategorias.js" defer></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Kite+One&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
 
-    <link href="https://fonts.googleapis.com/css2?family=Kite+One&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 
 <body class="bg-body-secondary">
-    <%@ include file="Componentes/Header.jsp" %>
+  <%@ include file="Componentes/Header.jsp" %>
 
-    <!-- Contenedor principal-->
-    <div class="main-container">
+  <div class="main-container">
+    <!-- se cargan las categorías en sidebar -->
     <jsp:include page="/Categorias" />
-        <!--jsp:include page="/Propuestas" />
-        <!-- Sidebar Categorías -->
-        <aside class="sidebar">
-            <nav>
-                <ul class="categories">
-                    <%
-                        List<DTOCategoria> categorias = (List<DTOCategoria>) request.getAttribute("categorias");
-                        if (categorias != null) {
-                            for(DTOCategoria cat : categorias) {
-                    %>
-                        <li class="category">
-                            <div class="category-header">
-                                <a href="#"><%= cat.getNombreCategoria() %></a>
-                                <button class="toggle-subcategory">+</button>
-                            </div>
-                            <ul class="subcategory" hidden>
-                                <% for(DTOCategoria sub: cat.getSubcategorias()){ %>
-                                    <li class="propuesta" data-id="<%= sub.getNombreCategoria() %>"><%= sub.getNombreCategoria() %></li>
-                                <% } %>
-                            </ul>
-                        </li>
-                    <% } } else { %>
-                        <li>No hay categorías cargadas</li>
-                    <% } %>
-                </ul>
-            </nav>
-        </aside>
 
-        <!-- Contenedor de Propuestas -->
-        <div class="propuestas-container">
-            <%
-                Set<DTOPropuesta> propuestas = (Set<DTOPropuesta>) request.getAttribute("propuestas");
-                if (propuestas != null && !propuestas.isEmpty()) {
-                    for (DTOPropuesta pro : propuestas) {
-            %>
-                <div class="propuesta-card">
-                    
-                    
-                    <img src="Img?ruta=<%= pro.getImagen() %>" alt="Imagen de <%= pro.getTitulo() %>">
-                    
-                    <!-- he probado varias cosas todavia no doy con trareme las malditas imagenes
-                    <img src="http://servidor-central/IMG/<%= pro.getImagen() %>" alt="Imagen de <%= pro.getTitulo() %>">-->
-
-                    <div class="card-body">
-                        <h5><%= pro.getTitulo() %></h5>
-                        <p><%= pro.getDescripcion() %></p>
-                        <div class="info"><b>Lugar:</b> <%= pro.getLugar() %></div>
-                        <div class="info"><b>Fecha:</b> <%= pro.getFecha() %></div>
-                        <div class="precio">Precio: $<%= pro.getPrecio() %></div>
-                        <div class="info"><b>Monto Total:</b> $<%= pro.getMontoTotal() %></div>
-                        <div class="info"><b>Publicada:</b> <%= pro.getFechaPublicacion() %></div>
-                        <!-- Redireccionar a mosrtar propuestas-->
-                        <a 
-                            href="${pageContext.request.contextPath}/DetallesDePropuesta?id=<%= pro.getTitulo()%>" 
-                            class="btn btn-primary mt-2">
-                            Ver detalles
-                        </a>
-                    </div>
+    <!--  aca comeinya el  Sidebar -->
+    <aside class="sidebar">
+      <nav>
+        <ul class="categories">
+          <%
+            List<DTOCategoria> categorias = (List<DTOCategoria>) request.getAttribute("categorias");
+            if (categorias != null) {
+              for (DTOCategoria cat : categorias) {
+          %>
+            <li class="category">
+                <div class="category-header">
+                  <a href="#"><%= cat.getNombreCategoria() %></a>
+                  <button class="toggle-subcategory">+</button>
                 </div>
-            <%
-                    }
-                } else {
-            %>
-                <p>No hay propuestas disponibles.</p>
-            <%
-                }
-            %>
-        </div>
+                <ul class="subcategory" hidden>
+                  <% for (DTOCategoria sub : cat.getSubcategorias()) { %>
+                    <li class="propuesta" data-id="<%= sub.getNombreCategoria() %>">
+                      <%= sub.getNombreCategoria() %>
+                    </li>
+                  <% } %>
+                </ul>
+            </li>
+          <% } } else { %>
+            <li>No hay categorías cargadas</li>
+          <% } %>
+        </ul>
+      </nav>
+    </aside>
+        
+    <%
+        boolean mostrarTabs = (Boolean) request.getAttribute("mostrarEstados");
+    %>
 
+    <!-- Columna de contenido (derecha) -->
+    <section style="<%= mostrarTabs? "" : "display:none"%>">
+      <%
+        Map<Estado, List<DTOPropuesta>> propuestasPorEstado =
+            (Map<Estado, List<DTOPropuesta>>) request.getAttribute("propuestasPorEstado");
+
+        List<Estado> estados = new ArrayList<>();
+        estados.addAll(propuestasPorEstado.keySet());
+        // estados.sort(Comparator.comparing(Estado::name));
+      %>
+
+      <!-- Pestañas -->
+      <ul class="nav nav-tabs" id="estadoTabs" role="tablist">
+        <%
+          for (Estado estado : estados) {
+              boolean isActive = (estado == estados.get(0));
+        %>
+          <li class="nav-item">
+            <button class="nav-link <%= isActive ? "active" : "" %>"
+                    id="<%= estado %>-tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#<%= estado %>"
+                    type="button">
+              <%= estado.name() %>
+            </button>
+          </li>
+        <%
+          }
+        %>
+      </ul>
+
+      <!-- Contenido de pestañas -->
+      <div class="tab-content mt-3" id="estadoTabsContent">
+        <%
+          for (Estado estado : estados) {
+            boolean isActive = (estado == estados.get(0));
+        %>
+          <div class="tab-pane fade <%= isActive ? "show active" : "" %>"
+               id="<%= estado.name() %>" role="tabpanel"
+               aria-labelledby="<%= estado.name() %>-tab">
+            <div class="propuestas-container">
+              <%
+                List<DTOPropuesta> lista = (propuestasPorEstado != null) ? propuestasPorEstado.get(estado) : null;
+                if (lista != null && !lista.isEmpty()) {
+                  for (DTOPropuesta pro : lista) {
+              %>
+                <div class="propuesta-card">
+                  <img src="<%= pro.getImagen() %>" alt="Imagen de <%= pro.getTitulo() %>">
+                  <div class="card-body">
+                    <h5 class="card-title"><%= pro.getTitulo() %></h5>
+                    <p><%= pro.getDescripcion() %></p>
+                    <div class="info"><b>Lugar:</b> <%= pro.getLugar() %></div>
+                    <div class="info"><b>Fecha:</b> <%= pro.getFecha() %></div>
+                    <div class="precio">Precio: $<%= pro.getPrecio() %></div>
+                    <div class="info"><b>Monto Total:</b> $<%= pro.getMontoTotal() %></div>
+                    <div class="info"><b>Publicada:</b> <%= pro.getFechaPublicacion() %></div>
+
+                    <a href="${pageContext.request.contextPath}/DetallesDePropuesta?id=<%= pro.getTitulo() %>"
+                       class="btn btn-primary mt-2">Ver detalles</a>
+                  </div>
+                </div>
+              <%
+                  }
+                } else {
+              %>
+                <p>No hay propuestas en este estado.</p>
+              <%
+                }
+              %>
+            </div>
+          </div>
+        <%
+          } // fin for estados
+        %>
+      </div>
+
+    </section>
+    <section style="<%= mostrarTabs? "display:none" : ""%>">
+        <div class="propuestas-container">
+              <%
+                List<DTOPropuesta> lista = (List<DTOPropuesta>)request.getAttribute("propuestas");
+                if (lista != null && !lista.isEmpty()) {
+                  for (DTOPropuesta pro : lista) {
+              %>
+                <div class="propuesta-card">
+                  <img src="<%= pro.getImagen() %>" alt="Imagen de <%= pro.getTitulo() %>">
+                  <div class="card-body">
+                    <h5 class="card-title"><%= pro.getTitulo() %></h5>
+                    <p><%= pro.getDescripcion() %></p>
+                    <div class="info"><b>Lugar:</b> <%= pro.getLugar() %></div>
+                    <div class="info"><b>Fecha:</b> <%= pro.getFecha() %></div>
+                    <div class="precio">Precio: $<%= pro.getPrecio() %></div>
+                    <div class="info"><b>Monto Total:</b> $<%= pro.getMontoTotal() %></div>
+                    <div class="info"><b>Publicada:</b> <%= pro.getFechaPublicacion() %></div>
+
+                    <a href="${pageContext.request.contextPath}/DetallesDePropuesta?id=<%= pro.getTitulo() %>"
+                       class="btn btn-primary mt-2">Ver detalles</a>
+                  </div>
+                </div>
+              <%
+                  }
+                } else {
+              %>
+                <p>No hay propuestas.</p>
+              <%
+                }
+              %>
+            </div>
+        </section>
     </div>
 
-<script>
-  document.querySelectorAll('.propuesta').forEach(item => {
-    item.addEventListener('click', () => {
-      const id = item.getAttribute('data-id');
-
-      // Enviamos el id al servlet /propuestas como query param
-     window.location.href = "${pageContext.request.contextPath}/Propuestas?Subcategoria=" + encodeURIComponent(id);
-    });
-  });
-</script>
-
+ 
 </body>
 </html>

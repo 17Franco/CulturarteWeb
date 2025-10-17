@@ -1,16 +1,35 @@
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
     <div class="container-fluid">
-        <a class="navbar-brand" href="index.jsp">Culturarte</a>
+        <a class="navbar-brand" href="/Lab2PA/">Culturarte</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse "id="navbarSupportedContent">
-            <form class="d-flex mx-auto w-50"  role="search">
-                <input class="form-control  me-2 text-white" id="search" style="background-color:#4A90E2" type="search" placeholder="Título, descripción, lugar" aria-label="Search"/>
-                <button class="btn text-white" style="background-color:#4A90E2" type="submit">Search</button>
-            </form>
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0" id="ListNav">
+          <form class="d-flex mx-auto w-50" role="search" action="Buscador" method="get">
+                <input 
+                    class="form-control me-2 text-white" 
+                    id="search" 
+                    name="filtro" 
+                    style="background-color:#4A90E2" 
+                    type="search" 
+                    placeholder="Título, descripción, lugar" 
+                    aria-label="Search"
+                />
+                
+                <div class="form-check form-check-inline ms-2">
+                    <input class="form-check-input" type="radio" name="orden" id="radioTitulo" value="titulo" checked>
+                    <label class="form-check-label" for="radioTitulo">titulo</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="orden" id="radioFecha" value="fecha">
+                    <label class="form-check-label" for="radioFecha">Fecha</label>
+                </div>
+                
+                <button class="btn text-white" style="background-color:#4A90E2" type="submit">
+                    Buscar
+                </button>
+            </form>            <ul class="navbar-nav ms-auto mb-2 mb-lg-0" id="ListNav">
                 <!-- Aca empiezo a controlar que muestro segun si esta logueado o no  -->
 
                 <!-- primero sino esta logueado en el nav quiero mostra el acceso a login/regisrto  -->

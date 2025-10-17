@@ -24,3 +24,28 @@
             }
         });
     });
+     document.querySelectorAll('.propuesta').forEach(function(item) {
+      item.addEventListener('click', function() {
+        const id = item.getAttribute('data-id');
+        window.location.href = "/Lab2PA/Buscador?categoria=" + encodeURIComponent(id);
+      });
+    });
+
+    // Fallback si Bootstrap JS no cargó (asegura tabs funcionales)
+    document.addEventListener('DOMContentLoaded', function() {
+      var hasBootstrap = !!window.bootstrap && !!bootstrap.Tab;
+      if (!hasBootstrap) {
+        document.querySelectorAll('#estadoTabs .nav-link').forEach(function(btn) {
+          btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            // activar botón
+            document.querySelectorAll('#estadoTabs .nav-link').forEach(function(x){ x.classList.remove('active'); });
+            btn.classList.add('active');
+            // mostrar pane
+            document.querySelectorAll('#estadoTabsContent .tab-pane').forEach(function(p){ p.classList.remove('show','active'); });
+            var target = document.querySelector(btn.getAttribute('data-bs-target'));
+            if (target) { target.classList.add('show','active'); }
+          });
+        });
+      }
+    });
