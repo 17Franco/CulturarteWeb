@@ -19,7 +19,7 @@
                 
                 <div class="form-check form-check-inline ms-2">
                     <input class="form-check-input" type="radio" name="orden" id="radioTitulo" value="titulo" checked>
-                    <label class="form-check-label" for="radioTitulo">titulo</label>
+                    <label class="form-check-label" for="radioTitulo">A/Z</label>
                 </div>
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="orden" id="radioFecha" value="fecha">
