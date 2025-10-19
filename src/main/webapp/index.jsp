@@ -124,8 +124,7 @@
                     <div class="info"><b>Lugar:</b> <%= pro.getLugar() %></div>
                     <div class="info"><b>Fecha:</b> <%= pro.getFecha() %></div>
                     <div class="precio">Precio: $<%= pro.getPrecio() %></div>
-                    <div class="info"><b>Monto Total:</b> $<%= pro.getMontoTotal() %></div>
-                    <div class="info"><b>Publicada:</b> <%= pro.getFechaPublicacion() %></div>
+             
 
                     <a href="${pageContext.request.contextPath}/DetallesDePropuesta?id=<%= pro.getTitulo() %>"
                        class="btn btn-primary mt-2">Ver detalles</a>
@@ -162,8 +161,7 @@
                     <div class="info"><b>Lugar:</b> <%= pro.getLugar() %></div>
                     <div class="info"><b>Fecha:</b> <%= pro.getFecha() %></div>
                     <div class="precio">Precio: $<%= pro.getPrecio() %></div>
-                    <div class="info"><b>Monto Total:</b> $<%= pro.getMontoTotal() %></div>
-                    <div class="info"><b>Publicada:</b> <%= pro.getFechaPublicacion() %></div>
+                    
 
                     <a href="${pageContext.request.contextPath}/DetallesDePropuesta?id=<%= pro.getTitulo() %>"
                        class="btn btn-primary mt-2">Ver detalles</a>

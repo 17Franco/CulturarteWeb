@@ -31,7 +31,6 @@
       });
     });
 
-    // Fallback si Bootstrap JS no cargó (asegura tabs funcionales)
     document.addEventListener('DOMContentLoaded', function() {
       var hasBootstrap = !!window.bootstrap && !!bootstrap.Tab;
       if (!hasBootstrap) {
