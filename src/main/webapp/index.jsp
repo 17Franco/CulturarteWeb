@@ -70,6 +70,10 @@
         Integer cantidadPropuestas = todasLasPropuestas.size();
     %>
 
+    <%
+String filtro = request.getParameter("filtro");
+if (filtro == null) filtro = "";
+%>
     <!-- Columna de contenido (derecha) -->
     <section style="<%= mostrarTabs? "" : "display:none"%>">
       <%
@@ -120,7 +124,17 @@
                   <img src="<%= pro.getImagen() %>" alt="Imagen de <%= pro.getTitulo() %>">
                   <div class="card-body">
                     <h5 class="card-title"><%= pro.getTitulo() %></h5>
-                    <p><%= pro.getDescripcion() %></p>
+                    <p>
+                    <%
+                    String descripcion = pro.getDescripcion();
+                    if (!filtro.isEmpty()) {
+                        // Escapa caracteres especiales para regex
+                        String regex = "(?i)(" + filtro.replaceAll("([\\\\*+\\[\\](){}\\$.?\\^|])", "\\\\$1") + ")";
+                        descripcion = descripcion.replaceAll(regex, "<span class='highlight'>$1</span>");
+                    }
+                    out.print(descripcion);
+                    %>
+                    </p>                   
                     <div class="info"><b>Lugar:</b> <%= pro.getLugar() %></div>
                     <div class="info"><b>Fecha:</b> <%= pro.getFecha() %></div>
                     <div class="precio"><b>Precio:$</b> <%= pro.getPrecio() %></div>

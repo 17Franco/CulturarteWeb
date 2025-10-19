@@ -297,3 +297,6 @@ a, h2, label {
     display: inline-block;
     position: relative;
 }
+.highlight {
+    background-color: #B3E5FC; /* celeste claro */
+}
