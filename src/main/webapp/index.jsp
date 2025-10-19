@@ -123,7 +123,8 @@
                     <p><%= pro.getDescripcion() %></p>
                     <div class="info"><b>Lugar:</b> <%= pro.getLugar() %></div>
                     <div class="info"><b>Fecha:</b> <%= pro.getFecha() %></div>
-                    <div class="precio">Precio: $<%= pro.getPrecio() %></div>
+                    <div class="precio"><b>Precio:$</b> <%= pro.getPrecio() %></div>
+
              
 
                     <a href="${pageContext.request.contextPath}/DetallesDePropuesta?id=<%= pro.getTitulo() %>"
@@ -160,7 +161,7 @@
                     <p><%= pro.getDescripcion() %></p>
                     <div class="info"><b>Lugar:</b> <%= pro.getLugar() %></div>
                     <div class="info"><b>Fecha:</b> <%= pro.getFecha() %></div>
-                    <div class="precio">Precio: $<%= pro.getPrecio() %></div>
+                    <div class="precio"><b>Precio:$</b><%= pro.getPrecio() %></div>
                     
 
                     <a href="${pageContext.request.contextPath}/DetallesDePropuesta?id=<%= pro.getTitulo() %>"
