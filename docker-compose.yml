@@ -16,7 +16,7 @@ services:
       - "8080:8080"
     volumes:
       #volumen para acceder a la carpeta IMG
-      - /home/fran/Escritorio/Lab2PA/IMG:/IMG
+      - /home/tecnologo/CulturarteEquipo7/CulturarteWeb/IMG:/IMG
       #Servicio de BD
   dbculturarteWeb:
     # el mysql que va a contener el contenedor

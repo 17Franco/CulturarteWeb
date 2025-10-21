@@ -37,6 +37,10 @@
 
     <!--  aca comeinya el  Sidebar -->
     <aside class="sidebar">
+        
+    <script>
+        const contextPath = '<%= request.getContextPath() %>';
+    </script> 
       <nav>
         <ul class="categories">
           <%
@@ -63,7 +67,7 @@
         </ul>
       </nav>
     </aside>
-        
+       
     <%
         boolean mostrarTabs = (Boolean) request.getAttribute("mostrarEstados");
         List<DTOPropuesta> todasLasPropuestas = (List<DTOPropuesta>)request.getAttribute("propuestas");// trae las propuestas y abajo .size las cuenta guardandolas en Cantidad Propuestas
@@ -84,6 +88,7 @@ if (filtro == null) filtro = "";
         estados.addAll(propuestasPorEstado.keySet());
         // estados.sort(Comparator.comparing(Estado::name));
       %>
+      
       <p> Total propuestas encontradas <%= cantidadPropuestas %></p>
       <!-- Pestañas -->
       <ul class="nav nav-tabs" id="estadoTabs" role="tablist">
