@@ -121,7 +121,12 @@ if (filtro == null) filtro = "";
                   for (DTOPropuesta pro : lista) {
               %>
                 <div class="propuesta-card">
-                  <img src="<%= pro.getImagen() %>" alt="Imagen de <%= pro.getTitulo() %>">
+                    <%if(pro.getImagen()!=null && !"".equals(pro.getImagen())){%>
+                        <img src="Img?ruta=<%= pro.getImagen() %>" alt="Imagen de <%= pro.getTitulo() %>">
+                    <%}else{ %>
+                    <!--le agrego una img generica si no tiene imagen -->
+                        <img class="propuesta-img" src="https://alunarte.com/wp-content/uploads/2017/07/la-propuesta.png" alt="Imagen de propuesta>">
+                    <%}%>
                   <div class="card-body">
                     <h5 class="card-title"><%= pro.getTitulo() %></h5>
                     <p>
@@ -168,8 +173,13 @@ if (filtro == null) filtro = "";
                 if (todasLasPropuestas != null && !todasLasPropuestas.isEmpty()) {
                   for (DTOPropuesta pro : todasLasPropuestas) {
               %>
-                <div class="propuesta-card">
-                  <img src="<%= pro.getImagen() %>" alt="Imagen de <%= pro.getTitulo() %>">
+                    <div class="propuesta-card">
+                    <%if(pro.getImagen()!=null && !"".equals(pro.getImagen())){%>
+                        <img src="Img?ruta=<%= pro.getImagen() %>" alt="Imagen de <%= pro.getTitulo() %>">
+                    <%}else{ %>
+                    <!--le agrego una img generica si no tiene imagen -->
+                        <img class="propuesta-img" src="https://alunarte.com/wp-content/uploads/2017/07/la-propuesta.png" alt="Imagen de propuesta>">
+                    <%}%>
                   <div class="card-body">
                     <h5 class="card-title"><%= pro.getTitulo() %></h5>
                     <p><%= pro.getDescripcion() %></p>
