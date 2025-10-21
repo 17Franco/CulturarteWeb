@@ -60,7 +60,8 @@ public class DetallesDePropuestaServlet extends HttpServlet
             DTOPropuesta propuestaSel = controller.getPropuestaDTO(titulo);
             String estado = propuestaSel.getUltimoEstado().getEstado().toString();
 
-            if (propuestaSel != null) {
+            if (propuestaSel != null) 
+            {
                 esFavorita = controller.esFavorita(nickUsr, propuestaSel.getTitulo());
             }
 
@@ -75,7 +76,13 @@ public class DetallesDePropuestaServlet extends HttpServlet
                 {
                     permisos = 0;   //Le quito el permiso de colaborar, lo dejo por si más adelante se agrega que puede o algo así.
                 }
+                
+                if(estado.equals("CANCELADA"))
+                {
+                    permisos = 0;   //quito permisos a cualquier usuario que por alguna razón pueda acceder a una propuesta con estado "CANCELADA"
+                }
             }
+            
             estado = Estado.formateoEstado(estado); //Se formatea el estado para ser mostrado en la propuesta
 
             if (propuestaSel != null && sesionActual != null)                       //Si no pasó nada raro se envían datos para que puedan ser mostrados.
