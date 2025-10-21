@@ -201,7 +201,7 @@
                         
                     } 
                     //Si el usuario es el proponente
-                    if(permisos == 1 && !propuesta.getUltimoEstado().getEstadoString().equals("CANCELADA"))
+                    if(permisos == 1 && !propuesta.getUltimoEstado().getEstadoString().equals("CANCELADA") && !propuesta.getUltimoEstado().getEstadoString().equals("NO_FINANCIADA"))
                     {
                 %>
                         <div class="col-md-6"> 
@@ -213,10 +213,15 @@
                                     
                                     <input type="hidden" name="tituloPropuesta" value="<%= propuesta.getTitulo()%>">
                                     <input type="hidden" name="accion" id="accionProponente">
+                                   <% if(propuesta.getUltimoEstado().getEstadoString().equals("PUBLICADA") || propuesta.getUltimoEstado().getEstadoString().equals("EN_FINANCIACION")) 
+                                       { %>
+                                            <button type="submit" class="btn btn-success w-100 mb-2" onclick="document.getElementById('accionProponente').value='EXTENDER';"> Extender Financiación </button>
+                                    <%}
 
-                                    <button type="submit" class="btn btn-success w-100 mb-2" onclick="document.getElementById('accionProponente').value='EXTENDER';"> Extender Financiación </button>
-                                    <button type="submit" class="btn btn-danger w-100" onclick="document.getElementById('accionProponente').value='CANCELAR';"> Cancelar Propuesta </button>
-                                
+                                      if(propuesta.getUltimoEstado().getEstadoString().equals("FINANCIADA")) 
+                                      {%>
+                                            <button type="submit" class="btn btn-danger w-100" onclick="document.getElementById('accionProponente').value='CANCELAR';"> Cancelar Propuesta </button>
+                                    <%}%>
                                 </form>
                                     
                         </div>
