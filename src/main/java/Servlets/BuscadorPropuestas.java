@@ -74,8 +74,8 @@ public class BuscadorPropuestas extends HttpServlet {
         return propuestas;        
     }
     
-    private List<DTOPropuesta> buscarPorFiltro(String filtro) {
+    private List<DTOPropuesta> buscarPorFiltro(String filtro) {// devuelve una lista de objetos propuesta (List<DTOPropuesta) y busca por filtro(string) propuesta
         IController controller = Fabrica.getInstance().getController();
-        return controller.BuscarPropuestas(filtro);        
+        return controller.BuscarPropuestas(filtro);   //del controller llama a al metodo BuscarPropuesta( segun filtro filtro)     y devuelve esa lista 
     }
 }

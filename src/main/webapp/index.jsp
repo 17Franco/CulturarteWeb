@@ -66,8 +66,14 @@
         
     <%
         boolean mostrarTabs = (Boolean) request.getAttribute("mostrarEstados");
+        List<DTOPropuesta> todasLasPropuestas = (List<DTOPropuesta>)request.getAttribute("propuestas");// trae las propuestas y abajo .size las cuenta guardandolas en Cantidad Propuestas
+        Integer cantidadPropuestas = todasLasPropuestas.size();
     %>
 
+    <%
+String filtro = request.getParameter("filtro");
+if (filtro == null) filtro = "";
+%>
     <!-- Columna de contenido (derecha) -->
     <section style="<%= mostrarTabs? "" : "display:none"%>">
       <%
@@ -78,7 +84,7 @@
         estados.addAll(propuestasPorEstado.keySet());
         // estados.sort(Comparator.comparing(Estado::name));
       %>
-
+      <p> Total propuestas encontradas <%= cantidadPropuestas %></p>
       <!-- Pestañas -->
       <ul class="nav nav-tabs" id="estadoTabs" role="tablist">
         <%
@@ -110,7 +116,7 @@
                aria-labelledby="<%= estado.name() %>-tab">
             <div class="propuestas-container">
               <%
-                List<DTOPropuesta> lista = (propuestasPorEstado != null) ? propuestasPorEstado.get(estado) : null;
+                List<DTOPropuesta> lista = propuestasPorEstado.get(estado);
                 if (lista != null && !lista.isEmpty()) {
                   for (DTOPropuesta pro : lista) {
               %>
@@ -118,12 +124,22 @@
                   <img src="<%= pro.getImagen() %>" alt="Imagen de <%= pro.getTitulo() %>">
                   <div class="card-body">
                     <h5 class="card-title"><%= pro.getTitulo() %></h5>
-                    <p><%= pro.getDescripcion() %></p>
+                    <p>
+                    <%
+                    String descripcion = pro.getDescripcion();
+                    if (!filtro.isEmpty()) {
+                        // Escapa caracteres especiales para regex
+                        String regex = "(?i)(" + filtro.replaceAll("([\\\\*+\\[\\](){}\\$.?\\^|])", "\\\\$1") + ")";
+                        descripcion = descripcion.replaceAll(regex, "<span class='highlight'>$1</span>");
+                    }
+                    out.print(descripcion);
+                    %>
+                    </p>                   
                     <div class="info"><b>Lugar:</b> <%= pro.getLugar() %></div>
                     <div class="info"><b>Fecha:</b> <%= pro.getFecha() %></div>
-                    <div class="precio">Precio: $<%= pro.getPrecio() %></div>
-                    <div class="info"><b>Monto Total:</b> $<%= pro.getMontoTotal() %></div>
-                    <div class="info"><b>Publicada:</b> <%= pro.getFechaPublicacion() %></div>
+                    <div class="precio"><b>Precio:$</b> <%= pro.getPrecio() %></div>
+
+             
 
                     <a href="${pageContext.request.contextPath}/DetallesDePropuesta?id=<%= pro.getTitulo() %>"
                        class="btn btn-primary mt-2">Ver detalles</a>
@@ -147,10 +163,10 @@
     </section>
     <section style="<%= mostrarTabs? "display:none" : ""%>">
         <div class="propuestas-container">
+            
               <%
-                List<DTOPropuesta> lista = (List<DTOPropuesta>)request.getAttribute("propuestas");
-                if (lista != null && !lista.isEmpty()) {
-                  for (DTOPropuesta pro : lista) {
+                if (todasLasPropuestas != null && !todasLasPropuestas.isEmpty()) {
+                  for (DTOPropuesta pro : todasLasPropuestas) {
               %>
                 <div class="propuesta-card">
                   <img src="<%= pro.getImagen() %>" alt="Imagen de <%= pro.getTitulo() %>">
@@ -159,9 +175,8 @@
                     <p><%= pro.getDescripcion() %></p>
                     <div class="info"><b>Lugar:</b> <%= pro.getLugar() %></div>
                     <div class="info"><b>Fecha:</b> <%= pro.getFecha() %></div>
-                    <div class="precio">Precio: $<%= pro.getPrecio() %></div>
-                    <div class="info"><b>Monto Total:</b> $<%= pro.getMontoTotal() %></div>
-                    <div class="info"><b>Publicada:</b> <%= pro.getFechaPublicacion() %></div>
+                    <div class="precio"><b>Precio:$</b><%= pro.getPrecio() %></div>
+                    
 
                     <a href="${pageContext.request.contextPath}/DetallesDePropuesta?id=<%= pro.getTitulo() %>"
                        class="btn btn-primary mt-2">Ver detalles</a>
