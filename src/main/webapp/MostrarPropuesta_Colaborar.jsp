@@ -103,12 +103,14 @@
                     <%
                          if (propuesta.getImagen() != null && !propuesta.getImagen().isEmpty()) 
                     {%>    
-                            <img src="Img?ruta=<%= propuesta.getImagen()%>" class="img-fluid rounded shadow mb-3" alt="Imagen Propuesta">
+                       <!-- <img src="Img?ruta=<%= propuesta.getImagen()%>" class="img-fluid rounded shadow mb-3" alt="Imagen Propuesta">  --> 
+                            <img class="propuesta-img" src="https://alunarte.com/wp-content/uploads/2017/07/la-propuesta.png" alt="Imagen Propuesta">
                     <%  } 
                         else 
                         { 
-                    %>
-                            <img src="imagenes/default-propuesta.png" class="img-fluid rounded shadow mb-3" alt="Sin Imagen">
+                    %> 
+                            <!--  <img src="imagenes/default-propuesta.png" class="img-fluid rounded shadow mb-3" alt="Sin Imagen">  --> 
+                            <img class="propuesta-img" src="https://alunarte.com/wp-content/uploads/2017/07/la-propuesta.png" alt="Imagen Propuesta">
                     <% 
                         }
                     %>
