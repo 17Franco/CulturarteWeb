@@ -54,6 +54,14 @@
                         <body>
                         <div class="alert alert-success">
                         <i class="bi bi-check-circle"></i> Usted ha <%=accionEfectuada%> la propuesta exitosamente.
+                        <%
+                            if (accionEfectuada.equals("cancelado")) 
+                            {
+                        %>
+                                <br>Será redirigido a la página principal en 5 segundos.
+                        <%
+                            }
+                        %>
                         </div>
                         </body>
 
@@ -73,7 +81,7 @@
 
                     <div class="card shadow-lg p-4">
                     <%
-                    if (tipoUsuario != null) 
+                    if (tipoUsuario != null && !(propuesta.getUltimoEstado().getEstadoString().equals("CANCELADA"))) 
                     {%> 
                         <div class="ms-auto">
                             <button 
@@ -156,13 +164,17 @@
                             
                             <h4 class="mb-3">Colaborar</h4>
                             <form action="DetallesDePropuesta" method="post">
+                                
                                 <input type="hidden" name="tituloPropuesta" value="<%= propuesta.getTitulo()%>">
                                 <input type="hidden" name="accion" value="COLABORAR">
+                                
                                 <div class="mb-3">
                                     <label for="monto" class="form-label">Monto</label>
                                     <input type="number" class="form-control" id="monto" name="monto" min="1" required>
                                 </div>
+                                
                                 <div class="mb-3">
+                                    
                                     <label for="tipoRetorno" class="form-label">Tipo de retorno</label>
                                    
                                     <select class="form-select" id="tipoRetorno" name="tipoRetorno" required>
@@ -196,9 +208,8 @@
                         <div class="card p-3 shadow-sm">
                                 
                                 <h4 class="mb-3">Acciones del Proponente</h4>
-                                <form 
-                                    
-                                    action="DetallesDePropuesta" method="post" id="formProponente">
+                                
+                                <form action="DetallesDePropuesta" method="post" id="formProponente">
                                     
                                     <input type="hidden" name="tituloPropuesta" value="<%= propuesta.getTitulo()%>">
                                     <input type="hidden" name="accion" id="accionProponente">
@@ -207,10 +218,20 @@
                                     <button type="submit" class="btn btn-danger w-100" onclick="document.getElementById('accionProponente').value='CANCELAR';"> Cancelar Propuesta </button>
                                 
                                 </form>
+                                    
                         </div>
                         </div>
                 <% 
-                    } 
+                    }
+                    //Si la propuesta está cancelada evito que user haga alguna acción
+                    if(propuesta.getUltimoEstado().getEstadoString().equals("CANCELADA"))
+                    { 
+                        %>
+                            <div class="col-md-6">
+                            <div class="alert alert-danger">Esta propuesta está cancelada.</div>
+                            </div>
+                        <% 
+                    }        
                 %>    
                 </div>
                 </div>
@@ -298,12 +319,16 @@
         
 
     </body>
-                    <%if("cancelado".equals(accionEfectuada)){%>
-                        <script>
-                            setTimeout(function() 
-                            {window.location.href = 'index.jsp';}, 2000);
-                        </script>
-                   <%}%>
+                    <%
+                        if("cancelado".equals(accionEfectuada))
+                        {
+                            %>
+                                <script>
+                                    setTimeout(function(){window.location.href = 'index.jsp';}, 5000);
+                                </script>
+                            <%
+                        }
+                    %>
 
     
 </html>
