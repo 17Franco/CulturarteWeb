@@ -1,20 +1,19 @@
 async function BajaColaboracion(objetivo,tarjetaPadre) {
-
-    
-      
+ 
     try {   
         
-        console.log(contextPath);
+       console.log(objetivo);
+       
        let resp = await fetch(contextPath +"/bajaColaboracion?id=" + encodeURIComponent(objetivo), {
-    method: 'DELETE'});
+        method: 'DELETE'});
             
 
         let data = await resp.json(); 
         //console.log(data.resp);
-        
+        //if (!resp.ok) throw new Error(`HTTP error! status: ${resp.status}`);
         if (data.resp) {
-            location.reload();
-            //contenedorTarjetas.removeChild(tarjetaPadre ); 
+            //location.reload();
+            tarjetaPadre.remove();
            
         } else {
            console.log("nada");

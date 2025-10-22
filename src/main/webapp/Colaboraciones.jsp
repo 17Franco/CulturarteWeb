@@ -50,7 +50,7 @@
                             <p><strong>Retorno Elegido</strong> <%=colab.getTipoRetorno().toString()%></p>
                             <a href="${pageContext.request.contextPath}/DetallesDePropuesta?id=<%= colab.getPropuesta() %>" class="btn btn-primary">Ver Detalle</a>
                             <%if(session.getAttribute("logueado")!=null && UsuarioLogueado.equals(colab.getColaborador() )){%>
-                                <a href="" class="btn btn-primary accion">Eliminar</a>
+                                <button class="btn btn-primary accion">Eliminar</button>
                             <%}%>
                         </div>
 

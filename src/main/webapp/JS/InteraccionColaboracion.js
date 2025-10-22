@@ -8,7 +8,7 @@ contenedorTarjetas.addEventListener("click", (event)=>{
     console.log(botonClickeado);
     
     if (botonClickeado) {//si existe 
-        event.preventDefault();         
+        //event.preventDefault();         
         //esto es para obtener el contenedor padre del boton clikeado y extraer el data-objetivo osea el nick 
         const tarjetaPadre = botonClickeado.closest('.tarjeta-propuesta-horizontal');//aca objeto
         console.log(tarjetaPadre);

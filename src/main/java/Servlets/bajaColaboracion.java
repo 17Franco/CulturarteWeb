@@ -28,7 +28,7 @@ public class bajaColaboracion extends HttpServlet {
             IController controller= Fabrica.getInstance().getController();
             String id = request.getParameter("id");
             try {
-                controller.CancelarColaboracion(Long.parseLong(id));
+                controller.CancelarColaboracion(Long.valueOf(id));
                 
                 response.getWriter().write("{\"resp\": " + true + "}");
             }catch(Exception e){
@@ -41,7 +41,6 @@ public class bajaColaboracion extends HttpServlet {
 
     protected void doDelete(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         processRequest(request, response);
     }
    
