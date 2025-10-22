@@ -27,7 +27,7 @@
      document.querySelectorAll('.propuesta').forEach(function(item) {
       item.addEventListener('click', function() {
         const id = item.getAttribute('data-id');
-        window.location.href = "/Lab2PA/Buscador?categoria=" + encodeURIComponent(id);
+        window.location.href = contextPath + "/Buscador?categoria=" + encodeURIComponent(id);
       });
     });
 

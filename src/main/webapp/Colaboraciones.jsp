@@ -19,17 +19,19 @@
         <div class="main-container">
        
         <%@ include file="Componentes/NavPerfilUsuario.jsp" %>
-        
+            <script>
+             const contextPath = '<%= request.getContextPath() %>';
+            </script>
             <%
             //me Traigo de la request el dto
             List<DTOColaboracion> c = (List<DTOColaboracion>) request.getAttribute("Colaboraciones");
             
             %>
-            <div class="propuestas-contenedor">
+            <div class="propuestas-contenedor" id="conteneedor_Colaboracion">
                 <%for(DTOColaboracion colab:c){%>
                     <!--si estoy en sesion invitado o veo el perfil de otro usuario solo puedo ver las que no son ingresada-->
                     
-                    <div class="tarjeta-propuesta-horizontal"> 
+                    <div class="tarjeta-propuesta-horizontal" data-objetivo="<%= colab.getId()%>"> 
 
                         <div class="imagen-area">
                             <%if(colab.getImgDePropuesta()!=null && !"".equals(colab.getImgDePropuesta())){%>
@@ -47,6 +49,9 @@
                             <p><strong>Fecha Realizada</strong> <%=colab.getCreado() %></p>
                             <p><strong>Retorno Elegido</strong> <%=colab.getTipoRetorno().toString()%></p>
                             <a href="${pageContext.request.contextPath}/DetallesDePropuesta?id=<%= colab.getPropuesta() %>" class="btn btn-primary">Ver Detalle</a>
+                            <%if(session.getAttribute("logueado")!=null && UsuarioLogueado.equals(colab.getColaborador() )){%>
+                                <a href="" class="btn btn-primary accion">Eliminar</a>
+                            <%}%>
                         </div>
 
                     </div>
@@ -56,6 +61,7 @@
             </div>   
         
         </div>
-        
+        <script src="JS/InteraccionColaboracion.js"></script>
+        <script src="JS/bajaColaboracion.js"></script>
     </body>
 </html>
