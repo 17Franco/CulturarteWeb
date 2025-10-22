@@ -22,6 +22,7 @@
             <a class="navPefil" href="PropuestasFavoritaUsuario?nick=<%=nick%>&tipo=<%=tipoUsr%>"><li class="ItemUsuario <%= "Favoritas".equals(paginaAct) ? " Activo" : "" %> ">Propuestas Favoritas</li></a>
             <%if(("Proponente").equals(tipoUsr)){%>
             <a class="navPefil" href="PropuestasCreadas?nick=<%=nick%>&tipo=<%=tipoUsr%>"><li class="ItemUsuario <%= "Creadas".equals(paginaAct) ? " Activo" : "" %> ">Propuestas Creadas</li></a>
+            <a class="navPefil" href="CancelarPropuestas?nick=<%=nick%>&tipo=<%=tipoUsr%>"><li class="ItemUsuario <%= "Cancelar".equals(paginaAct) ? " Activo" : "" %> ">Cancelar Propuesta</li></a>
             <%}else if (("Colaborador").equals(tipoUsr)) {%>
             <a class="navPefil" href="Colaboraciones?nick=<%=nick%>&tipo=<%=tipoUsr%>"><li class="ItemUsuario <%= "Colaboraciones".equals(paginaAct) ? " Activo" : "" %> ">Colaboraciones</li></a>
             <%}%>
