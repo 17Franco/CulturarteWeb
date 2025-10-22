@@ -27,7 +27,9 @@
      document.querySelectorAll('.propuesta').forEach(function(item) {
       item.addEventListener('click', function() {
         const id = item.getAttribute('data-id');
+
         console.log(contextPath);
+
         window.location.href = contextPath + "/Buscador?categoria=" + encodeURIComponent(id);
       });
     });

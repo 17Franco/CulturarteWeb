@@ -37,7 +37,6 @@
 
     <!--  aca comeinya el  Sidebar -->
     <aside class="sidebar">
-        
     <script>
         const contextPath = '<%= request.getContextPath() %>';
     </script> 
