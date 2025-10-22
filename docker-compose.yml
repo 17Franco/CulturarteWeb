@@ -16,7 +16,9 @@ services:
       - "8080:8080"
     volumes:
       #volumen para acceder a la carpeta IMG
-      - /home/tecnologo/CulturarteEquipo7/CulturarteWeb/IMG:/IMG
+      - /home/fran/Escritorio/Lab2PA/IMG:/IMG
+      #volumen para pc de facultad(verificar igualmente)
+      #- /home/tecnologo/CulturarteEquipo7/CulturarteWeb/IMG:/IMG
       #Servicio de BD
   dbculturarteWeb:
     # el mysql que va a contener el contenedor
@@ -33,6 +35,8 @@ services:
       #usuario no root es el que usuamos para conectarnos a la bd
       MYSQL_USER: tecnologo
     volumes:
+      #cuando se cree el doker se inicia con la bd copia (es la bd con los datos de prueba)
+      - ./copia.sql:/docker-entrypoint-initdb.d/copia.sql
       #volumen donde se guardara la bd creada dentro del docker
       - db_data:/var/lib/mysql
     ports:
