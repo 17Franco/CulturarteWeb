@@ -71,6 +71,8 @@
                     <% if(("Proponente").equals(session.getAttribute("tipoUser"))) { %>
                     <li><a class="dropdown-item" href="PropuestasCreadas?nick=<%=session.getAttribute("logueado")%>&tipo=<%=session.getAttribute("tipoUser")%>">Propuestas Creadas</a></li>
                     <li><a class="dropdown-item" href="CancelarPropuestas?nick=<%=session.getAttribute("logueado")%>&tipo=<%=session.getAttribute("tipoUser")%>">Cancelar Propuesta</a></li>
+                    <li><a class="dropdown-item" href="ExtenderPropuestas?nick=<%=session.getAttribute("logueado")%>&tipo=<%=session.getAttribute("tipoUser")%>">Extender Plazo Financiación</a></li>
+
                     <% }%>
                     <% if(("Colaborador").equals(session.getAttribute("tipoUser"))) { %>
                     <li><a class="dropdown-item" href="Colaboraciones?nick=<%=session.getAttribute("logueado")%>&tipo=<%=session.getAttribute("tipoUser")%>">Colaboracion</a></li>

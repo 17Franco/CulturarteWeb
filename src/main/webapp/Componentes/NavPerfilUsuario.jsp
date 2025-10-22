@@ -23,6 +23,8 @@
             <%if(("Proponente").equals(tipoUsr)){%>
             <a class="navPefil" href="PropuestasCreadas?nick=<%=nick%>&tipo=<%=tipoUsr%>"><li class="ItemUsuario <%= "Creadas".equals(paginaAct) ? " Activo" : "" %> ">Propuestas Creadas</li></a>
             <a class="navPefil" href="CancelarPropuestas?nick=<%=nick%>&tipo=<%=tipoUsr%>"><li class="ItemUsuario <%= "Cancelar".equals(paginaAct) ? " Activo" : "" %> ">Cancelar Propuesta</li></a>
+            <a class="navPefil" href="ExtenderPropuestas?nick=<%=nick%>&tipo=<%=tipoUsr%>"><li class="ItemUsuario <%= "Extender".equals(paginaAct) ? " Activo" : "" %> ">Extender Plazo Financiación</li></a>
+
             <%}else if (("Colaborador").equals(tipoUsr)) {%>
             <a class="navPefil" href="Colaboraciones?nick=<%=nick%>&tipo=<%=tipoUsr%>"><li class="ItemUsuario <%= "Colaboraciones".equals(paginaAct) ? " Activo" : "" %> ">Colaboraciones</li></a>
             <%}%>
