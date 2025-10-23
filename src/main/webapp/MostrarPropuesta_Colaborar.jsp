@@ -81,7 +81,7 @@
 
                     <div class="card shadow-lg p-4">
                     <%
-                    if (tipoUsuario != null && !(propuesta.getUltimoEstado().getEstadoString().equals("CANCELADA"))) 
+                    if (tipoUsuario != null && !(propuesta.getUltimoEstado().getEstadoString().equals("CANCELADA")) && !(propuesta.getUltimoEstado().getEstadoString().equals("INGRESADA"))) 
                     {%> 
                         <div class="ms-auto">
                             <button 
@@ -138,7 +138,7 @@
                     </div>
                 <%
                         // Solo si es 3, usuario que no propuso puede colaborar.
-                    if (permisos == 3) 
+                    if (permisos == 3 && !propuesta.getUltimoEstado().getEstadoString().equals("CANCELADA") && !propuesta.getUltimoEstado().getEstadoString().equals("INGRESADA")) 
                     {
                     
                         boolean retornoEntradaGratis = false;
@@ -264,7 +264,7 @@
                 <h4 class="mb-3">COMENTARIOS</h4>
 <%
                     //Si el usuario es colaborador de esta propuestsa
-                    if(permisos == 2)
+                    if(permisos == 2 && propuesta.getUltimoEstado().getEstadoString().equals("FINANCIADA"))
                     {
                 %>  
                         <div class="col-md-12">
