@@ -74,7 +74,7 @@
 
                     <div class="col-12 mb-3">
                         <label class="form-label">Categoría</label>
-                        <div class="categories-container">
+                        <div class="col-2 mb-2">
                             <ul class="categories list-unstyled">
                                 <%
                                     List<DTOCategoria> categorias = (List<DTOCategoria>) request.getAttribute("categorias");
