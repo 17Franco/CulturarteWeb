@@ -68,31 +68,29 @@
     </aside>
        
     <%
-        boolean mostrarTabs = (Boolean) request.getAttribute("mostrarEstados");
-        List<DTOPropuesta> todasLasPropuestas = (List<DTOPropuesta>)request.getAttribute("propuestas");// trae las propuestas y abajo .size las cuenta guardandolas en Cantidad Propuestas
+        Map<String, List<DTOPropuesta>> propuestasPorEstado =
+            (Map<String, List<DTOPropuesta>>) request.getAttribute("propuestasPorEstado");
+
+        List<DTOPropuesta> todasLasPropuestas = propuestasPorEstado.get("Todas");// trae las propuestas y abajo .size las cuenta guardandolas en Cantidad Propuestas
         Integer cantidadPropuestas = todasLasPropuestas.size();
+
+        String filtro = request.getParameter("filtro");
+        if (filtro == null) filtro = "";
+        
+        List<String> estados = new ArrayList<>();
+        estados.add("Todas");
+        for(String estado: propuestasPorEstado.keySet()){
+            if (!"Todas".equals(estado))
+                estados.add(estado);
+        }
     %>
-
-    <%
-String filtro = request.getParameter("filtro");
-if (filtro == null) filtro = "";
-%>
     <!-- Columna de contenido (derecha) -->
-    <section style="<%= mostrarTabs? "" : "display:none"%>">
-      <%
-        Map<Estado, List<DTOPropuesta>> propuestasPorEstado =
-            (Map<Estado, List<DTOPropuesta>>) request.getAttribute("propuestasPorEstado");
-
-        List<Estado> estados = new ArrayList<>();
-        estados.addAll(propuestasPorEstado.keySet());
-        // estados.sort(Comparator.comparing(Estado::name));
-      %>
-      
+    <section style="">
       <p> Total propuestas encontradas <%= cantidadPropuestas %></p>
       <!-- Pestañas -->
       <ul class="nav nav-tabs" id="estadoTabs" role="tablist">
         <%
-          for (Estado estado : estados) {
+          for (String estado : estados) {
               boolean isActive = (estado == estados.get(0));
         %>
           <li class="nav-item">
@@ -101,23 +99,24 @@ if (filtro == null) filtro = "";
                     data-bs-toggle="tab"
                     data-bs-target="#<%= estado %>"
                     type="button">
-              <%= estado.name() %>
+              <%= estado %>
             </button>
           </li>
         <%
           }
         %>
       </ul>
+      
 
       <!-- Contenido de pestañas -->
-      <div class="tab-content mt-3" id="estadoTabsContent">
+      <div class="tab-content mt-3" id="estadoTabsContent">            
         <%
-          for (Estado estado : estados) {
+          for (String estado : estados) {
             boolean isActive = (estado == estados.get(0));
         %>
           <div class="tab-pane fade <%= isActive ? "show active" : "" %>"
-               id="<%= estado.name() %>" role="tabpanel"
-               aria-labelledby="<%= estado.name() %>-tab">
+               id="<%= estado %>" role="tabpanel"
+               aria-labelledby="<%= estado %>-tab">
             <div class="propuestas-container">
               <%
                 List<DTOPropuesta> lista = propuestasPorEstado.get(estado);
@@ -170,43 +169,6 @@ if (filtro == null) filtro = "";
       </div>
 
     </section>
-    <section style="<%= mostrarTabs? "display:none" : ""%>">
-        <div class="propuestas-container">
-            
-              <%
-                if (todasLasPropuestas != null && !todasLasPropuestas.isEmpty()) {
-                  for (DTOPropuesta pro : todasLasPropuestas) {
-              %>
-                    <div class="propuesta-card">
-                    <%if(pro.getImagen()!=null && !"".equals(pro.getImagen())){%>
-                        <img src="Img?ruta=<%= pro.getImagen() %>" alt="Imagen de <%= pro.getTitulo() %>">
-                    <%}else{ %>
-                    <!--le agrego una img generica si no tiene imagen -->
-                        <img class="propuesta-img" src="https://alunarte.com/wp-content/uploads/2017/07/la-propuesta.png" alt="Imagen de propuesta>">
-                    <%}%>
-                  <div class="card-body">
-                    <h5 class="card-title"><%= pro.getTitulo() %></h5>
-                    <p><%= pro.getDescripcion() %></p>
-                    <div class="info"><b>Lugar:</b> <%= pro.getLugar() %></div>
-                    <div class="info"><b>Fecha:</b> <%= pro.getFecha() %></div>
-                    <div class="precio"><b>Precio:$</b><%= pro.getPrecio() %></div>
-                    
-
-                    <a href="${pageContext.request.contextPath}/DetallesDePropuesta?id=<%= pro.getTitulo() %>"
-                       class="btn btn-primary mt-2">Ver detalles</a>
-                  </div>
-                </div>
-              <%
-                  }
-                } else {
-              %>
-                <p>No hay propuestas.</p>
-              <%
-                }
-              %>
-            </div>
-        </section>
-    </div>
 
  
 </body>
