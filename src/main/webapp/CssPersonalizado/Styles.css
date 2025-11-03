@@ -300,3 +300,9 @@ a, h2, label {
 .highlight {
     background-color: #B3E5FC; /* celeste claro */
 }
+
+.main-Rank{
+  width: 50%;
+  margin: 20px auto;
+  text-align: center;
+}

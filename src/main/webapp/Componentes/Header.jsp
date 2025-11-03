@@ -29,7 +29,8 @@
                 <button class="btn text-white" style="background-color:#4A90E2" type="submit">
                     Buscar
                 </button>
-            </form>            <ul class="navbar-nav ms-auto mb-2 mb-lg-0" id="ListNav">
+            </form>           
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0" id="ListNav">
                 <!-- Aca empiezo a controlar que muestro segun si esta logueado o no  -->
 
                 <!-- primero sino esta logueado en el nav quiero mostra el acceso a login/regisrto  -->
@@ -41,6 +42,9 @@
                 <% if(session.getAttribute("logueado")==null) { %>
                 <li><a class="dropdown-item" href="listarUsuarios">Ver Usuarios</a></li>
                 <%}%>
+                <li class="nav-item bg-primary-subtle-hover" >
+                    <a class="nav-link" href="RankUsuario">RankingUsuarios</a>
+                </li>
                 <li class="nav-item dropdown">
                     <!-- aca quiero que accedan al dropdaw solo si esta logueado -->
                     <a class="nav-link dropdown-toggle <%= (session.getAttribute("logueado") == null) ? "disabled" : ""%>" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

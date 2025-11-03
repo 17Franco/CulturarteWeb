@@ -33,36 +33,36 @@ public class BuscadorPropuestas extends HttpServlet {
         String filtro = request.getParameter("filtro");
         String categoria = request.getParameter("categoria");
 
-        request.setAttribute("mostrarEstados", false);
         List<DTOPropuesta> propuestas;
         if (categoria != null && !"".equals(categoria) ){
             propuestas = buscarPorCategoria(categoria);
         }else {
             if (filtro == null || filtro.isEmpty()) {
                 filtro = "";
-            }else {
-                request.setAttribute("mostrarEstados", true);
             }
+            
             propuestas = buscarPorFiltro(filtro);
         }
         
         String orden = request.getParameter("orden");
         if (orden == null || orden.isEmpty() || "titulo".equals(orden)) {
-            propuestas.sort(Comparator.comparing(DTOPropuesta::getTitulo));
+                propuestas.sort(Comparator.comparing(DTOPropuesta::getFecha).reversed());
         } else {
-            propuestas.sort(Comparator.comparingInt((DTOPropuesta p) -> p.getFecha().getYear()).reversed());
+                propuestas.sort(Comparator.comparing(DTOPropuesta::getFecha).reversed());
         }
                 
-        Map<Estado, List<DTOPropuesta>> propuestasMap = new HashMap<>();
+        Map<String, List<DTOPropuesta>> propuestasMap = new HashMap<>();
+        propuestasMap.put("Todas", propuestas);
         for (DTOPropuesta p : propuestas){
-            if (!propuestasMap.containsKey(p.getEstado())) {
-                propuestasMap.put(p.getEstado(), new ArrayList<>());
+            if (!propuestasMap.containsKey(p.getEstado().name())) {
+                propuestasMap.put(p.getEstado().name(), new ArrayList<>());
             }
-            List<DTOPropuesta> porpuestasPorEstado = propuestasMap.get(p.getEstado());
+            List<DTOPropuesta> porpuestasPorEstado = propuestasMap.get(p.getEstado().name());
             porpuestasPorEstado.add(p);
-            propuestasMap.put(p.getEstado(), porpuestasPorEstado);
+            propuestasMap.put(p.getEstado().name(), porpuestasPorEstado);
+            
         }
-        request.setAttribute("propuestas", propuestas);
+
         request.setAttribute("propuestasPorEstado", propuestasMap);
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
