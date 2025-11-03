@@ -207,7 +207,7 @@ if (filtro == null) filtro = "";
             </div>
         </section>
     </div>
-
+            <script src="JS/detectarDispositivo.js" ></script>
  
 </body>
 </html>
