@@ -43,10 +43,10 @@ public class RegistroDeAccesos implements Filter
 
         if (navegadorWebSO == null) 
         {
-            navegadorWebSO = "Cuidado hackerman";
+            navegadorWebSO = "dato nulo";
         }
 
-        DTORegistrosAccesoWeb reg = new DTORegistrosAccesoWeb(ip, navegadorWebSO, url);
+        DTORegistrosAccesoWeb reg = new DTORegistrosAccesoWeb(ip, navegadorWebSO, navegadorWebSO, url, null);
 
         controller.agregarRegistroAccesoWeb(reg);
 
