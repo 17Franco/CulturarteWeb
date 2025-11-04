@@ -32,7 +32,7 @@
         
         <div class="row justify-content-around">
             
-            <div class="col-md-4 align-items-top"> 
+            <div class="col-md-4 align-items-top" id="IniciarSesion"> 
                 <h2 class="">Iniciar Sesion</h2>
                 <form class="row g-3 needs-validation" method="post" action="Login" novalidate>
 
@@ -59,7 +59,7 @@
                 </form>
             </div>
 
-            <div class="col-md-6 "> 
+            <div class="col-md-6 d-none d-lg-block"> 
                 <h2>Registrarse</h2>
                 <form class="row g-3 needs-validation " id="formRegistro" method="post" action="Registro" enctype="multipart/form-data"  novalidate>
                     <div class="col-12 mb-3">

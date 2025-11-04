@@ -316,5 +316,8 @@ a, h2, label {
         gap: 20px;
         padding: 20px;  
     }
-  
+    #IniciarSesion{
+        margin-top: 20px
+        
+    }
 }
