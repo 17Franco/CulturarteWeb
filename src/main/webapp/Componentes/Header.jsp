@@ -6,7 +6,8 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse "id="navbarSupportedContent">
-          <form class="d-flex mx-auto w-50" role="search" action="Buscador" method="get">
+           
+            <form class="d-flex mx-auto w-50 d-none d-lg-flex"  role="search" action="Buscador" method="get">
                 <input 
                     class="form-control me-2 text-white" 
                     id="search" 
@@ -35,17 +36,40 @@
 
                 <!-- primero sino esta logueado en el nav quiero mostra el acceso a login/regisrto  -->
                 <% if (session.getAttribute("logueado") == null) { %> 
-                <li class="nav-item bg-primary-subtle-hover" >
+                <li class="nav-item bg-primary-subtle-hover d-none d-lg-block" >
                     <a class="nav-link" href="InicioSesion_Registro.jsp">Login/Registro</a>
                 </li>
                 <% }%>
                 <% if(session.getAttribute("logueado")==null) { %>
-                <li><a class="dropdown-item" href="listarUsuarios">Ver Usuarios</a></li>
+                <li><a class="dropdown-item d-none d-lg-block" href="listarUsuarios">Ver Usuarios</a></li>
                 <%}%>
+
                 <li class="nav-item bg-primary-subtle-hover" >
-                    <a class="nav-link" href="RankUsuario">RankingUsuarios</a>
+                    <a class="nav-link d-none d-lg-block" href="RankUsuario">RankingUsuarios</a>
                 </li>
-                <li class="nav-item dropdown">
+                
+                <!--item de que solo se mostrara en movil-->
+                <% if(session.getAttribute("logueado")!=null) { %>
+                <div class="d-lg-none">
+                <li class="nav-item bg-primary-subtle-hover d" >
+                    <a class="nav-link" href="#">ConsultarPropuestas</a>
+                </li>
+                <li class="nav-item bg-primary-subtle-hover " >
+                    <a class="nav-link" href="#">registrar Colaboracion</a>
+                </li>
+                <li class="nav-item bg-primary-subtle-hover " >
+                    <a class="nav-link" href="#">Pagar Colaboracion</a>
+                </li>
+                
+                <li class="nav-item bg-primary-subtle-hover " >
+                    <a class="nav-link" href="logout">Cerrar Sesion</a>
+                </li>
+                <% }%>
+
+                </div>
+                
+                <!--menu desplegable perfil-->
+                <li class="nav-item dropdown d-none d-lg-block">
                     <!-- aca quiero que accedan al dropdaw solo si esta logueado -->
                     <a class="nav-link dropdown-toggle <%= (session.getAttribute("logueado") == null) ? "disabled" : ""%>" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <!-- si no esta logueado muestro Invitado sino muestro el nombre del usaurios mas Inicial  -->
