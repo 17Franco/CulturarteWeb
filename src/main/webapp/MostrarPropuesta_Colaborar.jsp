@@ -14,6 +14,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Detalle de Propuesta</title>
         <link rel="stylesheet" href="cssBootstrap/bootstrap.min.css"/> <!-- estilos -->
         <link rel="stylesheet" href="CssPersonalizado/Styles.css"/> <!-- estilos -->
@@ -37,7 +38,7 @@
             {
         %>
             
-            <div class="container mt-4">
+            <div class="container-fluid my-4 px-3">
                 
 
                         
@@ -52,7 +53,7 @@
                     {
 %>
                         <body>
-                        <div class="alert alert-success">
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
                         <i class="bi bi-check-circle"></i> Usted ha <%=accionEfectuada%> la propuesta exitosamente.
                         <%
                             if (accionEfectuada.equals("cancelado")) 
@@ -71,7 +72,7 @@
                     {
 %>                         
                         <body>
-                        <div class="alert alert-danger">
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
                             <i class="bi bi-x-circle"></i> Ocurrió un error o no se pudo modificar, intente nuevamente.
                         </div>
                         </body>
@@ -83,7 +84,7 @@
                     <%
                     if (tipoUsuario != null && !(propuesta.getUltimoEstado().getEstadoString().equals("CANCELADA")) && !(propuesta.getUltimoEstado().getEstadoString().equals("INGRESADA"))) 
                     {%> 
-                        <div class="ms-auto">
+                    <div class="text-end mb-2">
                             <button 
                                 id="btnFavorito"
                                 data-titulo="<%= propuesta.getTitulo()%>"
@@ -98,19 +99,19 @@
                         </div>             
                     <%  } %>         
                     <div class="row g-4">
-                    <div class="col-md-6">
+                    <div class="col-12 col-md-6">
                 
                     <%
                          if (propuesta.getImagen() != null && !propuesta.getImagen().isEmpty()) 
                     {%>    
                        <!-- <img src="Img?ruta=<%= propuesta.getImagen()%>" class="img-fluid rounded shadow mb-3" alt="Imagen Propuesta">  --> 
-                            <img class="propuesta-img" src="https://alunarte.com/wp-content/uploads/2017/07/la-propuesta.png" alt="Imagen Propuesta">
+                            <img class="propuesta-img rounded shadow mb-3 w-100" src="https://alunarte.com/wp-content/uploads/2017/07/la-propuesta.png" alt="Imagen Propuesta">
                     <%  } 
                         else 
                         { 
                     %> 
                             <!--  <img src="imagenes/default-propuesta.png" class="img-fluid rounded shadow mb-3" alt="Sin Imagen">  --> 
-                            <img class="propuesta-img" src="https://alunarte.com/wp-content/uploads/2017/07/la-propuesta.png" alt="Imagen Propuesta">
+                            <img class="propuesta-img rounded shadow mb-3 w-100" src="https://alunarte.com/wp-content/uploads/2017/07/la-propuesta.png" alt="Imagen Propuesta">
                     <% 
                         }
                     %>
@@ -160,7 +161,7 @@
 
 
                 %>
-                        <div class="col-md-6">
+                        <div class="col-12 col-md-6">
                               
                         <div class="card p-3 shadow-sm">
                             
@@ -206,7 +207,7 @@
                     if(permisos == 1 && !propuesta.getUltimoEstado().getEstadoString().equals("CANCELADA") && !propuesta.getUltimoEstado().getEstadoString().equals("NO_FINANCIADA"))
                     {
                 %>
-                        <div class="col-md-6"> 
+                        <div class="col-12 col-md-6"> 
                         <div class="card p-3 shadow-sm">
                                 
                                 <h4 class="mb-3">Acciones del Proponente</h4>
@@ -234,7 +235,7 @@
                     if(propuesta.getUltimoEstado().getEstadoString().equals("CANCELADA"))
                     { 
                         %>
-                            <div class="col-md-6">
+                            <div class="col-12 col-md-6">
                             <div class="alert alert-danger">Esta propuesta está cancelada.</div>
                             </div>
                         <% 
@@ -273,7 +274,7 @@
                         <input type="hidden" name="tituloPropuesta" value="<%= propuesta.getTitulo()%>">
                             <input type="hidden" name="accion" value="COMENTAR">
 
-                            <div class="mb-3 d-flex align-items-start gap-2">
+                            <div class="mb-3 d-flex flex-column flex-md-row align-items-start gap-2">
                                     <textarea class="form-control" id="comentario" name="comentario" rows="2" style="width:500px;" placeholder="Hacer Comentario" required></textarea>
                                     <button type="submit" class="btn btn-primary">Publicar</button>
                             </div> 
@@ -300,7 +301,7 @@
                             String usuario = entry.getKey();
                             String comentario = entry.getValue();
                 %>
-                            <div class="card mb-2 shadow-sm w-50">
+                            <div class="card mb-2 shadow-sm w-100 w-md-50">
                                 <div class="card-body p-2">
                                     <div class="card-body p-2 d-flex align-items-center">
                                         <div class="estiloPerfil"><%=entry.getKey().substring(0,1)%></div>

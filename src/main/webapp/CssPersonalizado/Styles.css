@@ -319,5 +319,26 @@ a, h2, label {
     #IniciarSesion{
         margin-top: 20px
         
+    } 
+    h2 {
+        font-size: 1.4rem;
+    }
+
+    .list-group-item {
+        font-size: 0.9rem;
+        padding: 8px 10px;
+    }
+
+    .propuesta-img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+    textarea {
+        width: 100% !important;
+    }
+
+    #boxComentarios .card {
+        width: 100% !important;
     }
 }
