@@ -33,23 +33,24 @@ public class RegistroDeAccesos implements Filter
         
         String url = httpRequest.getRequestURL().toString();    //Request y almaceno la url
         
-        //if (url.endsWith(".jsp") || url.endsWith(".js") || url.endsWith(".jpg") || url.endsWith(".css") || url.endsWith(".com"))   //Que solo los accesos a web que figuran en pdf sean almacenados...
-        
-        //Se obtiene ip.
-        String ip = sr.getRemoteAddr();
 
-        //Se obtiene navegador Web
-        String navegadorWebSO = httpRequest.getHeader("User-Agent");
-
-        if (navegadorWebSO == null) 
+        if (!url.contains("/Img"))
         {
-            navegadorWebSO = "dato nulo";
+            //Se obtiene ip.
+            String ip = sr.getRemoteAddr();
+
+            //Se obtiene navegador Web
+            String navegadorWebSO = httpRequest.getHeader("User-Agent");
+
+            if (navegadorWebSO == null) 
+            {
+                navegadorWebSO = "dato nulo";
+            }
+
+            DTORegistrosAccesoWeb reg = new DTORegistrosAccesoWeb(ip, navegadorWebSO, navegadorWebSO, url, null);
+
+            controller.agregarRegistroAccesoWeb(reg);
         }
-
-        DTORegistrosAccesoWeb reg = new DTORegistrosAccesoWeb(ip, navegadorWebSO, navegadorWebSO, url, null);
-
-        controller.agregarRegistroAccesoWeb(reg);
-
         fc.doFilter(sr, sr1);
     }
     
