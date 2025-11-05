@@ -137,22 +137,23 @@
                         </ul>
       
                     </div>
-                       <div class="col-12 col-md-6">
-                              <h4 class="mb-3">Acreditar pago</h4>
+                       
                         
                                 <%
                                     // Solo para colaboradores permisos == 2
                                     if (permisos == 2) {
                                 %>
+                                <div class="col-12 col-md-6">
+                              <h4 class="mb-3">Acreditar pago</h4>
                                 <form action="PagarColaboracion" method="get">
                                     <input type="hidden" name="tituloPropuesta" value="<%= propuesta.getTitulo()%>">
                                     <button type="submit" class="btn btn-primary">Proceder con los métodos de pago</button>
                                 </form>
-
+                                  </div>
                                 <%
                                     }
                                 %>
-                            </div>
+                            
                             </div>
                             
                             
