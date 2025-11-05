@@ -1,12 +1,18 @@
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
     <div class="container-fluid">
-        <a class="navbar-brand" href="<%=request.getContextPath() + "/" %>">Culturarte</a>
+        <a class="navbar-brand d-none d-lg-flex" href="<%=request.getContextPath() + "/" %>">Culturarte</a>
+        <%if (session.getAttribute("logueado") == null) { %>
+            <a class="navbar-brand d-lg-none" href="#">Culturarte</a>
+        <% } else { %>
+            <a class="navbar-brand d-lg-none" href="#">Bienvenido <%=session.getAttribute("logueado")%></a>
+        <%}%>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse "id="navbarSupportedContent">
-          <form class="d-flex mx-auto w-50" role="search" action="Buscador" method="get">
+           
+            <form class="d-flex mx-auto w-50 d-none d-lg-flex"  role="search" action="Buscador" method="get">
                 <input 
                     class="form-control me-2 text-white" 
                     id="search" 
@@ -29,19 +35,46 @@
                 <button class="btn text-white" style="background-color:#4A90E2" type="submit">
                     Buscar
                 </button>
-            </form>            <ul class="navbar-nav ms-auto mb-2 mb-lg-0" id="ListNav">
+            </form>           
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0" id="ListNav">
                 <!-- Aca empiezo a controlar que muestro segun si esta logueado o no  -->
 
                 <!-- primero sino esta logueado en el nav quiero mostra el acceso a login/regisrto  -->
                 <% if (session.getAttribute("logueado") == null) { %> 
-                <li class="nav-item bg-primary-subtle-hover" >
+                <li class="nav-item bg-primary-subtle-hover d-none d-lg-block" >
                     <a class="nav-link" href="InicioSesion_Registro.jsp">Login/Registro</a>
                 </li>
                 <% }%>
                 <% if(session.getAttribute("logueado")==null) { %>
-                <li><a class="dropdown-item" href="listarUsuarios">Ver Usuarios</a></li>
+                <li><a class="dropdown-item d-none d-lg-block" href="listarUsuarios">Ver Usuarios</a></li>
                 <%}%>
-                <li class="nav-item dropdown">
+
+                <li class="nav-item bg-primary-subtle-hover" >
+                    <a class="nav-link d-none d-lg-block" href="RankUsuario">RankingUsuarios</a>
+                </li>
+                
+                <!--item de que solo se mostrara en movil-->
+                <% if(session.getAttribute("logueado")!=null) { %>
+                <div class="d-lg-none">
+                <li class="nav-item bg-primary-subtle-hover d" >
+                    <a class="nav-link" href="<%=request.getContextPath() + "/" %>">ConsultarPropuestas</a>
+                </li>
+                <li class="nav-item bg-primary-subtle-hover " >
+                    <a class="nav-link" href="#">registrar Colaboracion</a>
+                </li>
+                <li class="nav-item bg-primary-subtle-hover " >
+                    <a class="nav-link" href="#">Pagar Colaboracion</a>
+                </li>
+                
+                <li class="nav-item bg-primary-subtle-hover " >
+                    <a class="nav-link" href="logout">Cerrar Sesion</a>
+                </li>
+                <% }%>
+
+                </div>
+                
+                <!--menu desplegable perfil-->
+                <li class="nav-item dropdown d-none d-lg-block">
                     <!-- aca quiero que accedan al dropdaw solo si esta logueado -->
                     <a class="nav-link dropdown-toggle <%= (session.getAttribute("logueado") == null) ? "disabled" : ""%>" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <!-- si no esta logueado muestro Invitado sino muestro el nombre del usaurios mas Inicial  -->

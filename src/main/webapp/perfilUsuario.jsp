@@ -62,8 +62,41 @@
                             <li class="list-group-item"><strong>Pagina Web:</strong> <%=p.getWebSite()%></li>
                         <%}%>
                     </ul>
+                    <% if(UsuarioLogueado != null && UsuarioLogueado.equals(nick) && "Proponente".equals(tipoUsr)) { %>
+                    <div id="button-eliminar">
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        Eliminar Cuenta
+                    </button>
+                    </div>
+                    <%}%>
                     
+                    <!-- Modal -->
+                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                       <form action="EliminarCuenta" method="post">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Eliminar Cuenta</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                <p>Ingrese su nickname y confirmar para efectuar la eliminación:</p>
+                                <div class="mb-3">
 
+                                  <label for="nick" class="form-label">Nickname</label>
+                                  <input type="text" class="form-control" id="nick" name="nick" required>
+                                </div>
+                                 <div id="msgError" class="text-danger small mt-2"></div>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-danger">Confirmar</button>
+                              </div>
+                            </div>
+                        </form>
+                      </div>
+                    </div>
+                    
                 </div>
                 <!---->
             </div>   

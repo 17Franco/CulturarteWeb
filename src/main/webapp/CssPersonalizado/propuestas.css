@@ -188,3 +188,15 @@
   color: #4A90E2;
   text-decoration: underline;
 }
+
+@media (max-width: 992px) {
+  .propuestas-container {
+    display: grid;
+    justify-content: center; /* centra horizontalmente el contenido */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin: 0 auto; /* asegura que el contenedor esté centrado */
+    max-width: 100%;
+}
+  
+}

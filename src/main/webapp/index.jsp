@@ -12,16 +12,18 @@
 <html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Propuestas por Estado</title>
-
+  
   <link rel="stylesheet" href="cssBootstrap/bootstrap.min.css"/>
-
-  <link rel="stylesheet" href="CssPersonalizado/Styles.css"/>
   <link rel="stylesheet" href="CssPersonalizado/propuestas.css"/>
+  <link rel="stylesheet" href="CssPersonalizado/Styles.css"/>
+  
 
   <script src="jsBoostrap/bootstrap.bundle.min.js"></script>
 
   <script src="JS/DespliegueSubCategorias.js" defer></script>
+  <script src="JS/detectarDispositivo.js" defer></script>
 
   <link href="https://fonts.googleapis.com/css2?family=Kite+One&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
@@ -36,9 +38,10 @@
     <jsp:include page="/Categorias" />
 
     <!--  aca comeinya el  Sidebar -->
-    <aside class="sidebar">
+    <aside class="sidebar d-none d-lg-block">
     <script>
         const contextPath = '<%= request.getContextPath() %>';
+        const estaLogueado = <%= (session.getAttribute("logueado") != null)%>;
     </script> 
       <nav>
         <ul class="categories">
@@ -86,9 +89,9 @@
     %>
     <!-- Columna de contenido (derecha) -->
     <section style="">
-      <p> Total propuestas encontradas <%= cantidadPropuestas %></p>
+        <p class="d-none d-lg-block"> Total propuestas encontradas <%= cantidadPropuestas %></p>
       <!-- Pestañas -->
-      <ul class="nav nav-tabs" id="estadoTabs" role="tablist">
+      <ul class="nav nav-tabs d-none d-lg-flex" id="estadoTabs" role="tablist">
         <%
           for (String estado : estados) {
               boolean isActive = (estado == estados.get(0));
@@ -167,9 +170,9 @@
           } // fin for estados
         %>
       </div>
-
+      
     </section>
-
+    
  
 </body>
 </html>
