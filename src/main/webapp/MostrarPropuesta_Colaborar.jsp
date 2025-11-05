@@ -39,7 +39,7 @@
         %>
             
             <div class="container-fluid my-4 px-3">
-                
+                <strong>Permisos:</strong> <%= permisos%>
 
                         
 <%

@@ -64,14 +64,30 @@ public class PagarColaboracion extends HttpServlet
             }
         }
 
-        if(pagoExitoso) 
-        {
-            response.sendRedirect("DetallesDePropuesta?tituloPropuesta="+ URLEncoder.encode(tituloPropuesta, "UTF-8") + "&accionLograda=acreditado");
-        } 
-        else 
-        {
-            response.sendRedirect("DetallesDePropuesta?tituloPropuesta="+ URLEncoder.encode(tituloPropuesta, "UTF-8") + "&accionLograda=Error");
-        }
+        
+        // Guardamos un mensaje para el JSP
+        String accionLograda = pagoExitoso ? "Acreditado el pago en" : "Error";
+        request.setAttribute("resultadoOperacion", pagoExitoso ? 5 : 0);
+        request.setAttribute("accionLograda", accionLograda);
+        request.setAttribute("tituloPropuesta", tituloPropuesta);
+
+        // En lugar de sendRedirect, hacemos forward al servlet de detalles
+        request.getRequestDispatcher("/DetallesDePropuesta").forward(request, response);
+        
+//        if(pagoExitoso) 
+//        {
+//            request.setAttribute("id", tituloPropuesta);
+//            request.getRequestDispatcher("/DetallesDePropuesta").forward(request, response);
+//            
+//            //response.sendRedirect("DetallesDePropuesta?id=" + URLEncoder.encode(tituloPropuesta, "UTF-8") + "&resultadoOperacion=" + URLEncoder.encode((String.valueOf(5)), "UTF-8") + "&accionLograda=" + URLEncoder.encode("Acreditado el pago en", "UTF-8"));
+//            //response.sendRedirect("DetallesDePropuesta?id=" + URLEncoder.encode(tituloPropuesta, "UTF-8") + "&accionLograda=acreditado");
+//
+//        } 
+//        else 
+//        {
+//            response.sendRedirect("DetallesDePropuesta?id=" + URLEncoder.encode(tituloPropuesta, "UTF-8") + "&resultadoOperacion=" + URLEncoder.encode((String.valueOf(0)), "UTF-8") + "&accionLograda=" + URLEncoder.encode("Error", "UTF-8"));
+//            //response.sendRedirect("DetallesDePropuesta?id=" + URLEncoder.encode(tituloPropuesta, "UTF-8") + "&accionLograda=Error");
+//        }
     }
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
