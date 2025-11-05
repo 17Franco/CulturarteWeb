@@ -36,6 +36,7 @@
                         //variable golabl para usar en js
                         const USUARIO_OBJETIVO = "<%= usr.getNickname() %>"; 
                         const USUARIO_LOGUEADO = "<%= UsuarioLogueado %>"; 
+                        const contextPath = '<%= request.getContextPath() %>';
                     </script>
                     <!--mostrara el icono para seguir si no es el perfil de usuario logueado-->
                     <% if(UsuarioLogueado != null && !UsuarioLogueado.equals(nick)){ %>
@@ -73,13 +74,15 @@
                     <!-- Modal -->
                     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                       <div class="modal-dialog">
-                       <form action="EliminarCuenta" method="post">
+                          <form action="EliminarCuenta" method="post" id="formE">
                             <div class="modal-content">
                               <div class="modal-header">
                                 <h1 class="modal-title fs-5" id="staticBackdropLabel">Eliminar Cuenta</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                               </div>
                               <div class="modal-body">
+                                <div id="msgError2" class="text-danger small mt-2"></div>
+                                <div id="msgSucces" class="text-success small mt-2"></div>
                                 <p>Ingrese su nickname y confirmar para efectuar la eliminación:</p>
                                 <div class="mb-3">
 
@@ -90,7 +93,7 @@
                               </div>
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                <button type="submit" class="btn btn-danger">Confirmar</button>
+                                <button type="submit" class="btn btn-danger" id="btnC" >Confirmar</button>
                               </div>
                             </div>
                         </form>
@@ -109,5 +112,7 @@
         <script src="JS/Seguir.js"></script>
         <!--Este js llama a serlvet DejarDeseguir y luego reactualiza el icono -->
         <script src="JS/DejarDeSeguir.js"></script>
+        
+        <script src="JS/eliminarProponente.js"></script>
     </body>
 </html>
