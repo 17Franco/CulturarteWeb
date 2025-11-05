@@ -140,8 +140,8 @@
                        
                         
                                 <%
-                                    // Solo para colaboradores permisos == 2
-                                    if (permisos == 2) {
+                                    // Solo para colaboradores que aún no pagaron, permisos == 4
+                                    if (permisos == 4) {
                                 %>
                                 <div class="col-12 col-md-6">
                               <h4 class="mb-3">Acreditar pago</h4>
