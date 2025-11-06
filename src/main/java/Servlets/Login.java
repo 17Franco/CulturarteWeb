@@ -15,6 +15,8 @@ import jakarta.servlet.http.HttpSession;
 import logica.Controller;
 import logica.Fabrica;
 import logica.IController;
+import webservices.ControllerWS;
+import webservices.ControllerWS_Service;
 
 
 /**
@@ -35,6 +37,8 @@ public class Login extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
        IController controller= Fabrica.getInstance().getController();
+        ControllerWS_Service service = new ControllerWS_Service();
+        ControllerWS portU = service.getControllerWSPort(); 
         
         HttpSession sesion = request.getSession();
         String nick = request.getParameter("Nickname");
@@ -43,7 +47,7 @@ public class Login extends HttpServlet {
           
         
         try{
-           if(controller.login(nick, pass)){
+           if(portU.login(nick, pass)){
                if(controller.isProponente(nick)){
                 sesion.setAttribute("logueado", nick); 
                 sesion.setAttribute("tipoUser", "Proponente");

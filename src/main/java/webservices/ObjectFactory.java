@@ -24,10 +24,12 @@ import jakarta.xml.bind.annotation.XmlRegistry;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _Existe_QNAME = new QName("http://webServices/", "existe");
-    private final static QName _ExisteResponse_QNAME = new QName("http://webServices/", "existeResponse");
+    private final static QName _ExisteUsuario_QNAME = new QName("http://webServices/", "existeUsuario");
+    private final static QName _ExisteUsuarioResponse_QNAME = new QName("http://webServices/", "existeUsuarioResponse");
     private final static QName _Hello_QNAME = new QName("http://webServices/", "hello");
     private final static QName _HelloResponse_QNAME = new QName("http://webServices/", "helloResponse");
+    private final static QName _Login_QNAME = new QName("http://webServices/", "login");
+    private final static QName _LoginResponse_QNAME = new QName("http://webServices/", "loginResponse");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: webservices
@@ -37,19 +39,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Existe }
+     * Create an instance of {@link ExisteUsuario }
      * 
      */
-    public Existe createExiste() {
-        return new Existe();
+    public ExisteUsuario createExisteUsuario() {
+        return new ExisteUsuario();
     }
 
     /**
-     * Create an instance of {@link ExisteResponse }
+     * Create an instance of {@link ExisteUsuarioResponse }
      * 
      */
-    public ExisteResponse createExisteResponse() {
-        return new ExisteResponse();
+    public ExisteUsuarioResponse createExisteUsuarioResponse() {
+        return new ExisteUsuarioResponse();
     }
 
     /**
@@ -69,29 +71,45 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Existe }{@code >}
+     * Create an instance of {@link Login }
      * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link Existe }{@code >}
      */
-    @XmlElementDecl(namespace = "http://webServices/", name = "existe")
-    public JAXBElement<Existe> createExiste(Existe value) {
-        return new JAXBElement<Existe>(_Existe_QNAME, Existe.class, null, value);
+    public Login createLogin() {
+        return new Login();
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ExisteResponse }{@code >}
+     * Create an instance of {@link LoginResponse }
+     * 
+     */
+    public LoginResponse createLoginResponse() {
+        return new LoginResponse();
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ExisteUsuario }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link ExisteResponse }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link ExisteUsuario }{@code >}
      */
-    @XmlElementDecl(namespace = "http://webServices/", name = "existeResponse")
-    public JAXBElement<ExisteResponse> createExisteResponse(ExisteResponse value) {
-        return new JAXBElement<ExisteResponse>(_ExisteResponse_QNAME, ExisteResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://webServices/", name = "existeUsuario")
+    public JAXBElement<ExisteUsuario> createExisteUsuario(ExisteUsuario value) {
+        return new JAXBElement<ExisteUsuario>(_ExisteUsuario_QNAME, ExisteUsuario.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ExisteUsuarioResponse }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link ExisteUsuarioResponse }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://webServices/", name = "existeUsuarioResponse")
+    public JAXBElement<ExisteUsuarioResponse> createExisteUsuarioResponse(ExisteUsuarioResponse value) {
+        return new JAXBElement<ExisteUsuarioResponse>(_ExisteUsuarioResponse_QNAME, ExisteUsuarioResponse.class, null, value);
     }
 
     /**
@@ -118,6 +136,32 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://webServices/", name = "helloResponse")
     public JAXBElement<HelloResponse> createHelloResponse(HelloResponse value) {
         return new JAXBElement<HelloResponse>(_HelloResponse_QNAME, HelloResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Login }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link Login }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://webServices/", name = "login")
+    public JAXBElement<Login> createLogin(Login value) {
+        return new JAXBElement<Login>(_Login_QNAME, Login.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link LoginResponse }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link LoginResponse }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://webServices/", name = "loginResponse")
+    public JAXBElement<LoginResponse> createLoginResponse(LoginResponse value) {
+        return new JAXBElement<LoginResponse>(_LoginResponse_QNAME, LoginResponse.class, null, value);
     }
 
 }

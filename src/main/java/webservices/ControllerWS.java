@@ -33,10 +33,28 @@ public interface ControllerWS {
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "existe", targetNamespace = "http://webServices/", className = "webservices.Existe")
-    @ResponseWrapper(localName = "existeResponse", targetNamespace = "http://webServices/", className = "webservices.ExisteResponse")
-    @Action(input = "http://webServices/controllerWS/existeRequest", output = "http://webServices/controllerWS/existeResponse")
-    public boolean existe(
+    @RequestWrapper(localName = "existeUsuario", targetNamespace = "http://webServices/", className = "webservices.ExisteUsuario")
+    @ResponseWrapper(localName = "existeUsuarioResponse", targetNamespace = "http://webServices/", className = "webservices.ExisteUsuarioResponse")
+    @Action(input = "http://webServices/controllerWS/existeUsuarioRequest", output = "http://webServices/controllerWS/existeUsuarioResponse")
+    public boolean existeUsuario(
+        @WebParam(name = "arg0", targetNamespace = "")
+        String arg0,
+        @WebParam(name = "arg1", targetNamespace = "")
+        String arg1);
+
+    /**
+     * 
+     * @param arg1
+     * @param arg0
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "login", targetNamespace = "http://webServices/", className = "webservices.Login")
+    @ResponseWrapper(localName = "loginResponse", targetNamespace = "http://webServices/", className = "webservices.LoginResponse")
+    @Action(input = "http://webServices/controllerWS/loginRequest", output = "http://webServices/controllerWS/loginResponse")
+    public boolean login(
         @WebParam(name = "arg0", targetNamespace = "")
         String arg0,
         @WebParam(name = "arg1", targetNamespace = "")
