@@ -41,7 +41,8 @@
 
                 <div class="mb-3">
                     <label for="metodoPago">Método de pago</label>
-                    <select class="form-select" id="formaPago" name="formaPago" required>
+                    <select class="form-select" id="metodoPago" name="formaPago" required>
+
                         <option value="">Seleccione...</option>
                         <option value="tarjeta">Tarjeta de crédito/débito</option>
                         <option value="transferencia">Transferencia bancaria</option>
@@ -61,7 +62,5 @@
                 }
             %>
         </div>
-
-        <script src="jsBoostrap/bootstrap.bundle.min.js"></script>
     </body>
 </html>
