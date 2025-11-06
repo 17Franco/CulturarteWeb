@@ -16,6 +16,7 @@ import java.net.URLEncoder;
 import java.time.LocalDateTime;
 import java.util.List;
 import logica.DTO.DTOColaboracion;
+import logica.DTO.DTOPago;
 import logica.Fabrica;
 import logica.IController;
 
@@ -43,51 +44,51 @@ public class PagarColaboracion extends HttpServlet
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
-
         HttpSession sesionActual = request.getSession(false);
+        
+        if (sesionActual == null || sesionActual.getAttribute("logueado") == null) 
+        {   //Por si la sesión se cierra
+            response.sendRedirect("login.jsp");
+            return;
+        }
+
         IController controller = Fabrica.getInstance().getController();
 
         String nickUsr = (String) sesionActual.getAttribute("logueado");
         String tituloPropuesta = request.getParameter("tituloPropuesta");
         int monto = Integer.parseInt(request.getParameter("monto"));
+        String formaPago = request.getParameter("formaPago");
+        
+        //La info sobre estos datos está en DTOPago y la clase Pago.
+        String dato1 = request.getParameter("dato1");   
+        String dato2 = request.getParameter("dato2");
+        String dato3 = request.getParameter("dato3");
+        String dato4 = request.getParameter("dato4");
+        String dato5 = request.getParameter("dato5");
         
         List<DTOColaboracion> colab = controller.colaboraciones(nickUsr);
         DTOColaboracion colabEncontrada = buscarColaboracion(colab,tituloPropuesta);
 
         boolean pagoExitoso = false;
         
+        DTOPago datosPago = new DTOPago(monto, formaPago, null, dato1, dato2, dato3, dato4, dato5);
+        
         if (colabEncontrada != null) 
         {
             if(monto >= colabEncontrada.getMonto()) //Si el pago es mayor o igual al que figura en la colaboración.
             {
-                pagoExitoso = controller.acreditarColaboracion(colabEncontrada.getId());
+                pagoExitoso = controller.acreditarColaboracion(colabEncontrada.getId(), datosPago);
             }
         }
 
-        
-        // Guardamos un mensaje para el JSP
+
         String accionLograda = pagoExitoso ? "Acreditado el pago en" : "Error";
         request.setAttribute("resultadoOperacion", pagoExitoso ? 5 : 0);
         request.setAttribute("accionLograda", accionLograda);
         request.setAttribute("tituloPropuesta", tituloPropuesta);
 
-        // En lugar de sendRedirect, hacemos forward al servlet de detalles
         request.getRequestDispatcher("/DetallesDePropuesta").forward(request, response);
         
-//        if(pagoExitoso) 
-//        {
-//            request.setAttribute("id", tituloPropuesta);
-//            request.getRequestDispatcher("/DetallesDePropuesta").forward(request, response);
-//            
-//            //response.sendRedirect("DetallesDePropuesta?id=" + URLEncoder.encode(tituloPropuesta, "UTF-8") + "&resultadoOperacion=" + URLEncoder.encode((String.valueOf(5)), "UTF-8") + "&accionLograda=" + URLEncoder.encode("Acreditado el pago en", "UTF-8"));
-//            //response.sendRedirect("DetallesDePropuesta?id=" + URLEncoder.encode(tituloPropuesta, "UTF-8") + "&accionLograda=acreditado");
-//
-//        } 
-//        else 
-//        {
-//            response.sendRedirect("DetallesDePropuesta?id=" + URLEncoder.encode(tituloPropuesta, "UTF-8") + "&resultadoOperacion=" + URLEncoder.encode((String.valueOf(0)), "UTF-8") + "&accionLograda=" + URLEncoder.encode("Error", "UTF-8"));
-//            //response.sendRedirect("DetallesDePropuesta?id=" + URLEncoder.encode(tituloPropuesta, "UTF-8") + "&accionLograda=Error");
-//        }
     }
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -111,7 +112,14 @@ public class PagarColaboracion extends HttpServlet
     protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException 
     {
         HttpSession sesionActual = request.getSession(false);
-         IController controller = Fabrica.getInstance().getController();
+        
+        if (sesionActual == null || sesionActual.getAttribute("logueado") == null) 
+        {   //Por si la sesión se cierra
+            response.sendRedirect("login.jsp");
+            return;
+        }
+        
+        IController controller = Fabrica.getInstance().getController();
 
         String nickUsr = (String) sesionActual.getAttribute("logueado");
         String tituloPropuesta = request.getParameter("tituloPropuesta");

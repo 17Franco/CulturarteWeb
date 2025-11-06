@@ -54,46 +54,49 @@ document.addEventListener('DOMContentLoaded', function ()
             case 'tarjeta':
                 
                 html = `
-                    <label>Tipo de tarjeta</label>
-                    <select class="form-select mb-2" id="tipoTarjeta" name="tipoTarjeta" required>
-                        <option value="">Seleccione...</option>
-                        <option value="visa">Visa</option>
-                        <option value="oca">OCA</option>
-                        <option value="mastercard">Master Card</option>
-                    </select>
-                    <label>Número de tarjeta</label>
-                    <input type="text" class="form-control mb-2" id="numTarjeta" name="numTarjeta" maxlength="19" required>
-                    <label>Fecha de vencimiento</label>
-                    <input type="month" class="form-control mb-2" name="vencimiento" required>
-                    <label>CVC</label>
-                    <input type="text" class="form-control mb-2" name="cvc" maxlength="4" required>
-                    <label>Nombre del titular</label>
-                    <input type="text" class="form-control mb-2" name="nombreTitular" required>
-                `;
+                        <label>Tipo de tarjeta</label>
+                        <select class="form-select mb-2" name="dato1" required>
+                            <option value="">Seleccione...</option>
+                            <option value="visa">Visa</option>
+                            <option value="oca">OCA</option>
+                            <option value="mastercard">Master Card</option>
+                        </select>
+                        <label>Número de tarjeta</label>
+                        <input type="text" class="form-control mb-2" name="dato2" maxlength="19" required>
+                        <label>Fecha de vencimiento</label>
+                        <input type="month" class="form-control mb-2" name="dato3" required>
+                        <label>CVC</label>
+                        <input type="text" class="form-control mb-2" name="dato4" maxlength="4" required>
+                        <label>Nombre del titular</label>
+                        <input type="text" class="form-control mb-2" name="dato5" required>
+                    `;
+
                 
                 break;
                 
             case 'transferencia':
                 
                 html = `
-                    <label>Banco</label>
-                    <input type="text" class="form-control mb-2" name="banco" required>
-                    <label>Número de cuenta</label>
-                    <input type="text" class="form-control mb-2" name="cuenta" required>
-                    <label>Nombre del titular</label>
-                    <input type="text" class="form-control mb-2" name="nombreTitular" required>
-                `;
+                        <label>Banco</label>
+                        <input type="text" class="form-control mb-2" name="dato1" required>
+                        <label>Número de cuenta</label>
+                        <input type="text" class="form-control mb-2" name="dato2" required>
+                        <label>Nombre del titular</label>
+                        <input type="text" class="form-control mb-2" name="dato3" required>
+                    `;
+
                     
                 break;
                 
             case 'paypal':
                 
                 html = `
-                    <label>Cuenta PayPal</label>
-                    <input type="email" class="form-control mb-2" name="cuentaPaypal" required>
-                    <label>Nombre del titular</label>
-                    <input type="text" class="form-control mb-2" name="nombreTitular" required>
-                `;
+                        <label>Cuenta PayPal</label>
+                        <input type="email" class="form-control mb-2" name="dato1" required>
+                        <label>Nombre del titular</label>
+                        <input type="text" class="form-control mb-2" name="dato2" required>
+                        `;
+
                         
                 break;
                 

@@ -41,7 +41,7 @@
 
                 <div class="mb-3">
                     <label for="metodoPago">Método de pago</label>
-                    <select class="form-select" id="metodoPago" name="metodoPago" required>
+                    <select class="form-select" id="formaPago" name="formaPago" required>
                         <option value="">Seleccione...</option>
                         <option value="tarjeta">Tarjeta de crédito/débito</option>
                         <option value="transferencia">Transferencia bancaria</option>
