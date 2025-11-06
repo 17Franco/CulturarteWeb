@@ -8,14 +8,14 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-        <head>
+    <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Pagar Colaboración</title>
-        <link rel="stylesheet" href="cssBootstrap/bootstrap.min.css"/> <!-- estilos -->
-        <link rel="stylesheet" href="CssPersonalizado/Styles.css"/> <!-- estilos -->
-        <script  src="JS/Validacion.js" defer></script> <!-- funcionalidades -->
-        <script src="jsBoostrap/bootstrap.bundle.min.js"></script> <!-- funcionalidades -->
+        <link rel="stylesheet" href="cssBootstrap/bootstrap.min.css"/>
+        <link rel="stylesheet" href="CssPersonalizado/Styles.css"/>
+        <script src="JS/detectorTarjeta.js" defer></script>
+        <script src="jsBoostrap/bootstrap.bundle.min.js"></script>
         <link href="https://fonts.googleapis.com/css2?family=Kite+One&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"/>
     </head>
     <body>
@@ -29,14 +29,14 @@
             %>
             <h3>Pagar Colaboración</h3>
             <p><strong>Propuesta:</strong> <%= colaboracion.getPropuesta()%></p>
-            <p><strong>Monto a pagar:</strong> $<%= colaboracion.getMonto()%></p>
+            <p><strong>Monto declarado al colaborar:</strong> $<%= colaboracion.getMonto()%></p>
 
             <form action="PagarColaboracion" method="post">
                 <input type="hidden" name="tituloPropuesta" value="<%= colaboracion.getPropuesta()%>">
 
                 <div class="mb-3">
                     <label for="monto">Monto a pagar</label>
-                    <input type="number" class="form-control" id="monto" name="monto" min="1" value="<%= colaboracion.getMonto()%>" required>
+                    <input type="number" class="form-control" id="monto" name="monto" min="<%= colaboracion.getMonto()%>" value="<%= colaboracion.getMonto()%>" required>
                 </div>
 
                 <div class="mb-3">
@@ -62,51 +62,6 @@
             %>
         </div>
 
-        <script>
-            const metodoPago = document.getElementById('metodoPago');
-            const detallesPago = document.getElementById('detallesPago');
-
-            metodoPago.addEventListener('change', function () {
-                let html = '';
-                switch (this.value) {
-                    case 'tarjeta':
-                        html = `
-                            <label>Número de tarjeta</label>
-                            <input type="text" class="form-control mb-2" name="numTarjeta" required>
-                            <label>Fecha de vencimiento</label>
-                            <input type="month" class="form-control mb-2" name="vencimiento" required>
-                            <label>CVC</label>
-                            <input type="text" class="form-control mb-2" name="cvc" required>
-                            <label>Nombre del titular</label>
-                            <input type="text" class="form-control mb-2" name="nombreTitular" required>
-                        `;
-                        break;
-                    case 'transferencia':
-                        html = `
-                            <label>Banco</label>
-                            <input type="text" class="form-control mb-2" name="banco" required>
-                            <label>Número de cuenta</label>
-                            <input type="text" class="form-control mb-2" name="cuenta" required>
-                            <label>Nombre del titular</label>
-                            <input type="text" class="form-control mb-2" name="nombreTitular" required>
-                        `;
-                        break;
-                    case 'paypal':
-                        html = `
-                            <label>Cuenta PayPal</label>
-                            <input type="email" class="form-control mb-2" name="cuentaPaypal" required>
-                            <label>Nombre del titular</label>
-                            <input type="text" class="form-control mb-2" name="nombreTitular" required>
-                        `;
-                        break;
-                    default:
-                        html = '';
-                }
-                detallesPago.innerHTML = html;
-            });
-        </script>
-
         <script src="jsBoostrap/bootstrap.bundle.min.js"></script>
     </body>
 </html>
-
