@@ -13,7 +13,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.net.URLEncoder;
-import java.time.LocalDateTime;
 import java.util.List;
 import logica.DTO.DTOColaboracion;
 import logica.DTO.DTOPago;
@@ -82,8 +81,20 @@ public class PagarColaboracion extends HttpServlet
         }
 
 
-        String accionLograda = pagoExitoso ? "Acreditado el pago en" : "Error";
-        request.setAttribute("resultadoOperacion", pagoExitoso ? 5 : 0);
+        String accionLograda;
+        int resultadoOperacion = 0;
+        
+        if(pagoExitoso == true)
+        {
+           accionLograda = "Acreditado el pago en";
+           resultadoOperacion = 5;
+        }
+        else
+        {
+            accionLograda = "Error";
+        }
+
+        request.setAttribute("resultadoOperacion", resultadoOperacion);
         request.setAttribute("accionLograda", accionLograda);
         request.setAttribute("tituloPropuesta", tituloPropuesta);
 
