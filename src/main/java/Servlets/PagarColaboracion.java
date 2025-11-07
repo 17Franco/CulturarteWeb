@@ -81,24 +81,28 @@ public class PagarColaboracion extends HttpServlet
         }
 
 
-        String accionLograda;
+        String accionLograda = "";
         int resultadoOperacion = 0;
         
         if(pagoExitoso == true)
         {
-           accionLograda = "Acreditado el pago en";
+           accionLograda = "acreditado el pago en";
            resultadoOperacion = 5;
         }
-        else
+        
+        if(pagoExitoso == false)
         {
             accionLograda = "Error";
         }
 
-        request.setAttribute("resultadoOperacion", resultadoOperacion);
-        request.setAttribute("accionLograda", accionLograda);
-        request.setAttribute("tituloPropuesta", tituloPropuesta);
+        response.sendRedirect("DetallesDePropuesta?id=" + URLEncoder.encode(tituloPropuesta, "UTF-8") + "&resultadoOperacion=" + resultadoOperacion + "&accionLograda=" + URLEncoder.encode(accionLograda, "UTF-8"));
 
-        request.getRequestDispatcher("/DetallesDePropuesta").forward(request, response);
+        
+//        request.setAttribute("resultadoOperacion", resultadoOperacion);
+//        request.setAttribute("accionLograda", accionLograda);
+//        request.setAttribute("tituloPropuesta", tituloPropuesta);
+//
+//        request.getRequestDispatcher("/DetallesDePropuesta").forward(request, response);
         
     }
     
@@ -146,13 +150,14 @@ public class PagarColaboracion extends HttpServlet
         } 
         else 
         {
-            response.sendRedirect("DetallesDePropuesta?tituloPropuesta=" + URLEncoder.encode(tituloPropuesta, "UTF-8") + "&accionLograda=Error");
+            response.sendRedirect("DetallesDePropuesta?tituloPropuesta=" + URLEncoder.encode(tituloPropuesta, "UTF-8"));
         }
     }
 
     @Override
-    public String getServletInfo() {
-        return "Short description";
+    public String getServletInfo() 
+    {
+        return "Odio html y todo lo que se le parezca";
     }
 
 }
