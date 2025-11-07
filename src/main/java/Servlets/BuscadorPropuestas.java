@@ -30,6 +30,7 @@ public class BuscadorPropuestas extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        System.out.println("hhhhhhhhhhhhhhhhhh");
         String filtro = request.getParameter("filtro");
         String categoria = request.getParameter("categoria");
 
