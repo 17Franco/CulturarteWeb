@@ -1,4 +1,5 @@
 
+<%@page import="webservices.DtoUsuario"%>
 <%@page import="logica.DTO.DTOUsuario"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -18,7 +19,7 @@
             
             <%
             //me Traigo de la request el dto
-            List<DTOUsuario> usr = (List<DTOUsuario>) request.getAttribute("RankUser");
+            List<DtoUsuario> usr = (List<DtoUsuario>) request.getAttribute("RankUser");
             
             %>
             <table class="table">
@@ -31,7 +32,7 @@
               </thead>
               <tbody>
                 <% int cant=1;%>
-                <%for(DTOUsuario u: usr){%>
+                <%for(DtoUsuario u: usr){%>
                 
                 <tr onclick="window.location.href='PerfilUsuario?nick=<%=u.getNickname()%>&tipo=<%=u.getTipoUsr()%>'" style="cursor:pointer;">
                     <th scope="row"><%=cant%></th>

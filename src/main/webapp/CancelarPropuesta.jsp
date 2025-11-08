@@ -26,7 +26,7 @@
         
             <%
             
-            Set<DTOPropuesta> prop = (Set<DTOPropuesta>) request.getAttribute("propuestasACancelar");
+            List<DTOPropuesta> prop = (List<DTOPropuesta>) request.getAttribute("propuestasACancelar");
             
             %>
             <div class="propuestas-contenedor">

@@ -16,6 +16,9 @@ import logica.DTO.DTOColaboracion;
 import logica.DTO.DTOUsuario;
 import logica.Fabrica;
 import logica.IController;
+import webservices.ControllerWS;
+import webservices.ControllerWS_Service;
+import webservices.DtoColaboracion;
 
 /**
  *
@@ -27,13 +30,19 @@ public class Colaboraciones extends HttpServlet {
    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        IController controller= Fabrica.getInstance().getController();
-         String usrPerfil = request.getParameter("nick");
-         String usrTipo = request.getParameter("tipo");
+        
+         //Intanciando webService
+        ControllerWS_Service service = new ControllerWS_Service();
+        //controlador
+        ControllerWS portU = service.getControllerWSPort(); 
+        
+        //IController controller= Fabrica.getInstance().getController();
+        String usrPerfil = request.getParameter("nick");
+        String usrTipo = request.getParameter("tipo");
         try{
            if(!("").equals(usrPerfil)){
                
-            List<DTOColaboracion> p=controller.colaboraciones(usrPerfil);
+            List<DtoColaboracion> p=portU.colaboraciones(usrPerfil);
 
             request.setAttribute("Colaboraciones", p);
             request.setAttribute("nick", usrPerfil);

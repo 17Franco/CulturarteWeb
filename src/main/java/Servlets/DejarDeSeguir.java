@@ -13,6 +13,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import logica.Fabrica;
 import logica.IController;
+import webservices.ControllerWS;
+import webservices.ControllerWS_Service;
 
 @WebServlet(name = "DejarDeSeguir", urlPatterns = {"/DejarDeSeguir"})
 public class DejarDeSeguir extends HttpServlet {
@@ -21,13 +23,19 @@ public class DejarDeSeguir extends HttpServlet {
    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        //Intanciando webService
+        ControllerWS_Service service = new ControllerWS_Service();
+        //controlador
+        ControllerWS portU = service.getControllerWSPort(); 
+        
         //intancia de fabrica y iController
         IController controller= Fabrica.getInstance().getController();
         //contenido del input solo controla el input de registro
         String seguidor = request.getParameter("seguidor");
         String seguido = request.getParameter("seguido");
         
-        boolean sigue = controller.unFollowUser(seguidor,seguido);
+        boolean sigue = portU.unFollowUser(seguidor,seguido);
 
         // Devolver JSON simple
         response.setContentType("application/json");

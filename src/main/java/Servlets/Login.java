@@ -4,6 +4,7 @@
  */
 package Servlets;
 
+import Config.Config;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -48,6 +49,7 @@ public class Login extends HttpServlet {
           
         
         try{
+         
            if(portU.login(nick, pass)){
                if(portU.isProponente(nick)){
                 sesion.setAttribute("logueado", nick); 

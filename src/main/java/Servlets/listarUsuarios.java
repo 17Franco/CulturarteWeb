@@ -12,9 +12,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
-import logica.DTO.DTOUsuario;
+//import logica.DTO.DTOUsuario;
 import logica.Fabrica;
 import logica.IController;
+import webservices.ControllerWS;
+import webservices.ControllerWS_Service;
+import webservices.DtoUsuario;
 
 /**
  *
@@ -27,11 +30,14 @@ public class listarUsuarios extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
        IController controller= Fabrica.getInstance().getController();
-         
+       //Intanciando webService
+        ControllerWS_Service service = new ControllerWS_Service();
+        //controlador
+        ControllerWS portU = service.getControllerWSPort();   
         try{
            
                
-            List<DTOUsuario> p=controller.ListaDTOUsuarios();
+            List<DtoUsuario> p=portU.listaDTOUsuarios();
 
             request.setAttribute("Usuarios", p);
             

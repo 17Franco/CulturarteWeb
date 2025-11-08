@@ -14,6 +14,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import logica.DTO.DTOColaborador;
 import logica.Fabrica;
 import logica.IController;
+import webservices.ControllerWS;
+import webservices.ControllerWS_Service;
 
 /**
  *
@@ -25,8 +27,9 @@ public class Img extends HttpServlet {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        IController controller= Fabrica.getInstance().getController();
+        ControllerWS_Service service = new ControllerWS_Service();
+        ControllerWS port = service.getControllerWSPort(); 
+        //IController controller= Fabrica.getInstance().getController();
          String ruta = request.getParameter("ruta");
          String extension = ruta.substring(ruta.lastIndexOf(".") + 1).toLowerCase();//nesesito saber si es png o jpg
          String ext; //aca se guardara contentType segun sea la extencion
@@ -34,7 +37,7 @@ public class Img extends HttpServlet {
            if(!("").equals(ruta)){
                //DTOColaborador c=controller.getDTOColaborador(usrTipo);
                
-                byte[] img=controller.getImg(ruta); //me  traigo el array de bytes de la img
+                byte[] img=port.getImg(ruta); //me  traigo el array de bytes de la img
                 switch (extension) {
                     case "png":
                         ext = "image/png";

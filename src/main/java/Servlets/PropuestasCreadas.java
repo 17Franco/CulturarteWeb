@@ -14,8 +14,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Set;
 import logica.DTO.DTOPropuesta;
+
 import logica.Fabrica;
 import logica.IController;
+import webservices.ControllerWS;
+import webservices.ControllerWS_Service;
+import webservices.DtoPropuesta;
 
 /**
  *
@@ -24,17 +28,14 @@ import logica.IController;
 @WebServlet(name = "PropuestasCreadas", urlPatterns = {"/PropuestasCreadas"})
 public class PropuestasCreadas extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+   
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+         //Intanciando webService
+        ControllerWS_Service service = new ControllerWS_Service();
+        //controlador
+        ControllerWS portU = service.getControllerWSPort(); 
         
          IController controller= Fabrica.getInstance().getController();
          String usrPerfil = request.getParameter("nick");

@@ -15,6 +15,7 @@
         <jakartaee>10.0.0</jakartaee>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
+        <soap.endpoint>http://localhost:9125/controllerWS?wsdl</soap.endpoint>
     </properties>
 
     <dependencies>
@@ -51,6 +52,24 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>properties-maven-plugin</artifactId>
+                <version>1.2.0</version>
+                <executions>
+                    <execution>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>read-project-properties</goal>
+                        </goals>
+                        <configuration>
+                            <files>
+                                <file>${user.home}/.Culturarte/config.properties</file>
+                            </files>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <!-- Compilador -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -79,7 +98,7 @@
                         </goals>
                         <configuration>
                             <wsdlUrls>
-                                <wsdlUrl>http://192.168.1.8:9125/controllerWS?wsdl</wsdlUrl> 
+                                <wsdlUrl>http://${WEB_SERVICES_HOST}:${WEB_SERVICES_PORT}/controllerWS?wsdl</wsdlUrl> 
                             </wsdlUrls>
                         </configuration>
                     </execution>
@@ -97,6 +116,6 @@
             </plugin>
         </plugins>
     </build>
-
+    
 </project>
 

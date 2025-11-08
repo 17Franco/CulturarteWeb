@@ -1,4 +1,6 @@
 
+<%@page import="webservices.DtoProponente"%>
+<%@page import="webservices.DtoUsuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -18,7 +20,7 @@
         
             <%
             //me Traigo de la request el dto
-            DTOUsuario usr = (DTOUsuario) request.getAttribute("infoPerfil");
+            DtoUsuario usr = (DtoUsuario) request.getAttribute("infoPerfil");
             
             %>
             <div class="ContenedorInfoUsuario">
@@ -49,14 +51,14 @@
                         <li class="list-group-item"><strong>Nombre:</strong> <%=usr.getNombre()%></li>
                         <li class="list-group-item"><strong>Apellido:</strong> <%=usr.getApellido()%></li>
                         <li class="list-group-item"><strong>Email:</strong> <%=usr.getEmail()%></li>
-                        <li class="list-group-item"><strong>Fecha Nacimiento:</strong> <%=usr.getFecha()%></li>
+                        <li class="list-group-item"><strong>Fecha Nacimiento:</strong> <%=usr.getFechaString()%></li>
 
 
                         <% 
                             //tipoUsr esta me lo traigo del include del navPefilUsuario 
                             if("Proponente".equals(tipoUsr)){
                              //para acceder a los get de Proponentes 
-                             DTOProponente p= (DTOProponente) request.getAttribute("infoPerfil");
+                             DtoProponente p= (DtoProponente) request.getAttribute("infoPerfil");
                         %> 
                             <li class="list-group-item"><strong>Biografia:</strong><p> <%=p.getBiografia()%> </p></li>
                             <li class="list-group-item"><strong>Direccion:</strong> <%=p.getDireccion()%></li>

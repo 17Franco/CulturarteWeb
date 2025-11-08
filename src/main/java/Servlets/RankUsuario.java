@@ -15,6 +15,9 @@ import java.util.List;
 import logica.DTO.DTOUsuario;
 import logica.Fabrica;
 import logica.IController;
+import webservices.ControllerWS;
+import webservices.ControllerWS_Service;
+import webservices.DtoUsuario;
 
 /**
  *
@@ -26,13 +29,17 @@ public class RankUsuario extends HttpServlet {
   
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+         //Intanciando webService
+        ControllerWS_Service service = new ControllerWS_Service();
+        //controlador
+        ControllerWS portU = service.getControllerWSPort(); 
         
-        IController controller= Fabrica.getInstance().getController();
+        //IController controller= Fabrica.getInstance().getController();
         
         try{
            
                
-            List<DTOUsuario> p=controller.rankingUsuarios();
+            List<DtoUsuario> p=portU.rankingUsuarios();
 
             request.setAttribute("RankUser", p);
             

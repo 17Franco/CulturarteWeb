@@ -13,6 +13,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import logica.Fabrica;
 import logica.IController;
+import webservices.ControllerWS;
+import webservices.ControllerWS_Service;
 
 
 @WebServlet(name = "bajaColaboracion", urlPatterns = {"/bajaColaboracion"})
@@ -25,17 +27,22 @@ public class bajaColaboracion extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         
-            IController controller= Fabrica.getInstance().getController();
-            String id = request.getParameter("id");
-            try {
-                controller.CancelarColaboracion(Long.valueOf(id));
-                
-                response.getWriter().write("{\"resp\": " + true + "}");
-            }catch(Exception e){
-                 e.printStackTrace();
-                 response.getWriter().write("{\"resp\": false, \"error\": \"" + e.getMessage() + "\"}");
-                 
-            }
+        //Intanciando webService
+        ControllerWS_Service service = new ControllerWS_Service();
+        //controlador
+        ControllerWS portU = service.getControllerWSPort(); 
+        
+        IController controller= Fabrica.getInstance().getController();
+        String id = request.getParameter("id");
+        try {
+            portU.cancelarColaboracion(Long.valueOf(id));
+
+            response.getWriter().write("{\"resp\": " + true + "}");
+        }catch(Exception e){
+             e.printStackTrace();
+             response.getWriter().write("{\"resp\": false, \"error\": \"" + e.getMessage() + "\"}");
+
+        }
    
     }
 

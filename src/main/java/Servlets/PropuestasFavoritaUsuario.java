@@ -16,6 +16,9 @@ import logica.DTO.DTOPropuesta;
 import logica.DTO.DTOUsuario;
 import logica.Fabrica;
 import logica.IController;
+import webservices.ControllerWS;
+import webservices.ControllerWS_Service;
+import webservices.DtoPropuesta;
 
 /**
  *
@@ -27,13 +30,18 @@ public class PropuestasFavoritaUsuario extends HttpServlet {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         IController controller= Fabrica.getInstance().getController();
-         String usrPerfil = request.getParameter("nick");
-         String usrTipo = request.getParameter("tipo");
+        
+        //Intanciando webService
+        ControllerWS_Service service = new ControllerWS_Service();
+        //controlador
+        ControllerWS portU = service.getControllerWSPort();
+        IController controller= Fabrica.getInstance().getController();
+        String usrPerfil = request.getParameter("nick");
+        String usrTipo = request.getParameter("tipo");
         try{
            if(!("").equals(usrPerfil)){
                //obtener favoritas del usuario
-            List<DTOPropuesta> p=controller.getFavoritas(usrPerfil);
+            List<DtoPropuesta> p=portU.getFavoritas(usrPerfil);
 
             request.setAttribute("propuestasFavoritas", p);
             request.setAttribute("nick", usrPerfil);

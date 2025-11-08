@@ -15,6 +15,9 @@ import java.util.List;
 import logica.DTO.DTOUsuario;
 import logica.Fabrica;
 import logica.IController;
+import webservices.ControllerWS;
+import webservices.ControllerWS_Service;
+import webservices.DtoUsuario;
 
 /**
  *
@@ -26,13 +29,19 @@ public class Seguidores extends HttpServlet {
   
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         IController controller= Fabrica.getInstance().getController();
-         String usrPerfil = request.getParameter("nick");
-         String usrTipo = request.getParameter("tipo");
+        
+        //Intanciando webService
+        ControllerWS_Service service = new ControllerWS_Service();
+        //controlador
+        ControllerWS portU = service.getControllerWSPort();
+        
+        //IController controller= Fabrica.getInstance().getController();
+        String usrPerfil = request.getParameter("nick");
+        String usrTipo = request.getParameter("tipo");
         try{
            if(!("").equals(usrPerfil)){
                
-            List<DTOUsuario> p=controller.getSeguidores(usrPerfil);
+            List<DtoUsuario> p=portU.getSeguidores(usrPerfil);
 
             request.setAttribute("Seguidores", p);
             request.setAttribute("nick", usrPerfil);

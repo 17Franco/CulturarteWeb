@@ -1,5 +1,7 @@
-<%@page import="java.util.List"%>
 <%@page import="logica.DTO.DTOCategoria"%>
+
+<%@page import="java.util.List"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

@@ -1,5 +1,6 @@
 
-<%@page import="logica.DTO.DTOUsuario"%>
+<%@page import="webservices.DtoUsuario"%>
+
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -18,14 +19,14 @@
             <!--me traigo los que sigue el usuario al que estoy consultando el perfil-->
             <% 
                 String UsuarioLogueado= (String) session.getAttribute("logueado");
-                List<DTOUsuario> usr = (List<DTOUsuario>) request.getAttribute("Usuarios");
+                List<DtoUsuario> usr = (List<DtoUsuario>) request.getAttribute("Usuarios");
             %>
             
             <div class="ContenedorUsuarioSeguidos" id="contenedorUsuarioSeguidos">
                 <script>
                     const USUARIO_LOGUEADO = "<%= UsuarioLogueado %>";
                 </script>
-                <% for(DTOUsuario u: usr){ %> 
+                <% for(DtoUsuario u: usr){ %> 
                 <%if(!u.getNickname().equals(UsuarioLogueado)) { %>
                     <!--le paso en el div el nick de usuario al cual el logueado puede llegar a seguir-->
                     <div class="tarjetaSeguidos" data-objetivo="<%= u.getNickname()%>"> 

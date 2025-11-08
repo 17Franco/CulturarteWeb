@@ -1,3 +1,4 @@
+<%@page import="webservices.DtoColaboracion"%>
 <%@page import="logica.DTO.DTOColaboracion"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -23,11 +24,11 @@
         </script>
 
         <%
-            List<DTOColaboracion> c = (List<DTOColaboracion>) request.getAttribute("Colaboraciones");
+            List<DtoColaboracion> c = (List<DtoColaboracion>) request.getAttribute("Colaboraciones");
         %>
 
         <div class="propuestas-contenedor" id="conteneedor_Colaboracion">
-            <% for (DTOColaboracion colab : c) { %>
+            <% for (DtoColaboracion colab : c) { %>
                 <div class="tarjeta-propuesta-horizontal" data-objetivo="<%= colab.getId() %>"> 
                     
                     <div class="imagen-area">
@@ -42,7 +43,7 @@
                         <h5 class="card-title">Colaboración Realizada</h5>
                         <p><strong>Título:</strong> <%= colab.getPropuesta() %></p>
                         <p><strong>Monto Colaborado:</strong> <%= colab.getMonto() %></p>
-                        <p><strong>Fecha Realizada:</strong> <%= colab.getCreado() %></p>
+                        <p><strong>Fecha Realizada:</strong> <%= colab.getCreadoString() %></p>
                         <p><strong>Retorno Elegido:</strong> <%= colab.getTipoRetorno().toString() %></p>
 
                         <a href="${pageContext.request.contextPath}/DetallesDePropuesta?id=<%= colab.getPropuesta() %>" 

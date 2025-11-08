@@ -13,6 +13,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import logica.Fabrica;
 import logica.IController;
+import webservices.ControllerWS;
+import webservices.ControllerWS_Service;
 
 /**
  *
@@ -23,21 +25,25 @@ public class SigueAUsuario extends HttpServlet {
 
    
 @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        
-        //intancia de fabrica y iController
-        IController controller= Fabrica.getInstance().getController();
-        //contenido del input solo controla el input de registro
-        String seguidor = request.getParameter("seguidor");
-        String seguido = request.getParameter("seguido");
-        
-        boolean sigue = controller.sigueAUsuario(seguidor,seguido);
+protected void doGet(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+    //Intanciando webService
+    ControllerWS_Service service = new ControllerWS_Service();
+    //controlador
+    ControllerWS portU = service.getControllerWSPort(); 
 
-        // Devolver JSON simple
-        response.setContentType("application/json");
-        response.getWriter().write("{\"seguido\": " + sigue + "}");
-    }
+    //intancia de fabrica y iController
+    //IController controller= Fabrica.getInstance().getController();
+    //contenido del input solo controla el input de registro
+    String seguidor = request.getParameter("seguidor");
+    String seguido = request.getParameter("seguido");
+
+    boolean sigue = portU.sigueAUsuario(seguidor,seguido);
+
+    // Devolver JSON simple
+    response.setContentType("application/json");
+    response.getWriter().write("{\"seguido\": " + sigue + "}");
+}
 
   
   

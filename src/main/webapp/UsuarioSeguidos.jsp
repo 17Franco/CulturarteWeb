@@ -1,6 +1,5 @@
 
-
-
+<%@page import="webservices.DtoUsuario"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -18,7 +17,7 @@
         <div class="main-container">
             <!--me traigo los que sigue el usuario al que estoy consultando el perfil-->
             <% 
-                List<DTOUsuario> usr = (List<DTOUsuario>) request.getAttribute("UsuariosSeguidos");
+                List<DtoUsuario> usr = (List<DtoUsuario>) request.getAttribute("UsuariosSeguidos");
             %>
             
             <%@ include file="Componentes/NavPerfilUsuario.jsp" %>
@@ -27,7 +26,7 @@
                     // para poder acceder al nick del usr logueado en mi js
                     const USUARIO_LOGUEADO = "<%= UsuarioLogueado %>"; 
                 </script>
-                <% for(DTOUsuario u: usr){ %> 
+                <% for(DtoUsuario u: usr){ %> 
                     <!--le paso en el div el nick de usuario al cual el logueado puede llegar a seguir-->
                     <div class="tarjetaSeguidos" data-objetivo="<%= u.getNickname()%>"> 
 

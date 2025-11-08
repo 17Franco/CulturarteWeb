@@ -13,6 +13,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import logica.Fabrica;
 import logica.IController;
+import webservices.ControllerWS;
+import webservices.ControllerWS_Service;
 
 /**
  *
@@ -25,14 +27,17 @@ public class emailUsado extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        //Intanciando webService
+        ControllerWS_Service service = new ControllerWS_Service();
+        //controlador
+        ControllerWS portU = service.getControllerWSPort(); 
         //intancia de fabrica y iController
-        IController controller= Fabrica.getInstance().getController();
+        //IController controller= Fabrica.getInstance().getController();
         //contenido del input solo controla el input de registro
         String email = request.getParameter("vEmail");
 
         
-        boolean existe = controller.emailUsado(email);
+        boolean existe = portU.emailUsado(email);
 
         // Devolver JSON simple
         response.setContentType("application/json");

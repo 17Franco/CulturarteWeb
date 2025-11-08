@@ -16,6 +16,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import logica.Fabrica;
 import logica.IController;
+import webservices.ControllerWS;
+import webservices.ControllerWS_Service;
 
 @MultipartConfig
 @WebServlet(name="Registro", urlPatterns={"/Registro"})
@@ -24,8 +26,15 @@ public class Registro extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        //Intanciando webService
+        ControllerWS_Service service = new ControllerWS_Service();
+        //controlador
+        ControllerWS portU = service.getControllerWSPort(); 
+        
         //intancia de fabrica y iController
-        IController controller= Fabrica.getInstance().getController();
+        //IController controller= Fabrica.getInstance().getController();
+        
         PrintWriter out = response.getWriter();
         try{
             //contenido del input solo controla el input de registro
@@ -60,9 +69,9 @@ public class Registro extends HttpServlet {
             LocalDate fechaFormat = LocalDate.parse(fecha, formatter);  
             System.out.println(pass);
             if(tipoUser.equals("Proponente")){
-               controller.registroUsuario(nick, pass, nombre, apellido, email,fechaFormat,contenido, fileName, true, direccion, web, biografia);
+               portU.registroUsuario(nick, pass, nombre, apellido, email,fechaFormat.toString(),contenido, fileName, true, direccion, web, biografia);
             }else{
-               controller.registroUsuario(nick, pass, nombre, apellido, email,fechaFormat,contenido, fileName, false, direccion, web, biografia);
+               portU.registroUsuario(nick, pass, nombre, apellido, email,fechaFormat.toString(),contenido, fileName, false, direccion, web, biografia);
             }
             
             request.setAttribute("successMessage", "¡Registro exitoso!"); //por si luego quiero mostrar mensjae

@@ -17,7 +17,6 @@ import jakarta.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
  *         &lt;element name="arg0" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
- *         &lt;element name="arg1" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -28,13 +27,11 @@ import jakarta.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "existe", propOrder = {
-    "arg0",
-    "arg1"
+    "arg0"
 })
 public class Existe {
 
     protected String arg0;
-    protected String arg1;
 
     /**
      * Obtiene el valor de la propiedad arg0.
@@ -58,30 +55,6 @@ public class Existe {
      */
     public void setArg0(String value) {
         this.arg0 = value;
-    }
-
-    /**
-     * Obtiene el valor de la propiedad arg1.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getArg1() {
-        return arg1;
-    }
-
-    /**
-     * Define el valor de la propiedad arg1.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setArg1(String value) {
-        this.arg1 = value;
     }
 
 }

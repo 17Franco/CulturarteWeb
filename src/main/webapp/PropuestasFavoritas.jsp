@@ -1,4 +1,5 @@
 
+<%@page import="webservices.DtoPropuesta"%>
 <%@page import="logica.DTO.DTOPropuesta"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -21,11 +22,11 @@
         
             <%
             //me Traigo de la request el dto
-            List<DTOPropuesta> prop = (List<DTOPropuesta>) request.getAttribute("propuestasFavoritas");
+            List<DtoPropuesta> prop = (List<DtoPropuesta>) request.getAttribute("propuestasFavoritas");
             
             %>
             <div class="propuestas-contenedor">
-                <%for(DTOPropuesta p:prop){%>
+                <%for(DtoPropuesta p:prop){%>
                     <div class="tarjeta-propuesta-horizontal"> 
     
                         <div class="imagen-area">
@@ -39,7 +40,7 @@
 
                         <div class="texto-area">
                             <h5 class="card-title"><%=p.getTitulo()%> </h5>
-                            <p><strong>Categoria</strong> <%=p.getCategorioToString()%></p>
+                            <p><strong>Categoria</strong> <%=p.getCategoria()%></p>
                             <p><strong>Estado</strong> <%=p.getEstadoAct() %></p>
                             <p><strong>Fecha Publicacion</strong> <%=p.getFechaPublicacion()%></p>
                             <a href="${pageContext.request.contextPath}/DetallesDePropuesta?id=<%= p.getTitulo()%>" class="btn btn-primary">Ver Detalle</a>

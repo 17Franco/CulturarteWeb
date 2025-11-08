@@ -1,3 +1,4 @@
+<%@page import="webservices.DtoPropuesta"%>
 <%@page import="java.util.Set"%>
 <%@page import="logica.DTO.DTOPropuesta"%>
 <%@page import="java.util.List"%>
@@ -41,7 +42,7 @@
 
                             <div class="texto-area">
                                 <h5 class="card-title"><%=p.getTitulo()%> </h5>
-                                <p><strong>Categoria</strong> <%=p.getCategoria().getNombreCategoria() %></p>
+                                <p><strong>Categoria</strong> <%=p.getCategoria()%></p>
                                 <p><strong>Estado</strong> <%=p.getEstadoAct() %></p>
                                 <p><strong>Fecha Publicacion</strong> <%=p.getFechaPublicacion()%></p>
                                 <a href="${pageContext.request.contextPath}/DetallesDePropuesta?id=<%= p.getTitulo()%>" class="btn btn-primary">Ver Detalle</a>
@@ -63,7 +64,7 @@
 
                             <div class="texto-area">
                                 <h5 class="card-title"><%=p.getTitulo()%> </h5>
-                                <p><strong>Categoria</strong> <%=p.getCategoria().getNombreCategoria() %></p>
+                                <p><strong>Categoria</strong> <%=p.getCategoria() %></p>
                                 <p><strong>Estado</strong> <%=p.getEstadoAct() %></p>
                                 <p><strong>Fecha Publicacion</strong> <%=p.getFechaPublicacion()%></p>
                                 <a href="${pageContext.request.contextPath}/DetallesDePropuesta?id=<%= p.getTitulo()%>" class="btn btn-primary">Ver Detalle</a>
