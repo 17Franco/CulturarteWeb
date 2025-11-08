@@ -28,6 +28,8 @@ public class ObjectFactory {
     private final static QName _ExisteUsuarioResponse_QNAME = new QName("http://webServices/", "existeUsuarioResponse");
     private final static QName _Hello_QNAME = new QName("http://webServices/", "hello");
     private final static QName _HelloResponse_QNAME = new QName("http://webServices/", "helloResponse");
+    private final static QName _IsProponente_QNAME = new QName("http://webServices/", "isProponente");
+    private final static QName _IsProponenteResponse_QNAME = new QName("http://webServices/", "isProponenteResponse");
     private final static QName _Login_QNAME = new QName("http://webServices/", "login");
     private final static QName _LoginResponse_QNAME = new QName("http://webServices/", "loginResponse");
 
@@ -68,6 +70,22 @@ public class ObjectFactory {
      */
     public HelloResponse createHelloResponse() {
         return new HelloResponse();
+    }
+
+    /**
+     * Create an instance of {@link IsProponente }
+     * 
+     */
+    public IsProponente createIsProponente() {
+        return new IsProponente();
+    }
+
+    /**
+     * Create an instance of {@link IsProponenteResponse }
+     * 
+     */
+    public IsProponenteResponse createIsProponenteResponse() {
+        return new IsProponenteResponse();
     }
 
     /**
@@ -136,6 +154,32 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://webServices/", name = "helloResponse")
     public JAXBElement<HelloResponse> createHelloResponse(HelloResponse value) {
         return new JAXBElement<HelloResponse>(_HelloResponse_QNAME, HelloResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link IsProponente }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link IsProponente }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://webServices/", name = "isProponente")
+    public JAXBElement<IsProponente> createIsProponente(IsProponente value) {
+        return new JAXBElement<IsProponente>(_IsProponente_QNAME, IsProponente.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link IsProponenteResponse }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link IsProponenteResponse }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://webServices/", name = "isProponenteResponse")
+    public JAXBElement<IsProponenteResponse> createIsProponenteResponse(IsProponenteResponse value) {
+        return new JAXBElement<IsProponenteResponse>(_IsProponenteResponse_QNAME, IsProponenteResponse.class, null, value);
     }
 
     /**

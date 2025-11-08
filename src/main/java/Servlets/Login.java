@@ -36,7 +36,8 @@ public class Login extends HttpServlet {
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       IController controller= Fabrica.getInstance().getController();
+       //IController controller= Fabrica.getInstance().getController();
+       
         ControllerWS_Service service = new ControllerWS_Service();
         ControllerWS portU = service.getControllerWSPort(); 
         
@@ -48,7 +49,7 @@ public class Login extends HttpServlet {
         
         try{
            if(portU.login(nick, pass)){
-               if(controller.isProponente(nick)){
+               if(portU.isProponente(nick)){
                 sesion.setAttribute("logueado", nick); 
                 sesion.setAttribute("tipoUser", "Proponente");
                }else{

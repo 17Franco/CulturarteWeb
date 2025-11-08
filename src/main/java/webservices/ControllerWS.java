@@ -62,6 +62,21 @@ public interface ControllerWS {
 
     /**
      * 
+     * @param arg0
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "isProponente", targetNamespace = "http://webServices/", className = "webservices.IsProponente")
+    @ResponseWrapper(localName = "isProponenteResponse", targetNamespace = "http://webServices/", className = "webservices.IsProponenteResponse")
+    @Action(input = "http://webServices/controllerWS/isProponenteRequest", output = "http://webServices/controllerWS/isProponenteResponse")
+    public boolean isProponente(
+        @WebParam(name = "arg0", targetNamespace = "")
+        String arg0);
+
+    /**
+     * 
      * @param name
      * @return
      *     returns java.lang.String
