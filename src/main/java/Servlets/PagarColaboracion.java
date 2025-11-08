@@ -13,7 +13,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.net.URLEncoder;
-import java.time.LocalDateTime;
 import java.util.List;
 import logica.DTO.DTOColaboracion;
 import logica.DTO.DTOPago;
@@ -82,12 +81,28 @@ public class PagarColaboracion extends HttpServlet
         }
 
 
-        String accionLograda = pagoExitoso ? "Acreditado el pago en" : "Error";
-        request.setAttribute("resultadoOperacion", pagoExitoso ? 5 : 0);
-        request.setAttribute("accionLograda", accionLograda);
-        request.setAttribute("tituloPropuesta", tituloPropuesta);
+        String accionLograda = "";
+        int resultadoOperacion = 0;
+        
+        if(pagoExitoso == true)
+        {
+           accionLograda = "acreditado el pago en";
+           resultadoOperacion = 5;
+        }
+        
+        if(pagoExitoso == false)
+        {
+            accionLograda = "Error";
+        }
 
-        request.getRequestDispatcher("/DetallesDePropuesta").forward(request, response);
+        response.sendRedirect("DetallesDePropuesta?id=" + URLEncoder.encode(tituloPropuesta, "UTF-8") + "&resultadoOperacion=" + resultadoOperacion + "&accionLograda=" + URLEncoder.encode(accionLograda, "UTF-8"));
+
+        
+//        request.setAttribute("resultadoOperacion", resultadoOperacion);
+//        request.setAttribute("accionLograda", accionLograda);
+//        request.setAttribute("tituloPropuesta", tituloPropuesta);
+//
+//        request.getRequestDispatcher("/DetallesDePropuesta").forward(request, response);
         
     }
     
@@ -135,13 +150,14 @@ public class PagarColaboracion extends HttpServlet
         } 
         else 
         {
-            response.sendRedirect("DetallesDePropuesta?tituloPropuesta=" + URLEncoder.encode(tituloPropuesta, "UTF-8") + "&accionLograda=Error");
+            response.sendRedirect("DetallesDePropuesta?tituloPropuesta=" + URLEncoder.encode(tituloPropuesta, "UTF-8"));
         }
     }
 
     @Override
-    public String getServletInfo() {
-        return "Short description";
+    public String getServletInfo() 
+    {
+        return "Odio html y todo lo que se le parezca";
     }
 
 }

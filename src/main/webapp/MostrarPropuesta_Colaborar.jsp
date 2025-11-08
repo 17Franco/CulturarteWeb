@@ -39,7 +39,6 @@
         %>
             
             <div class="container-fluid my-4 px-3">
-                        
 <%
     //POPUPS de aviso de acción:
     
