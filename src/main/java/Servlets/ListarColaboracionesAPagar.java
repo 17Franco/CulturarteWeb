@@ -24,6 +24,13 @@ import logica.IController;
 
 public class ListarColaboracionesAPagar extends HttpServlet 
 {
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException 
+    {
+        processRequest(request, response);
+    }
+    
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
         
@@ -48,9 +55,10 @@ public class ListarColaboracionesAPagar extends HttpServlet
             request.setAttribute("nick", uid);
             request.setAttribute("tipo", tipoUsuario);
             request.setAttribute("colaboracionesAPagar", pendientesDePago);
-            request.setAttribute("pagina", "Colaboraciones");
+            request.setAttribute("pagina", "PagarColaboracion");
             request.getRequestDispatcher("/PagarColaboracion.jsp").forward(request, response);     
         }  
     }
+
 
 }
