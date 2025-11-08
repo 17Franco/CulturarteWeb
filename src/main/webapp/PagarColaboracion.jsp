@@ -47,26 +47,26 @@
                                     <% }%>
                                 </div>
 
-                                <div class="texto-area">
-                                    
-                                    <h5 class="card-title">Colaboración pendiente de pago</h5><br>
-                                    <p><strong>Título:</strong> <%= colab.getPropuesta()%></p>
-                                    <p><strong>Monto Colaborado:</strong> <%= colab.getMonto()%></p>
-                                    <p><strong>Fecha Realizada:</strong> <%= colab.getCreado()%></p>
-                                    <p><strong>Retorno Elegido:</strong> <%= colab.getTipoRetorno().toString()%></p>
+                                        <div class="texto-area">
+                                            <h5 class="card-title">Colaboración</h5>
+                                            <p><strong>Título:</strong> <%= colab.getPropuesta()%></p>
+                                            <p><strong>Monto Colaborado:</strong> <%= colab.getMonto()%></p>
+                                            <p><strong>Fecha Realizada:</strong> <%= colab.getCreado()%></p>
+                                            <p><strong>Retorno:</strong> <%= colab.getTipoRetorno().toString()%></p>
 
-                                    <a href="${pageContext.request.contextPath}/DetallesDePropuesta?id=<%= colab.getPropuesta()%>" 
-                                       class="btn btn-primary me-2">Ver Detalle</a>
-                                    
-                                    <% if (session.getAttribute("logueado") != null && UsuarioLogueado.equals(colab.getColaborador())) { %>
-                                            
-                                    <a href="${pageContext.request.contextPath}/PagarColaboracion?tituloPropuesta=<%= java.net.URLEncoder.encode(colab.getPropuesta(), "UTF-8")%>" 
-                                       class="btn btn-primary me-2">Acreditar Pago</a>
-                    
+                                            <div class="btn-group" role="group">
 
-                                    <%}%>
+                                                <% if (session.getAttribute("logueado") != null && UsuarioLogueado.equals(colab.getColaborador())) { %>
+                                                <a href="${pageContext.request.contextPath}/PagarColaboracion?tituloPropuesta=<%= java.net.URLEncoder.encode(colab.getPropuesta(), "UTF-8")%>" 
+                                                   class="btn btn-primary">Acreditar Pago</a>
+                                                <% } %>
+
+                                                <a href="${pageContext.request.contextPath}/DetallesDePropuesta?id=<%= colab.getPropuesta()%>" 
+                                                   class="btn btn-secondary">Detalles</a>
+
+                                            </div>
+                                        </div>
                                 </div>
-                            </div>
               <%}%>
                 
             </div>
