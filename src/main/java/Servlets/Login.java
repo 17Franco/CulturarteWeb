@@ -4,7 +4,7 @@
  */
 package Servlets;
 
-import Config.Config;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
