@@ -25,11 +25,13 @@ import jakarta.xml.bind.annotation.XmlType;
  *         &lt;element name="Imagen" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="Lugar" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="Fecha" type="{http://webServices/}localDate" minOccurs="0"/&gt;
- *         &lt;element name="Precio" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
- *         &lt;element name="MontoTotal" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
  *         &lt;element name="FechaPublicacion" type="{http://webServices/}localDate" minOccurs="0"/&gt;
  *         &lt;element name="fechaExpiracion" type="{http://webServices/}localDate" minOccurs="0"/&gt;
- *         &lt;element name="Retorno" type="{http://webServices/}tipoRetorno" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *         &lt;element name="FechaString" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="FechaPublicacionString" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="fechaExpiracionString" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="Precio" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
+ *         &lt;element name="MontoTotal" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
  *         &lt;element name="cat" type="{http://webServices/}dtoCategoria" minOccurs="0"/&gt;
  *         &lt;element name="categoria" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="usr" type="{http://webServices/}dtoProponente" minOccurs="0"/&gt;
@@ -73,11 +75,13 @@ import jakarta.xml.bind.annotation.XmlType;
     "imagen",
     "lugar",
     "fecha",
-    "precio",
-    "montoTotal",
     "fechaPublicacion",
     "fechaExpiracion",
-    "retorno",
+    "fechaString",
+    "fechaPublicacionString",
+    "fechaExpiracionString",
+    "precio",
+    "montoTotal",
     "cat",
     "categoria",
     "usr",
@@ -98,16 +102,18 @@ public class DtoPropuesta {
     protected String lugar;
     @XmlElement(name = "Fecha")
     protected LocalDate fecha;
+    @XmlElement(name = "FechaPublicacion")
+    protected LocalDate fechaPublicacion;
+    protected LocalDate fechaExpiracion;
+    @XmlElement(name = "FechaString")
+    protected String fechaString;
+    @XmlElement(name = "FechaPublicacionString")
+    protected String fechaPublicacionString;
+    protected String fechaExpiracionString;
     @XmlElement(name = "Precio")
     protected int precio;
     @XmlElement(name = "MontoTotal")
     protected int montoTotal;
-    @XmlElement(name = "FechaPublicacion")
-    protected LocalDate fechaPublicacion;
-    protected LocalDate fechaExpiracion;
-    @XmlElement(name = "Retorno", nillable = true)
-    @XmlSchemaType(name = "string")
-    protected List<TipoRetorno> retorno;
     protected DtoCategoria cat;
     protected String categoria;
     protected DtoProponente usr;
@@ -242,38 +248,6 @@ public class DtoPropuesta {
     }
 
     /**
-     * Obtiene el valor de la propiedad precio.
-     * 
-     */
-    public int getPrecio() {
-        return precio;
-    }
-
-    /**
-     * Define el valor de la propiedad precio.
-     * 
-     */
-    public void setPrecio(int value) {
-        this.precio = value;
-    }
-
-    /**
-     * Obtiene el valor de la propiedad montoTotal.
-     * 
-     */
-    public int getMontoTotal() {
-        return montoTotal;
-    }
-
-    /**
-     * Define el valor de la propiedad montoTotal.
-     * 
-     */
-    public void setMontoTotal(int value) {
-        this.montoTotal = value;
-    }
-
-    /**
      * Obtiene el valor de la propiedad fechaPublicacion.
      * 
      * @return
@@ -322,32 +296,107 @@ public class DtoPropuesta {
     }
 
     /**
-     * Gets the value of the retorno property.
+     * Obtiene el valor de la propiedad fechaString.
      * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the Jakarta XML Binding object.
-     * This is why there is not a <CODE>set</CODE> method for the retorno property.
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getFechaString() {
+        return fechaString;
+    }
+
+    /**
+     * Define el valor de la propiedad fechaString.
      * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getRetorno().add(newItem);
-     * </pre>
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setFechaString(String value) {
+        this.fechaString = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad fechaPublicacionString.
      * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getFechaPublicacionString() {
+        return fechaPublicacionString;
+    }
+
+    /**
+     * Define el valor de la propiedad fechaPublicacionString.
      * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link TipoRetorno }
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setFechaPublicacionString(String value) {
+        this.fechaPublicacionString = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad fechaExpiracionString.
      * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getFechaExpiracionString() {
+        return fechaExpiracionString;
+    }
+
+    /**
+     * Define el valor de la propiedad fechaExpiracionString.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setFechaExpiracionString(String value) {
+        this.fechaExpiracionString = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad precio.
      * 
      */
-    public List<TipoRetorno> getRetorno() {
-        if (retorno == null) {
-            retorno = new ArrayList<TipoRetorno>();
-        }
-        return this.retorno;
+    public int getPrecio() {
+        return precio;
+    }
+
+    /**
+     * Define el valor de la propiedad precio.
+     * 
+     */
+    public void setPrecio(int value) {
+        this.precio = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad montoTotal.
+     * 
+     */
+    public int getMontoTotal() {
+        return montoTotal;
+    }
+
+    /**
+     * Define el valor de la propiedad montoTotal.
+     * 
+     */
+    public void setMontoTotal(int value) {
+        this.montoTotal = value;
     }
 
     /**

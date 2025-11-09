@@ -43,7 +43,7 @@ public class PropuestasCreadas extends HttpServlet {
         try{
            if(!("").equals(usrPerfil)){
                //obtener favoritas del usuario
-            Set<DTOPropuesta> p=controller.getPropuestasCreadasPorProponente(usrPerfil);
+            List<DtoPropuesta> p=portU.getPropuestasCreadasPorProponente(usrPerfil);
 
             request.setAttribute("propuestasCreadas", p);
             request.setAttribute("nick", usrPerfil);

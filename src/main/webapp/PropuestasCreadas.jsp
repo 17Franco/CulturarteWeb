@@ -22,13 +22,13 @@
         
             <%
             //me Traigo de la request el dto
-            Set<DTOPropuesta> prop = (Set<DTOPropuesta>) request.getAttribute("propuestasCreadas");
+            List<DtoPropuesta> prop = (List<DtoPropuesta>) request.getAttribute("propuestasCreadas");
             
             %>
             <div class="propuestas-contenedor">
-                <%for(DTOPropuesta p:prop){%>
+                <%for(DtoPropuesta p:prop){%>
                     <!--si estoy en sesion invitado o veo el perfil de otro usuario solo puedo ver las que no son ingresada-->
-                    <%if((UsuarioLogueado==null || !UsuarioLogueado.equals(nick)) && !p.getEstadoAct().toString().equals("INGRESADA")) {%>
+                    <%if((UsuarioLogueado==null || !UsuarioLogueado.equals(nick)) && !p.getEstadoAct().value().equals("INGRESADA")) {%>
                         <div class="tarjeta-propuesta-horizontal"> 
 
                             <div class="imagen-area">
@@ -42,9 +42,9 @@
 
                             <div class="texto-area">
                                 <h5 class="card-title"><%=p.getTitulo()%> </h5>
-                                <p><strong>Categoria</strong> <%=p.getCategoria()%></p>
+                                <p><strong>Categoria</strong> <%=p.getCat().getNombreCategoria() %></p>
                                 <p><strong>Estado</strong> <%=p.getEstadoAct() %></p>
-                                <p><strong>Fecha Publicacion</strong> <%=p.getFechaPublicacion()%></p>
+                                <p><strong>Fecha Publicacion</strong> <%=p.getFechaPublicacionString()%></p>
                                 <a href="${pageContext.request.contextPath}/DetallesDePropuesta?id=<%= p.getTitulo()%>" class="btn btn-primary">Ver Detalle</a>
                             </div>
 
@@ -66,7 +66,7 @@
                                 <h5 class="card-title"><%=p.getTitulo()%> </h5>
                                 <p><strong>Categoria</strong> <%=p.getCategoria() %></p>
                                 <p><strong>Estado</strong> <%=p.getEstadoAct() %></p>
-                                <p><strong>Fecha Publicacion</strong> <%=p.getFechaPublicacion()%></p>
+                                <p><strong>Fecha Publicacion</strong> <%=p.getFechaPublicacionString()%></p>
                                 <a href="${pageContext.request.contextPath}/DetallesDePropuesta?id=<%= p.getTitulo()%>" class="btn btn-primary">Ver Detalle</a>
                             </div>
 
