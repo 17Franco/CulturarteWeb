@@ -7,3 +7,6 @@
 # Ignorar archivos de configuración específicos de NetBeans
 /nbproject/private/
 *.nbattrs
+
+# Clases generadas del cliente SOAP
+/src/main/java/webservices/
