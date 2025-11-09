@@ -10,4 +10,3 @@ nb-configuration.xml
 
 # Clases generadas del cliente SOAP
 src/main/java/webservices/
-src/main/wsdl/
