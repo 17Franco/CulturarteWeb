@@ -180,10 +180,18 @@
                             </div>
                         </div>
                     </div>
-                    
+                    <script>
+                        function limpiarArchivo(idInput) {
+                            // La operación clave: establecer el valor del input a cadena vacía
+                            document.getElementById(idInput).value = "";
+                        }
+                    </script>
                     <div class="col-12 mb-3">
                         <label for="formFile" class="form-label">Subir Imagen</label>
-                        <input class="form-control border-secondary" type="file" id="formFile" name="img">
+                        <div style="display: flex; gap: 10px; align-items: center;">  
+                            <input class="form-control border-secondary" type="file" id="formFile" name="img">
+                            <button type="button" onclick="limpiarArchivo('formFile')" class="btn btn-sm btn-outline-danger">Quitar</button>
+                        </div>
                     </div>
                             
 

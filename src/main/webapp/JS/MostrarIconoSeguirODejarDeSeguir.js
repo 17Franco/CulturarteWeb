@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const contenedorIcono = document.getElementById('iconoSeguir');
     
     if(seguidor && seguidor !== "null"){
-       actualizarIcono(seguidor,objetivo,contenedorIcono); 
+       actualizarIcono(seguidor,objetivo,contenedorIcono,false); 
     }
 
 });
