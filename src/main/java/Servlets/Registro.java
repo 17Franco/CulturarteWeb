@@ -1,6 +1,7 @@
 
 package Servlets;
 
+import Config.config;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,6 +13,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.InputStream; // Importa InputStream
 import jakarta.servlet.http.Part; // Importa Part
 import java.io.ByteArrayOutputStream;
+import java.net.URI;
+import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import logica.Fabrica;
@@ -27,8 +30,25 @@ public class Registro extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        //intancia clase config (este me trae el archivo de configuracion)
+        config conf = config.getInstance();
+        //me traigo la ip desde el config.propertie
+        String host = conf.getProps("WEB_SERVICES_HOST");
+        //me traigo la port desde el config.propertie
+        String port = conf.getProps("WEB_SERVICES_PORT");
+        //servicio que quiero traer (manejamos solo uno igual)
+        String serv = conf.getProps("SERVICE");
+        //esto es para que si cambia la url del servicio solo modificamos el config y estaria
+        
+        //contruir url   
+        String dir="http://"+host+":"+port+serv+"?wsdl";
+        // convertir el String a URI 
+        URI uri = URI.create(dir);
+        // si el constructor de tu servicio acepta URL, convertís:
+        URL url = uri.toURL();
+        
         //Intanciando webService
-        ControllerWS_Service service = new ControllerWS_Service();
+        ControllerWS_Service service = new ControllerWS_Service(url);
         //controlador
         ControllerWS portU = service.getControllerWSPort(); 
         

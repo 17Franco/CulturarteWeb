@@ -7,20 +7,14 @@ package Servlets;
 
 import Config.config;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import jakarta.xml.ws.BindingProvider;
 import java.net.URI;
 import java.net.URL;
-import java.util.Properties;
-import logica.Controller;
-import logica.Fabrica;
-import logica.IController;
 import webservices.ControllerWS;
 import webservices.ControllerWS_Service;
 
@@ -42,9 +36,8 @@ public class Login extends HttpServlet {
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //IController controller= Fabrica.getInstance().getController();
         
-        //pido la informacion donde esta los web service al archivo de configuracion
+        //intancia clase config (este me trae el archivo de configuracion)
         config conf = config.getInstance();
         //me traigo la ip desde el config.propertie
         String host = conf.getProps("WEB_SERVICES_HOST");
