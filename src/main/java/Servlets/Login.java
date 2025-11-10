@@ -56,6 +56,7 @@ public class Login extends HttpServlet {
         
           
         ControllerWS_Service service = new ControllerWS_Service(url);
+        
         ControllerWS portU = service.getControllerWSPort(); 
         //es para saber si cabia url si cambio en config
 //        String endpoint = ((BindingProvider) portU)
