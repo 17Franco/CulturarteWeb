@@ -1,4 +1,4 @@
-<%@page import="logica.DTO.DTOCategoria"%>
+<%@page import="webservices.DtoCategoria"%>
 
 <%@page import="java.util.List"%>
 
@@ -79,9 +79,9 @@
                         <div class="col-2 mb-2">
                             <ul class="categories list-unstyled">
                                 <%
-                                    List<DTOCategoria> categorias = (List<DTOCategoria>) request.getAttribute("categorias");
+                                    List<webservices.DtoCategoria> categorias = (List<webservices.DtoCategoria>) request.getAttribute("categorias");
                                     if (categorias != null && !categorias.isEmpty()) {
-                                        for (DTOCategoria cat : categorias) {
+                                        for (webservices.DtoCategoria cat : categorias) {
                                 %>
                                 <li class="category">
                                     <div class="category-header">
@@ -90,7 +90,7 @@
                                         <button type="button" class="toggle-subcategory">+</button>
                                     </div>
                                     <ul class="subcategory list-unstyled" hidden>
-                                        <% for (DTOCategoria sub : cat.getSubcategorias()) {%>
+                                        <% for (webservices.DtoCategoria sub : cat.getSubcategorias()) {%>
                                         <li>
                                             <input type="radio" name="categoria" value="<%= sub.getNombreCategoria()%>" id="cat-<%= sub.getNombreCategoria()%>">
                                             <label for="cat-<%= sub.getNombreCategoria()%>"><%= sub.getNombreCategoria()%></label>
