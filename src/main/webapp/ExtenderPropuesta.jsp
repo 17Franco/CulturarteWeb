@@ -6,6 +6,7 @@
 <%@page import="java.util.Set"%>
 <%@page import="webservices.DtoPropuesta"%>
 <%@page import="java.util.List"%>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -46,9 +47,15 @@
 
                             <div class="texto-area">
                                 <h5 class="card-title"><%=p.getTitulo()%> </h5>
-                                <p><strong>Categoria</strong> <%=p.getCategoria() %></p>
+                                <p><strong>Categoria</strong> <%=p.getCat().getNombreCategoria() %></p>
                                 <p><strong>Estado</strong> <%=p.getEstadoAct() %></p>
-                                <p><strong>Fecha Publicacion</strong> <%=p.getFechaPublicacion()%></p>
+                                <p><strong>Fecha Publicacion</strong> 
+                                <%= 
+                                    p.getFechaPublicacion() != null ? 
+                                    new java.text.SimpleDateFormat("dd/MM/yyyy").format(p.getFechaPublicacion().toGregorianCalendar().getTime()) 
+                                    : "" 
+                                %>
+                                </p>
                                 <a href="${pageContext.request.contextPath}/DetallesDePropuesta?id=<%= p.getTitulo()%>" class="btn btn-primary">Ver Detalle</a>
                             </div>
 
