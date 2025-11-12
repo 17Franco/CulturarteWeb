@@ -4,17 +4,21 @@
  */
 package Servlets;
 
+import Config.config;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import logica.DTO.DTOColaboracion;
-import logica.Fabrica;
-import logica.IController;
+import webservices.ControllerWS;
+import webservices.ControllerWS_Service;
+import webservices.DtoColaboracion;
 
 /**
  *
@@ -24,6 +28,26 @@ import logica.IController;
 
 public class ListarColaboracionesAPagar extends HttpServlet 
 {
+    
+    private ControllerWS obtenerPuerto() {
+        try {
+            config conf = config.getInstance();
+            String host = conf.getProps("WEB_SERVICES_HOST");
+            String port = conf.getProps("WEB_SERVICES_PORT");
+            String serv = conf.getProps("SERVICE");
+
+            String dir = "http://" + host + ":" + port + serv + "?wsdl";
+            URI uri = URI.create(dir);
+            URL url = uri.toURL();
+
+            ControllerWS_Service service = new ControllerWS_Service(url);
+            return service.getControllerWSPort();
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e.getMessage(), e);
+        }
+    }
+    
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException 
     {
@@ -36,14 +60,15 @@ public class ListarColaboracionesAPagar extends HttpServlet
         
         String uid = request.getParameter("nick");
         String tipoUsuario = request.getParameter("tipo");
-
+        
+        ControllerWS controllerPort = obtenerPuerto();
+        
         if(!uid.isEmpty())
         {  
-            IController controller= Fabrica.getInstance().getController();
-            List<DTOColaboracion> temp = controller.colaboraciones(uid);
-            List<DTOColaboracion> pendientesDePago = new ArrayList();
+            List<DtoColaboracion> temp = controllerPort.colaboraciones(uid);
+            List<DtoColaboracion> pendientesDePago = new ArrayList();
             
-            for(DTOColaboracion ct : temp)
+            for(DtoColaboracion ct : temp)
             {
                 if(ct.getColaborador().equals(uid) && ct.getDatosPago() == null)    //Si es el colaborador y si no ha pagado.
                 {
