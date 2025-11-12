@@ -3,7 +3,7 @@
     Created on : 5 nov 2025, 3:56:32
     Author     : klaas
 --%>
-<%@page import="logica.DTO.DTOColaboracion"%>
+<%@page import="webservices.DtoColaboracion"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -23,7 +23,7 @@
         
         <div class="container my-5">
             <%
-                DTOColaboracion colaboracion = (DTOColaboracion) request.getAttribute("colaboracion");
+                DtoColaboracion colaboracion = (DtoColaboracion) request.getAttribute("colaboracion");
                 if (colaboracion != null) {
             %>
             <h3>Pagar Colaboración</h3><br>
