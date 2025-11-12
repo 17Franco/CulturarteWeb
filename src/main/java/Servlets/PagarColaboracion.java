@@ -101,6 +101,7 @@ public class PagarColaboracion extends HttpServlet
         
         datosPago.setMonto(monto);
         datosPago.setFormaPago(formaPago);
+        datosPago.setFechaPago(null);
         datosPago.setDato1(dato1);
         datosPago.setDato2(dato2);
         datosPago.setDato3(dato3);
@@ -112,7 +113,7 @@ public class PagarColaboracion extends HttpServlet
         {
             if(monto >= colabEncontrada.getMonto()) //Si el pago es mayor o igual al que figura en la colaboración.
             {
-                pagoExitoso = controllerPort.acreditarColaboracion(colabEncontrada.getId(), datosPago);
+                pagoExitoso = controllerPort.acreditarColaboracion(colabEncontrada.getId(), datosPago); 
             }
         }
 
@@ -131,8 +132,7 @@ public class PagarColaboracion extends HttpServlet
             accionLograda = "Error";
         }
 
-        response.sendRedirect("DetallesDePropuesta?id=" + URLEncoder.encode(tituloPropuesta, "UTF-8") + "&resultadoOperacion=" + resultadoOperacion + "&accionLograda=" + URLEncoder.encode(accionLograda, "UTF-8"));
-        
+        response.sendRedirect("DetallesDePropuesta?id=" + URLEncoder.encode(tituloPropuesta, "UTF-8") + "&resultadoOperacion=" + resultadoOperacion + "&accionLograda=" + URLEncoder.encode(accionLograda, "UTF-8"));   
     }
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
