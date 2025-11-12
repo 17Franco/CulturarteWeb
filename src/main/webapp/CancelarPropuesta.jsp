@@ -4,7 +4,7 @@
     Author     : klaas
 --%>
 <%@page import="java.util.Set"%>
-<%@page import="logica.DTO.DTOPropuesta"%>
+<%@page import="webservices.DtoPropuesta"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -26,11 +26,11 @@
         
             <%
             
-            List<DTOPropuesta> prop = (List<DTOPropuesta>) request.getAttribute("propuestasACancelar");
+            List<DtoPropuesta> prop = (List<DtoPropuesta>) request.getAttribute("propuestasACancelar");
             
             %>
             <div class="propuestas-contenedor">
-                <%for(DTOPropuesta p:prop){%>
+                <%for(DtoPropuesta p:prop){%>
                 
                     <%if((UsuarioLogueado != null && UsuarioLogueado.equals(nick))) {%>
                             <div class="tarjeta-propuesta-horizontal"> 
