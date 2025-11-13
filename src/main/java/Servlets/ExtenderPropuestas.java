@@ -4,18 +4,22 @@
  */
 package Servlets;
 
+import Config.config;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.Set;
-import java.util.HashSet;
-import logica.DTO.DTOPropuesta;
-import logica.Fabrica;
-import logica.IController;
-import logica.DTO.Estado;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import webservices.DtoPropuesta;
+import webservices.Estado;
+import webservices.ControllerWS;
+import webservices.ControllerWS_Service;
 
 /**
  *
@@ -24,19 +28,32 @@ import logica.DTO.Estado;
 @WebServlet(name = "ExtenderPropuestas", urlPatterns = {"/ExtenderPropuestas"})
 public class ExtenderPropuestas extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    private ControllerWS obtenerPuerto() 
+    {
+        try 
+        {
+            config conf = config.getInstance();
+            String host = conf.getProps("WEB_SERVICES_HOST");
+            String port = conf.getProps("WEB_SERVICES_PORT");
+            String serv = conf.getProps("SERVICE");
+
+            String dir = "http://" + host + ":" + port + serv + "?wsdl";
+            URI uri = URI.create(dir);
+            URL url = uri.toURL();
+
+            ControllerWS_Service service = new ControllerWS_Service(url);
+            return service.getControllerWSPort();
+        } 
+        catch (MalformedURLException e) 
+        {
+            throw new RuntimeException(e.getMessage(), e);
+        }
+    }
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
 
-        IController controller = Fabrica.getInstance().getController();
+        ControllerWS controllerPort = obtenerPuerto();
         String usrPerfil = request.getParameter("nick");
         String usrTipo = request.getParameter("tipo");
          
@@ -45,11 +62,11 @@ public class ExtenderPropuestas extends HttpServlet {
            if(!("").equals(usrPerfil))
            {
                 
-                Set<DTOPropuesta> props = controller.getPropuestasCreadasPorProponente(usrPerfil);
+                List<DtoPropuesta> props = controllerPort.getPropuestasCreadasPorProponente(usrPerfil);
 
-                Set<DTOPropuesta> p = new HashSet();
+                List<DtoPropuesta> p = new ArrayList();
 
-                for(DTOPropuesta ct : props)
+                for(DtoPropuesta ct : props)
                 {
 
                     if(ct.getEstadoAct() == Estado.PUBLICADA || ct.getEstadoAct() == Estado.EN_FINANCIACION)

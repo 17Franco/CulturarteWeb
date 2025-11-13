@@ -15,10 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.net.URI;
 import java.net.URL;
 import java.util.List;
-import logica.DTO.DTOColaboracion;
-import logica.DTO.DTOUsuario;
-import logica.Fabrica;
-import logica.IController;
+
 import webservices.ControllerWS;
 import webservices.ControllerWS_Service;
 import webservices.DtoColaboracion;

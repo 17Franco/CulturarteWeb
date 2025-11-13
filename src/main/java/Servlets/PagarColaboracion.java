@@ -14,10 +14,14 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.net.URLEncoder;
 import java.util.List;
-import logica.DTO.DTOColaboracion;
-import logica.DTO.DTOPago;
-import logica.Fabrica;
-import logica.IController;
+import Config.config;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
+import webservices.ControllerWS;
+import webservices.ControllerWS_Service;
+import webservices.DtoPago;
+import webservices.DtoColaboracion;
 
 /**
  *
@@ -27,9 +31,9 @@ import logica.IController;
 public class PagarColaboracion extends HttpServlet 
 {
     
-    private DTOColaboracion buscarColaboracion(List<DTOColaboracion> in, String tituloPropuesta) 
+    private DtoColaboracion buscarColaboracion(List<DtoColaboracion> in, String tituloPropuesta) 
     {
-        for (DTOColaboracion ct : in) 
+        for (DtoColaboracion ct : in) 
         {
             if (ct.getPropuesta().equals(tituloPropuesta)) 
             {
@@ -39,6 +43,29 @@ public class PagarColaboracion extends HttpServlet
         
         return null;
     }
+    
+    private ControllerWS obtenerPuerto() 
+    {
+        try 
+        {
+            config conf = config.getInstance();
+            String host = conf.getProps("WEB_SERVICES_HOST");
+            String port = conf.getProps("WEB_SERVICES_PORT");
+            String serv = conf.getProps("SERVICE");
+
+            String dir = "http://" + host + ":" + port + serv + "?wsdl";
+            URI uri = URI.create(dir);
+            URL url = uri.toURL();
+
+            ControllerWS_Service service = new ControllerWS_Service(url);
+            return service.getControllerWSPort();
+        } 
+        catch (MalformedURLException e) 
+        {
+            throw new RuntimeException(e.getMessage(), e);
+        }
+    }
+
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
@@ -51,32 +78,42 @@ public class PagarColaboracion extends HttpServlet
             return;
         }
 
-        IController controller = Fabrica.getInstance().getController();
+        ControllerWS controllerPort = obtenerPuerto();
 
         String nickUsr = (String) sesionActual.getAttribute("logueado");
         String tituloPropuesta = request.getParameter("tituloPropuesta");
         int monto = Integer.parseInt(request.getParameter("monto"));
         String formaPago = request.getParameter("formaPago");
         
-        //La info sobre estos datos está en DTOPago y la clase Pago.
+        //La info sobre estos datos está en DtoPago y la clase Pago.
         String dato1 = request.getParameter("dato1");   
         String dato2 = request.getParameter("dato2");
         String dato3 = request.getParameter("dato3");
         String dato4 = request.getParameter("dato4");
         String dato5 = request.getParameter("dato5");
         
-        List<DTOColaboracion> colab = controller.colaboraciones(nickUsr);
-        DTOColaboracion colabEncontrada = buscarColaboracion(colab,tituloPropuesta);
+        List<DtoColaboracion> colab = controllerPort.colaboraciones(nickUsr);
+        DtoColaboracion colabEncontrada = buscarColaboracion(colab,tituloPropuesta);
 
         boolean pagoExitoso = false;
         
-        DTOPago datosPago = new DTOPago(monto, formaPago, null, dato1, dato2, dato3, dato4, dato5);
+        DtoPago datosPago = new DtoPago();
+        
+        datosPago.setMonto(monto);
+        datosPago.setFormaPago(formaPago);
+        datosPago.setFechaPago(null);
+        datosPago.setDato1(dato1);
+        datosPago.setDato2(dato2);
+        datosPago.setDato3(dato3);
+        datosPago.setDato4(dato4);
+        datosPago.setDato5(dato5);
+        
         
         if (colabEncontrada != null) 
         {
             if(monto >= colabEncontrada.getMonto()) //Si el pago es mayor o igual al que figura en la colaboración.
             {
-                pagoExitoso = controller.acreditarColaboracion(colabEncontrada.getId(), datosPago);
+                pagoExitoso = controllerPort.acreditarColaboracion(colabEncontrada.getId(), datosPago); 
             }
         }
 
@@ -95,15 +132,7 @@ public class PagarColaboracion extends HttpServlet
             accionLograda = "Error";
         }
 
-        response.sendRedirect("DetallesDePropuesta?id=" + URLEncoder.encode(tituloPropuesta, "UTF-8") + "&resultadoOperacion=" + resultadoOperacion + "&accionLograda=" + URLEncoder.encode(accionLograda, "UTF-8"));
-
-        
-//        request.setAttribute("resultadoOperacion", resultadoOperacion);
-//        request.setAttribute("accionLograda", accionLograda);
-//        request.setAttribute("tituloPropuesta", tituloPropuesta);
-//
-//        request.getRequestDispatcher("/DetallesDePropuesta").forward(request, response);
-        
+        response.sendRedirect("DetallesDePropuesta?id=" + URLEncoder.encode(tituloPropuesta, "UTF-8") + "&resultadoOperacion=" + resultadoOperacion + "&accionLograda=" + URLEncoder.encode(accionLograda, "UTF-8"));   
     }
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -134,14 +163,14 @@ public class PagarColaboracion extends HttpServlet
             return;
         }
         
-        IController controller = Fabrica.getInstance().getController();
+        ControllerWS controllerPort = obtenerPuerto();
 
         String nickUsr = (String) sesionActual.getAttribute("logueado");
         String tituloPropuesta = request.getParameter("tituloPropuesta");
         
-        List<DTOColaboracion> colab = controller.colaboraciones(nickUsr);
+        List<DtoColaboracion> colab = controllerPort.colaboraciones(nickUsr);
         
-        DTOColaboracion colabEncontrada = buscarColaboracion(colab,tituloPropuesta);
+        DtoColaboracion colabEncontrada = buscarColaboracion(colab,tituloPropuesta);
         
         if(colabEncontrada != null)
         {

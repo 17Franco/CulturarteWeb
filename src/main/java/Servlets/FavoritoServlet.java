@@ -45,10 +45,10 @@ public class FavoritoServlet extends HttpServlet {
             ControllerWS portU = service.getControllerWSPort();
         
         if ("agregar".equals(accion)) {
-            portU.marcarComoFavorita(nickname, tituloPropuesta);
+            //portU.marcarComoFavorita(nickname, tituloPropuesta);
             request.setAttribute("accionLograda", "Agredada a Favorita");
         } else if ("quitar".equals(accion)) {
-            portU.quitarFavorita(nickname, tituloPropuesta);
+            //portU.quitarFavorita(nickname, tituloPropuesta);
             request.setAttribute("accionLograda", "Se a removido de Favorita");
         }
         response.sendRedirect("DetallesDePropuesta?id="+ URLEncoder.encode(tituloPropuesta, "UTF-8"));

@@ -15,8 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.net.URI;
 import java.net.URL;
-import logica.Fabrica;
-import logica.IController;
+
 import webservices.ControllerWS;
 import webservices.ControllerWS_Service;
 

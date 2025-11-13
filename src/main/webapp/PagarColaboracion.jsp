@@ -4,7 +4,7 @@
     Author     : klaas
 --%>
 
-<%@page import="logica.DTO.DTOColaboracion"%>
+<%@page import="webservices.DtoColaboracion"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -29,12 +29,12 @@
             </script>
 
             <%
-                List<DTOColaboracion> pendientesDePago = (List<DTOColaboracion>) request.getAttribute("colaboracionesAPagar");
+                List<DtoColaboracion> pendientesDePago = (List<DtoColaboracion>) request.getAttribute("colaboracionesAPagar");
             %>
 
             <div class="propuestas-contenedor" id="conteneedor_Colaboracion">
                 
-              <%for(DTOColaboracion colab : pendientesDePago) 
+              <%for(DtoColaboracion colab : pendientesDePago) 
                 {%>
 
                             <div class="tarjeta-propuesta-horizontal" data-objetivo="<%= colab.getId()%>"> 
@@ -51,9 +51,26 @@
                                             <h5 class="card-title">Colaboración</h5>
                                             <p><strong>Título:</strong> <%= colab.getPropuesta()%></p>
                                             <p><strong>Monto Colaborado:</strong> <%= colab.getMonto()%></p>
-                                            <p><strong>Fecha Realizada:</strong> <%= colab.getCreado()%></p>
-                                            <p><strong>Retorno:</strong> <%= colab.getTipoRetorno().toString()%></p>
+                                            
+                                            <%
+                                            String fechaStr = colab.getCreadoString();
+                                            String fechaFormateada = fechaStr;
 
+                                            if (fechaStr != null && !fechaStr.isEmpty()) 
+                                            {
+                                                java.time.LocalDate fecha = java.time.LocalDate.parse(fechaStr);
+                                                fechaFormateada = fecha.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                                            }
+                                            %>
+                                            <p><strong>Fecha Realizada:</strong> <%= fechaFormateada %></p>
+                                            <% if (colab.getTipoRetorno().toString().equals("ENTRADA_GRATIS")) { %>
+                                            <p><strong>Retorno:</strong> Entrada Gratis</p>
+                                            <%}
+                                            else
+                                            {%>
+                                            <p><strong>Retorno:</strong> Porcentaje ganancia</p>
+                                            <%}%>
+                                            
                                             <div class="btn-group" role="group">
 
                                                 <% if (session.getAttribute("logueado") != null && UsuarioLogueado.equals(colab.getColaborador())) { %>

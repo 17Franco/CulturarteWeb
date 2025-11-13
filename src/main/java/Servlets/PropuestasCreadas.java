@@ -15,11 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.net.URI;
 import java.net.URL;
 import java.util.List;
-import java.util.Set;
-import logica.DTO.DTOPropuesta;
 
-import logica.Fabrica;
-import logica.IController;
 import webservices.ControllerWS;
 import webservices.ControllerWS_Service;
 import webservices.DtoPropuesta;
@@ -57,7 +53,7 @@ public class PropuestasCreadas extends HttpServlet {
         //controlador
         ControllerWS portU = service.getControllerWSPort(); 
         
-         IController controller= Fabrica.getInstance().getController();
+         //IController controller= Fabrica.getInstance().getController();
          String usrPerfil = request.getParameter("nick");
          String usrTipo = request.getParameter("tipo");
         try{

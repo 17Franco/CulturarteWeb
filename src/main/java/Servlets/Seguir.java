@@ -14,8 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.net.URI;
 import java.net.URL;
-import logica.Fabrica;
-import logica.IController;
+
 import webservices.ControllerWS;
 import webservices.ControllerWS_Service;
 
@@ -53,7 +52,7 @@ public class Seguir extends HttpServlet {
         ControllerWS portU = service.getControllerWSPort(); 
         
         //intancia de fabrica y iController
-        IController controller= Fabrica.getInstance().getController();
+        //IController controller= Fabrica.getInstance().getController();
         //contenido del input solo controla el input de registro
         String seguidor = request.getParameter("seguidor");
         String seguido = request.getParameter("seguido");

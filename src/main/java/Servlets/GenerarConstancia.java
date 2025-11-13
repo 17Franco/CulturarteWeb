@@ -19,7 +19,7 @@ public class GenerarConstancia extends HttpServlet {
             //obtengo la id desde el form
             Long idColaboracion = Long.parseLong(request.getParameter("idColaboracion"));
 
-            // obtengo la colab desde el manejadorcolab
+            // obtengo la colab desde el manejadorcolab 
             ManejadorColaboracion manejador = ManejadorColaboracion.getInstance();
             DTOColaboracion dto = manejador.getColaboracionPorId(idColaboracion);
 

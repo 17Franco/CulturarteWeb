@@ -19,7 +19,7 @@
     </properties>
 
     <dependencies>
-        <!-- tus módulos locales -->
+         
         <dependency>
             <groupId>Lab1</groupId>
             <artifactId>Lab1PA</artifactId>
