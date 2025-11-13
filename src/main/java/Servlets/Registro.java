@@ -17,8 +17,7 @@ import java.net.URI;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import logica.Fabrica;
-import logica.IController;
+
 import webservices.ControllerWS;
 import webservices.ControllerWS_Service;
 
