@@ -45,10 +45,10 @@
             <div class="col-12 col-sm-6">
                 <p><strong>Propuesta:</strong> <%= dto.getPropuesta() %></p>
                 <p><strong>Monto:</strong> <%= dto.getMonto() %></p>
-                <p><strong>Tipo de Retorno:</strong> <%= dto.getTipoRetorno()%></p>
+                <p><strong>Tipo de Retorno se usas esto:</strong> <%= dto.getTipoRetorno()%></p>
             </div>
             <div class="col-12">
-                <p><strong>Fecha de Creación:</strong> <%= dto.getCreado() %></p>
+                <p><strong>Fecha de Creación:</strong> <%= dto.getCreadoString()%></p>
             </div>
         </div>
 

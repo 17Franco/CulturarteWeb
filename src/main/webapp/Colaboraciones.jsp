@@ -62,7 +62,7 @@
                                 data-propuesta="<%= colab.getPropuesta() %>"
                                 data-monto="<%= colab.getMonto() %>"
                                 data-retorno="<%= colab.getTipoRetorno() %>"
-                                data-creado="<%= colab.getCreado() %>">
+                                data-creado="<%= colab.getCreadoString() %>">
                                 Generar constancia de pago
                             </button>
                         <% } %>
