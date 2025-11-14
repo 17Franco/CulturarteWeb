@@ -13,8 +13,11 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.List;
+import logica.DTO.DTOColaboracion;
 import webservices.ControllerWS;
 import webservices.ControllerWS_Service;
+import webservices.DtoColaboracion;
 
 /**
  *
@@ -102,11 +105,11 @@ public class DetallesDePropuestaServlet extends HttpServlet
                     }
                 }
                 
-                if(usuarioHaComentado == false)
+                if(usuarioHaComentado == false) //Tuve que traerme esta función desde controller por que SOAP no me permite mandarle los datos que necesita
                 {
-                    permisos = controllerPort.accionSobrePropuesta(nickUsr, propuestaSel);  //Se obtienen permisos de usuario en propuesta.
+                    permisos = controllerPort.accionSobrePropuesta(nickUsr, propuestaSel.getTitulo());
                 }
-
+                
                 if(permisos == 3 && tipoUsuario.equals("Proponente"))   //Esto es por si un proponente visita otras props...
                 {
                     permisos = 0;   //Le quito el permiso de colaborar, lo dejo por si más adelante se agrega que puede o algo así.
@@ -116,6 +119,7 @@ public class DetallesDePropuestaServlet extends HttpServlet
                 {
                     permisos = 0;   //quito permisos a cualquier usuario que por alguna razón pueda acceder a una propuesta con estado "CANCELADA"
                 }
+                
             }
             
         switch(estado) //Se formatea el estado para ser mostrado en la propuesta
@@ -140,14 +144,14 @@ public class DetallesDePropuestaServlet extends HttpServlet
                 request.setAttribute("permisos", permisos);                         //Se envia el tipo de permisos de usuario sobre prop al jsp.
                 request.setAttribute("tipoUsuario",tipoUsuario);
                 
-                request.getRequestDispatcher("MostrarPropuesta_Colaborar.jsp").forward(request, response);         //Se envían datos a front y se redirige al user hacia la pagina de muestra.
+                request.getRequestDispatcher("/MostrarPropuesta_Colaborar.jsp").forward(request, response);         //Se envían datos a front y se redirige al user hacia la pagina de muestra.
             } 
             
         }
         catch (ServletException | IOException e)
         {
             request.setAttribute("mensaje_error", "Ha ocurrido un error, intentar de nuevo.");
-            request.getRequestDispatcher("MostrarPropuesta_Colaborar.jsp").forward(request, response);  //Se muestra mensaje de error.-            
+            request.getRequestDispatcher("/MostrarPropuesta_Colaborar.jsp").forward(request, response);  //Se muestra mensaje de error.-            
         }
   
     }
