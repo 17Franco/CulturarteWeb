@@ -98,7 +98,7 @@
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="UsuariosSeguidos?nick=<%=session.getAttribute("logueado")%>&tipo=<%=session.getAttribute("tipoUser")%>">Usuarios Seguidos</a></li>
                     <li><a class="dropdown-item" href="Seguidores?nick=<%=session.getAttribute("logueado")%>&tipo=<%=session.getAttribute("tipoUser")%>">Seguidores</a></li>
-                    <li><a class="dropdown-item" href="listarUsuarios">Seguir Usuarios</a></li>
+                    <li><a class="dropdown-item" href="listarUsuarios">Ver Usuarios</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="PropuestasFavoritaUsuario?nick=<%=session.getAttribute("logueado")%>&tipo=<%=session.getAttribute("tipoUser")%>">Propuestas Favoritas</a></li>
                     <% if(("Proponente").equals(session.getAttribute("tipoUser"))) { %>
