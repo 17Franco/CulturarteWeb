@@ -152,7 +152,7 @@
                                     }
                                 %>
                             
-                            </div>
+                            
                             
                             
                 <%
@@ -280,6 +280,7 @@
 
             }
     %>
+    </div>
                 <div class="card mb-5"></div>
                 <h4 class="mb-3">COMENTARIOS</h4>
 <%
