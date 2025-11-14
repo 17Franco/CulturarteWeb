@@ -1,7 +1,6 @@
 package Servlets;
 import Config.config;
 import webservices.DtoPropuesta;
-import webservices.Estado;
 import webservices.Comentario;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -14,7 +13,6 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.List;
 import webservices.ControllerWS;
 import webservices.ControllerWS_Service;
 
@@ -146,9 +144,8 @@ public class DetallesDePropuestaServlet extends HttpServlet
             } 
             
         }
-        catch (Exception e)
+        catch (ServletException | IOException e)
         {
-            e.printStackTrace();
             request.setAttribute("mensaje_error", "Ha ocurrido un error, intentar de nuevo.");
             request.getRequestDispatcher("MostrarPropuesta_Colaborar.jsp").forward(request, response);  //Se muestra mensaje de error.-            
         }

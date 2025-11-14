@@ -4,9 +4,10 @@
     Author     : asus/klaas
 --%>
 
-<%@page import="java.util.Map"%>
-<%@page import="logica.DTO.DTOPropuesta"%>
-<%@page import="logica.DTO.TipoRetorno"%>
+<%@page import="webservices.Comentario"%>
+<%@page import="webservices.DtoPropuesta"%>
+<%@page import="webservices.TipoRetorno"%>
+<%@page import="webservices.Estado"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -28,7 +29,7 @@
 
         <%
             int permisos = (Integer) request.getAttribute("permisos");
-            DTOPropuesta propuesta = (DTOPropuesta) request.getAttribute("propuesta");
+            DtoPropuesta propuesta = (DtoPropuesta) request.getAttribute("propuesta");
             Boolean esFavorita = (Boolean) request.getAttribute("esFavorita");
             String mensaje_error = request.getParameter("mensaje_error");
             String accionEfectuada = request.getParameter("accionLograda");
@@ -79,7 +80,7 @@
 
                     <div class="card shadow-lg p-4">
                     <%
-                    if (tipoUsuario != null && !(propuesta.getUltimoEstado().getEstadoString().equals("CANCELADA")) && !(propuesta.getUltimoEstado().getEstadoString().equals("INGRESADA"))) 
+                    if (tipoUsuario != null && !(propuesta.getEstadoAct().equals(Estado.CANCELADA)) && !(propuesta.getEstadoAct().equals(Estado.INGRESADA))) 
                     {%> 
                     <div class="text-end mb-2">
                             <button 
@@ -127,9 +128,9 @@
                     %>
                             <li class="list-group-item"><strong>Estado:</strong> <%= estadoFormateado%></li>
                             <li class="list-group-item"><strong>Fecha de finalización:</strong> <%= propuesta.getFechaExpiracion()%></li>
-                            <li class="list-group-item"><strong>Proponente:</strong> <%= propuesta.nickProponenteToString()%></li>
+                            <li class="list-group-item"><strong>Proponente:</strong> <%= propuesta.getUsr().getNickname()%></li>
                             <li class="list-group-item"><strong>Categoría:</strong> 
-                                <%= (propuesta.getCategoria() != null) ? propuesta.getCategoria().getNombreCategoria() : "Sin categoría"%>
+                                <%= (propuesta.getCategoria() != null) ? propuesta.getCategoria() : "Sin categoría"%>
                             </li>
                         </ul>
       
@@ -156,7 +157,7 @@
                             
                 <%
                         // Solo si es 3, usuario que no propuso puede colaborar.
-                    if (permisos == 3 && !propuesta.getUltimoEstado().getEstadoString().equals("CANCELADA") && !propuesta.getUltimoEstado().getEstadoString().equals("INGRESADA")) 
+                    if (permisos == 3 && !propuesta.getEstadoAct().equals(Estado.CANCELADA) && !propuesta.getEstadoAct().equals(Estado.INGRESADA)) 
                     {
                     
                         boolean retornoEntradaGratis = false;
@@ -222,7 +223,7 @@
                         
                     } 
                     //Si el usuario es el proponente
-                    if(permisos == 1 && !propuesta.getUltimoEstado().getEstadoString().equals("CANCELADA") && !propuesta.getUltimoEstado().getEstadoString().equals("NO_FINANCIADA"))
+                    if(permisos == 1 && !propuesta.getEstadoAct().equals(Estado.CANCELADA) && !propuesta.getEstadoAct().equals(Estado.NO_FINANCIADA))
                     {
                 %>
                         <div class="col-12 col-md-6"> 
@@ -234,12 +235,12 @@
                                     
                                     <input type="hidden" name="tituloPropuesta" value="<%= propuesta.getTitulo()%>">
                                     <input type="hidden" name="accion" id="accionProponente">
-                                   <% if(propuesta.getUltimoEstado().getEstadoString().equals("PUBLICADA") || propuesta.getUltimoEstado().getEstadoString().equals("EN_FINANCIACION")) 
+                                   <% if(propuesta.getEstadoAct().equals(Estado.PUBLICADA) || propuesta.getEstadoAct().equals(Estado.EN_FINANCIACION)) 
                                        { %>
                                             <button type="submit" class="btn btn-success w-100 mb-2" onclick="document.getElementById('accionProponente').value='EXTENDER';"> Extender Financiación </button>
                                     <%}
 
-                                      if(propuesta.getUltimoEstado().getEstadoString().equals("FINANCIADA")) 
+                                      if(propuesta.getEstadoAct().equals(Estado.FINANCIADA)) 
                                       {%>
                                             <button type="submit" class="btn btn-danger w-100" onclick="document.getElementById('accionProponente').value='CANCELAR';"> Cancelar Propuesta </button>
                                     <%}%>
@@ -250,7 +251,7 @@
                 <% 
                     }
                     //Si la propuesta está cancelada evito que user haga alguna acción
-                    if(propuesta.getUltimoEstado().getEstadoString().equals("CANCELADA"))
+                    if(propuesta.getEstadoAct().equals(Estado.CANCELADA))
                     { 
                         %>
                             <div class="col-12 col-md-6">
@@ -283,7 +284,7 @@
                 <h4 class="mb-3">COMENTARIOS</h4>
 <%
                     //Si el usuario es colaborador de esta propuestsa
-                    if(permisos == 2 && propuesta.getUltimoEstado().getEstadoString().equals("FINANCIADA"))
+                    if(permisos == 2 && propuesta.getEstadoAct().equals(Estado.FINANCIADA))
                     {
                 %>  
                         <div class="col-md-12">
@@ -308,21 +309,21 @@
             
             <div id="boxComentarios" >
                 <%
-                    Map<String, String> comentarios = propuesta.getComentarios();
+                    List<Comentario> comentarios = propuesta.getComentarios();
                     if (comentarios != null && !comentarios.isEmpty()) 
                     {
-                        for (Map.Entry<String, String> entry : comentarios.entrySet()) 
+                        for (Comentario e : comentarios) 
                         {
                 %>        
                         
                 <%        
-                            String usuario = entry.getKey();
-                            String comentario = entry.getValue();
+                            String usuario = e.getNickUsuario();
+                            String comentario = e.getComentario();
                 %>
                             <div class="card mb-2 shadow-sm w-100 w-md-50">
                                 <div class="card-body p-2">
                                     <div class="card-body p-2 d-flex align-items-center">
-                                        <div class="estiloPerfil"><%=entry.getKey().substring(0,1)%></div>
+                                        <div class="estiloPerfil"><%=usuario.substring(0,1)%></div>
                                         <p class="mb-1"><b><%= usuario%>:</b></p>
                                     </div>
                                     <div class="mb-0 ms-5"><%= comentario%></div>
