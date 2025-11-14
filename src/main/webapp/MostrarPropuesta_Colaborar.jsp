@@ -9,6 +9,7 @@
 <%@page import="webservices.TipoRetorno"%>
 <%@page import="webservices.Estado"%>
 <%@page import="java.util.List"%>
+<%@ page import="java.time.LocalDate, java.time.format.DateTimeFormatter" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -119,7 +120,7 @@
 
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item"><strong>Lugar:</strong> <%= propuesta.getLugar()%></li>
-                            <li class="list-group-item"><strong>Fecha de inicio de evento:</strong> <%= propuesta.getFechaString()%></li>
+                            <li class="list-group-item"><strong>Fecha de inicio de evento:</strong> <%= LocalDate.parse(propuesta.getFechaString()).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) %></li>
                             <li class="list-group-item"><strong>Precio entrada:</strong> $<%= propuesta.getPrecio()%></li>
                             <li class="list-group-item"><strong>Monto total:</strong> $<%= propuesta.getMontoTotal()%></li>                            
                     <%
@@ -127,11 +128,9 @@
                             String estadoFormateado = (String) request.getAttribute("estadoFormateado");
                     %>
                             <li class="list-group-item"><strong>Estado:</strong> <%= estadoFormateado%></li>
-                            <li class="list-group-item"><strong>Fecha de finalización:</strong> <%= propuesta.getFechaExpiracionString()%></li>
+                            <li class="list-group-item">strong>Fecha de finalización:</strong><%= LocalDate.parse(propuesta.getFechaExpiracionString()).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) %></li>
                             <li class="list-group-item"><strong>Proponente:</strong> <%= propuesta.getUsr().getNickname()%></li>
-                            <li class="list-group-item"><strong>Categoría:</strong> 
-                                <%= (propuesta.getCategoria() != null) ? propuesta.getCategoria() : "Sin categoría"%>
-                            </li>
+                            <li class="list-group-item"><strong>Categoría:</strong> <%= (propuesta.getCategoria() != null) ? propuesta.getCategoria() : "Sin categoría"%></li>
                         </ul>
       
                     </div>
