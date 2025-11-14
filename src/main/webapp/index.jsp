@@ -40,9 +40,9 @@
       <nav>
         <ul class="categories">
           <%
-            List<DTOCategoria> categorias = (List<DTOCategoria>) request.getAttribute("categorias");
+            List<webservices.DtoCategoria> categorias = (List<webservices.DtoCategoria>) request.getAttribute("categorias");
             if (categorias != null) {
-              for (DTOCategoria cat : categorias) {
+              for (webservices.DtoCategoria cat : categorias) {
           %>
             <li class="category">
               <div class="category-header">
@@ -50,7 +50,7 @@
                 <button class="toggle-subcategory">+</button>
               </div>
               <ul class="subcategory" hidden>
-                <% for (DTOCategoria sub : cat.getSubcategorias()) { %>
+                <% for (webservices.DtoCategoria sub : cat.getSubcategorias()) { %>
                   <li class="propuesta" data-id="<%= sub.getNombreCategoria() %>">
                     <%= sub.getNombreCategoria() %>
                   </li>

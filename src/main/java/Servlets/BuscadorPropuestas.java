@@ -4,21 +4,22 @@
  */
 package Servlets;
 
+import Config.config;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.net.URI;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import logica.DTO.DTOPropuesta;
-import logica.DTO.Estado;
-import logica.Fabrica;
-import logica.IController;
+import webservices.ControllerWS;
+import webservices.ControllerWS_Service;
 
 /**
  *
@@ -26,14 +27,27 @@ import logica.IController;
  */
 @WebServlet(name = "Buscador", urlPatterns = {"/Buscador"})
 public class BuscadorPropuestas extends HttpServlet {
+    
+    private ControllerWS getPort() throws IOException {
+        config conf = config.getInstance();
+        String host = conf.getProps("WEB_SERVICES_HOST");
+        String port = conf.getProps("WEB_SERVICES_PORT");
+        String serv = conf.getProps("SERVICE");
 
+        String dir = "http://" + host + ":" + port + serv + "?wsdl";
+        URL url = URI.create(dir).toURL();
+
+        ControllerWS_Service servicio = new ControllerWS_Service(url);
+        return servicio.getControllerWSPort();
+    }
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String filtro = request.getParameter("filtro");
         String categoria = request.getParameter("categoria");
 
-        List<DTOPropuesta> propuestas;
+        List<webservices.DtoPropuesta> propuestas;
         if (categoria != null && !"".equals(categoria) ){
             propuestas = buscarPorCategoria(categoria);
         }else {
@@ -46,20 +60,20 @@ public class BuscadorPropuestas extends HttpServlet {
         
         String orden = request.getParameter("orden");
         if (orden == null || orden.isEmpty() || "titulo".equals(orden)) {
-                propuestas.sort(Comparator.comparing(DTOPropuesta::getFecha).reversed());
+                propuestas.sort(Comparator.comparing(webservices.DtoPropuesta::getFechaString).reversed());
         } else {
-                propuestas.sort(Comparator.comparing(DTOPropuesta::getFecha).reversed());
+                propuestas.sort(Comparator.comparing(webservices.DtoPropuesta::getFechaString).reversed());
         }
                 
-        Map<String, List<DTOPropuesta>> propuestasMap = new HashMap<>();
+        Map<String, List<webservices.DtoPropuesta>> propuestasMap = new HashMap<>();
         propuestasMap.put("Todas", propuestas);
-        for (DTOPropuesta p : propuestas){
-            if (!propuestasMap.containsKey(p.getEstado().name())) {
-                propuestasMap.put(p.getEstado().name(), new ArrayList<>());
+        for (webservices.DtoPropuesta p : propuestas){
+            if (!propuestasMap.containsKey(p.getEstadoAct().name())) {
+                propuestasMap.put(p.getEstadoAct().name(), new ArrayList<>());
             }
-            List<DTOPropuesta> porpuestasPorEstado = propuestasMap.get(p.getEstado().name());
+            List<webservices.DtoPropuesta> porpuestasPorEstado = propuestasMap.get(p.getEstadoAct().name());
             porpuestasPorEstado.add(p);
-            propuestasMap.put(p.getEstado().name(), porpuestasPorEstado);
+            propuestasMap.put(p.getEstadoAct().name(), porpuestasPorEstado);
             
         }
 
@@ -67,15 +81,20 @@ public class BuscadorPropuestas extends HttpServlet {
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
     
-    private List<DTOPropuesta> buscarPorCategoria(String categoria) {
-        IController controller = Fabrica.getInstance().getController();
-        List<DTOPropuesta> propuestas = new ArrayList<>();
-        propuestas.addAll(controller.ObtenerPropuestaPorSubCategoria(categoria));
-        return propuestas;        
+    private List<webservices.DtoPropuesta> buscarPorCategoria(String categoria)throws IOException {
+        //IController controller = Fabrica.getInstance().getController();
+        
+        ControllerWS portU = getPort();
+        
+        List<webservices.DtoPropuesta> propuestas = new ArrayList<>();
+        propuestas.addAll(portU.obtenerPropuestaPorSubCategoria(categoria));
+        return propuestas;
     }
     
-    private List<DTOPropuesta> buscarPorFiltro(String filtro) {// devuelve una lista de objetos propuesta (List<DTOPropuesta) y busca por filtro(string) propuesta
-        IController controller = Fabrica.getInstance().getController();
-        return controller.BuscarPropuestas(filtro);   //del controller llama a al metodo BuscarPropuesta( segun filtro filtro)     y devuelve esa lista 
+    private List<webservices.DtoPropuesta> buscarPorFiltro(String filtro)throws IOException{// devuelve una lista de objetos propuesta (List<DTOPropuesta) y busca por filtro(string) propuesta
+        //IController controller = Fabrica.getInstance().getController();
+        ControllerWS portU = getPort();
+        
+        return portU.buscarPropuestas(filtro);   //del controller llama a al metodo BuscarPropuesta( segun filtro filtro)     y devuelve esa lista 
     }
 }
