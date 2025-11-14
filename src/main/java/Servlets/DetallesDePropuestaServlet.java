@@ -1,6 +1,8 @@
 package Servlets;
-import logica.DTO.DTOPropuesta;
-import logica.DTO.Estado;
+import Config.config;
+import webservices.DtoPropuesta;
+import webservices.Estado;
+import webservices.Comentario;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -8,9 +10,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
 import java.net.URLEncoder;
-import logica.Fabrica;
-import logica.IController;
+import java.util.List;
+import webservices.ControllerWS;
+import webservices.ControllerWS_Service;
 
 /**
  *
@@ -37,7 +43,27 @@ public class DetallesDePropuestaServlet extends HttpServlet
         
         return nickUsr;
     }
-    
+        private ControllerWS obtenerPuerto() 
+    {    
+        try 
+        {
+            config conf = config.getInstance();
+            String host = conf.getProps("WEB_SERVICES_HOST");
+            String port = conf.getProps("WEB_SERVICES_PORT");
+            String serv = conf.getProps("SERVICE");
+
+            String dir = "http://" + host + ":" + port + serv + "?wsdl";
+            URI uri = URI.create(dir);
+            URL url = uri.toURL();
+
+            ControllerWS_Service service = new ControllerWS_Service(url);
+            return service.getControllerWSPort();
+        } 
+        catch (MalformedURLException e) 
+        {
+            throw new RuntimeException(e.getMessage(), e);
+        }
+    }
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -46,7 +72,8 @@ public class DetallesDePropuestaServlet extends HttpServlet
         response.setContentType("text/html;charset=UTF-8");
         
         String titulo = request.getParameter("id"); //Se obtiene el parámetro del titulo desde el jsp que muestra las propuestas.
-        IController controller = Fabrica.getInstance().getController();
+        ControllerWS controllerPort = obtenerPuerto();
+        
         HttpSession sesionActual = request.getSession(true);   //Se obtienen datos almacenados en la sesion.
         int permisos = 0;   //Si es visitante, queda en 0
         String tipoUsuario = (String) sesionActual.getAttribute("tipoUser");
@@ -57,19 +84,29 @@ public class DetallesDePropuestaServlet extends HttpServlet
         try
         {
             
-            DTOPropuesta propuestaSel = controller.getPropuestaDTO(titulo);
-            String estado = propuestaSel.getUltimoEstado().getEstado().toString();
+            DtoPropuesta propuestaSel = controllerPort.getPropuestaDTO(titulo);
+            String estado = propuestaSel.getEstadoAct().toString();
 
             if (propuestaSel != null) 
             {
-                esFavorita = controller.esFavorita(nickUsr, propuestaSel.getTitulo());
+                esFavorita = controllerPort.esFavorita(nickUsr, propuestaSel.getTitulo());
             }
 
             if( !nickUsr.equals("VISITANTE") && tipoUsuario != null)
             {
-                if(!propuestaSel.usuarioHaComentadoSN(nickUsr))
+                boolean usuarioHaComentado = false;
+                
+                for(Comentario ct : propuestaSel.getComentarios())
                 {
-                    permisos = controller.accionSobrePropuesta(nickUsr, propuestaSel);  //Se obtienen permisos de usuario en propuesta.
+                    if(ct.getNickUsuario().equals(nickUsr))
+                    {
+                        usuarioHaComentado = true;
+                    }
+                }
+                
+                if(usuarioHaComentado == false)
+                {
+                    permisos = controllerPort.accionSobrePropuesta(nickUsr, propuestaSel);  //Se obtienen permisos de usuario en propuesta.
                 }
 
                 if(permisos == 3 && tipoUsuario.equals("Proponente"))   //Esto es por si un proponente visita otras props...
@@ -83,7 +120,19 @@ public class DetallesDePropuestaServlet extends HttpServlet
                 }
             }
             
-            estado = Estado.formateoEstado(estado); //Se formatea el estado para ser mostrado en la propuesta
+        switch(estado) //Se formatea el estado para ser mostrado en la propuesta
+        {
+            case "INGRESADA":estado= " Ingresada";break;
+            case "PUBLICADA":estado= " Publicada";break;
+            case "EN_FINANCIACION":estado= " En financiación";break;
+            case "FINANCIADA":estado= " Financiada";break;
+            case "NO_FINANCIADA":estado= " No financiada";break;
+            case "CANCELADA":estado= " Cancelada";break;
+            default:estado= " Desconocido";break;
+        }
+            
+            
+
 
             if (propuestaSel != null && sesionActual != null)                       //Si no pasó nada raro se envían datos para que puedan ser mostrados.
             {
@@ -119,7 +168,7 @@ public class DetallesDePropuestaServlet extends HttpServlet
         
         int resultadoOperacion;     //Esto notificará al jsp que todo salió bien y que tipo de transacción es...       
         HttpSession sesionActual = request.getSession(true);
-        IController controller = Fabrica.getInstance().getController();
+        ControllerWS controllerPort = obtenerPuerto();
 
         String userNick = obtenerNickUsr(sesionActual);  //La función la dejé arriba del doGet.
         
@@ -134,11 +183,11 @@ public class DetallesDePropuestaServlet extends HttpServlet
         
         try
         {
-            DTOPropuesta propuestaActual = controller.getPropuestaDTO(tituloProp);     //Se usa el titulo obtenido del front para buscar la propuesta en la bd
+            DtoPropuesta propuestaActual = controllerPort.getPropuestaDTO(tituloProp);     //Se usa el titulo obtenido del front para buscar la propuesta en la bd
 
-            int permisos = controller.permisosSobrePropuesta(userNick, tipoUsuario, propuestaActual); //Si es visitante, queda en 0...
+            int permisos = controllerPort.permisosSobrePropuesta(userNick, tipoUsuario, propuestaActual); //Si es visitante, queda en 0...
 
-            resultadoOperacion = controller.accionesSobrePropuesta(userNick,permisos,accionUsuario,comentario,propuestaActual,montoStr,tipoRetorno);    //Hará todo, devuelve el int con el codigo de lo resuelto o un error.
+            resultadoOperacion = controllerPort.accionesSobrePropuesta(userNick,permisos,accionUsuario,comentario,propuestaActual,montoStr,tipoRetorno);    //Hará todo, devuelve el int con el codigo de lo resuelto o un error.
        
             String accionLograda;
         
@@ -153,9 +202,8 @@ public class DetallesDePropuestaServlet extends HttpServlet
 
             response.sendRedirect("DetallesDePropuesta?id=" + URLEncoder.encode(propuestaActual.getTitulo(), "UTF-8") + "&resultadoOperacion=" + URLEncoder.encode((String.valueOf(resultadoOperacion)), "UTF-8") + "&accionLograda=" + URLEncoder.encode(accionLograda, "UTF-8"));
         }
-        catch (Exception e) 
+        catch (IOException e) 
         {
-            e.printStackTrace();
             response.sendRedirect("DetallesDePropuesta?id=" + URLEncoder.encode(tituloProp, "UTF-8") + "&resultadoOperacion=" + URLEncoder.encode((String.valueOf(0)), "UTF-8") + "&accionLograda=" + URLEncoder.encode("Error", "UTF-8"));
         }
 
