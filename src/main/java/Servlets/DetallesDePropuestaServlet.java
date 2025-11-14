@@ -186,9 +186,9 @@ public class DetallesDePropuestaServlet extends HttpServlet
         {
             DtoPropuesta propuestaActual = controllerPort.getPropuestaDTO(tituloProp);     //Se usa el titulo obtenido del front para buscar la propuesta en la bd
 
-            int permisos = controllerPort.permisosSobrePropuesta(userNick, tipoUsuario, propuestaActual); //Si es visitante, queda en 0...
+            int permisos = controllerPort.permisosSobrePropuesta(userNick, tipoUsuario, propuestaActual.getTitulo()); //Si es visitante, queda en 0...
 
-            resultadoOperacion = controllerPort.accionesSobrePropuesta(userNick,permisos,accionUsuario,comentario,propuestaActual,montoStr,tipoRetorno);    //Hará todo, devuelve el int con el codigo de lo resuelto o un error.
+            resultadoOperacion = controllerPort.accionesSobrePropuesta(userNick,permisos,accionUsuario,comentario,propuestaActual.getTitulo(),montoStr,tipoRetorno);    //Hará todo, devuelve el int con el codigo de lo resuelto o un error.
        
             String accionLograda;
         
