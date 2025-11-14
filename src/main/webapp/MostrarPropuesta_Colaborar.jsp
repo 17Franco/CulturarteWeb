@@ -152,7 +152,7 @@
                                     }
                                 %>
                             
-                            </div>
+                            
                             
                             
                 <%
@@ -165,12 +165,12 @@
 
                         for(TipoRetorno ct : propuesta.getRetorno())
                         {
-                            if(ct.toString().equals("Entrada Gratis"))
+                            if(ct.equals(TipoRetorno.ENTRADA_GRATIS))
                             {
                                 retornoEntradaGratis = true;
                             }
                             
-                            if(ct.toString().equals("Porcentaje de Ganancia"))
+                            if(ct.equals(TipoRetorno.PORCENTAJE_GANANCIA))
                             {
                                 retornoPorcentajeGanancia = true;
                             }
@@ -280,6 +280,7 @@
 
             }
     %>
+    </div>
                 <div class="card mb-5"></div>
                 <h4 class="mb-3">COMENTARIOS</h4>
 <%
