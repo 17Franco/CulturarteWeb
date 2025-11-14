@@ -119,7 +119,7 @@
 
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item"><strong>Lugar:</strong> <%= propuesta.getLugar()%></li>
-                            <li class="list-group-item"><strong>Fecha de inicio de evento:</strong> <%= propuesta.getFecha()%></li>
+                            <li class="list-group-item"><strong>Fecha de inicio de evento:</strong> <%= propuesta.getFechaString()%></li>
                             <li class="list-group-item"><strong>Precio entrada:</strong> $<%= propuesta.getPrecio()%></li>
                             <li class="list-group-item"><strong>Monto total:</strong> $<%= propuesta.getMontoTotal()%></li>                            
                     <%
@@ -127,7 +127,7 @@
                             String estadoFormateado = (String) request.getAttribute("estadoFormateado");
                     %>
                             <li class="list-group-item"><strong>Estado:</strong> <%= estadoFormateado%></li>
-                            <li class="list-group-item"><strong>Fecha de finalización:</strong> <%= propuesta.getFechaExpiracion()%></li>
+                            <li class="list-group-item"><strong>Fecha de finalización:</strong> <%= propuesta.getFechaExpiracionString()%></li>
                             <li class="list-group-item"><strong>Proponente:</strong> <%= propuesta.getUsr().getNickname()%></li>
                             <li class="list-group-item"><strong>Categoría:</strong> 
                                 <%= (propuesta.getCategoria() != null) ? propuesta.getCategoria() : "Sin categoría"%>
