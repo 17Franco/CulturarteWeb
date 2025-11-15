@@ -25,13 +25,7 @@
             #conteneedor_Colaboracion .tarjeta-propuesta-horizontal:hover {transform: translateY(-2px);box-shadow: 0 4px 12px rgba(0,0,0,0.15);}
             #conteneedor_Colaboracion .imagen-area {flex: 0 0 200px; min-height: 200px;}       
             #conteneedor_Colaboracion .propuesta-img {width: 100%;height: 100%;object-fit: cover;}
-            
-            .texto-area {flex: 1;padding: 20px;display: flex;flex-direction: column;}
-            .texto-area h5 {margin-bottom: 15px;color: #333;}
-            .texto-area p {margin-bottom: 10px;font-size: 0.95rem;}
-            .btn-group {margin-top: auto;display: flex;gap: 10px;flex-wrap: wrap;}
-            .btn-group .btn {flex: 1;min-width: 120px;padding: 8px 16px;font-size: 0.95rem;white-space: nowrap;text-align: center;}
-            
+
             
             @media (max-width: 768px) 
             {
@@ -50,6 +44,7 @@
             
             @media (max-width: 480px) 
             {
+                #conteneedor_Colaboracion .tarjeta-propuesta-horizontal { height: 600px; }
                 .main-container {padding: 0;}
                 .propuestas-contenedor {padding: 5px;}
                 .imagen-area { min-height: 180px;max-height: 200px;}
@@ -57,6 +52,7 @@
                 .texto-area h5 {font-size: 1rem;}
                 .texto-area p {font-size: 1.10rem;}
                 .texto-area p strong {display: block;margin-bottom: 2px;}
+                
             }
             
         </style>
@@ -114,7 +110,7 @@
                         <p><strong>Retorno:</strong> Porcentaje ganancia</p>
                     <% } %>
 
-                    <div class="btn-group" role="group">
+                    <div class="botones-colaboracion" role="group">
                         <% if (session.getAttribute("logueado") != null && UsuarioLogueado.equals(colab.getColaborador()) 
                                && !colab.getPropuesta().equals("Cine en el Botanico")) { %>
                             <a href="${pageContext.request.contextPath}/PagarColaboracion?tituloPropuesta=<%= java.net.URLEncoder.encode(colab.getPropuesta(), "UTF-8")%>" 
