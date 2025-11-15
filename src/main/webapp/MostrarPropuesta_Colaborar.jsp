@@ -128,7 +128,7 @@
                             String estadoFormateado = (String) request.getAttribute("estadoFormateado");
                     %>
                             <li class="list-group-item"><strong>Estado:</strong> <%= estadoFormateado%></li>
-                            <li class="list-group-item">strong>Fecha de finalización:</strong><%= LocalDate.parse(propuesta.getFechaExpiracionString()).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) %></li>
+                            <li class="list-group-item"><strong>Fecha de finalización:</strong> <%= LocalDate.parse(propuesta.getFechaExpiracionString()).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) %></li>
                             <li class="list-group-item"><strong>Proponente:</strong> <%= propuesta.getUsr().getNickname()%></li>
                             <li class="list-group-item"><strong>Categoría:</strong> <%= (propuesta.getCategoria() != null) ? propuesta.getCategoria() : "Sin categoría"%></li>
                         </ul>
