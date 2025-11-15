@@ -11,6 +11,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
@@ -28,19 +29,23 @@ import webservices.ControllerWS_Service;
 @WebServlet(name = "Buscador", urlPatterns = {"/Buscador"})
 public class BuscadorPropuestas extends HttpServlet {
     
-    private ControllerWS getPort() throws IOException {
-        config conf = config.getInstance();
-        String host = conf.getProps("WEB_SERVICES_HOST");
-        String port = conf.getProps("WEB_SERVICES_PORT");
-        String serv = conf.getProps("SERVICE");
+    private ControllerWS obtenerPuerto() {
+        try {
+            config conf = config.getInstance();
+            String host = conf.getProps("WEB_SERVICES_HOST");
+            String port = conf.getProps("WEB_SERVICES_PORT");
+            String serv = conf.getProps("SERVICE");
 
-        String dir = "http://" + host + ":" + port + serv + "?wsdl";
-        URL url = URI.create(dir).toURL();
+            String dir = "http://" + host + ":" + port + serv + "?wsdl";
+            URI uri = URI.create(dir);
+            URL url = uri.toURL();
 
-        ControllerWS_Service servicio = new ControllerWS_Service(url);
-        return servicio.getControllerWSPort();
+            ControllerWS_Service service = new ControllerWS_Service(url);
+            return service.getControllerWSPort();
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e.getMessage(), e);
+        }
     }
-    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -81,20 +86,21 @@ public class BuscadorPropuestas extends HttpServlet {
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
     
-    private List<webservices.DtoPropuesta> buscarPorCategoria(String categoria)throws IOException {
+    private List<webservices.DtoPropuesta> buscarPorCategoria(String categoria){
         //IController controller = Fabrica.getInstance().getController();
         
-        ControllerWS portU = getPort();
+        ControllerWS controllerPort = obtenerPuerto();
         
         List<webservices.DtoPropuesta> propuestas = new ArrayList<>();
-        propuestas.addAll(portU.obtenerPropuestaPorSubCategoria(categoria));
+        propuestas.addAll(controllerPort.obtenerPropuestaPorSubCategoria(categoria));
         return propuestas;
     }
     
-    private List<webservices.DtoPropuesta> buscarPorFiltro(String filtro)throws IOException{// devuelve una lista de objetos propuesta (List<DTOPropuesta) y busca por filtro(string) propuesta
+    private List<webservices.DtoPropuesta> buscarPorFiltro(String filtro){// devuelve una lista de objetos propuesta (List<DTOPropuesta) y busca por filtro(string) propuesta
         //IController controller = Fabrica.getInstance().getController();
-        ControllerWS portU = getPort();
         
-        return portU.buscarPropuestas(filtro);   //del controller llama a al metodo BuscarPropuesta( segun filtro filtro)     y devuelve esa lista 
+        ControllerWS controllerPort = obtenerPuerto();
+        
+        return controllerPort.buscarPropuestas(filtro);   //del controller llama a al metodo BuscarPropuesta( segun filtro filtro)     y devuelve esa lista 
     }
 }
