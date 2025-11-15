@@ -64,23 +64,34 @@
       </nav>
     </aside>
        
-    <%
-        Map<String, List<DTOPropuesta>> propuestasPorEstado =
-            (Map<String, List<DTOPropuesta>>) request.getAttribute("propuestasPorEstado");
+        <%
+         Map<String, List<DTOPropuesta>> propuestasPorEstado =
+             (Map<String, List<DTOPropuesta>>) request.getAttribute("propuestasPorEstado");
 
-        List<DTOPropuesta> todasLasPropuestas = propuestasPorEstado.get("Todas");
-        Integer cantidadPropuestas = todasLasPropuestas.size();
+         // FILTRAR PROPUESTAS PARA EXCLUIR ESTADO "INGRESADA" 
+         List<DTOPropuesta> todasLasPropuestas = new ArrayList<>();
+         for (DTOPropuesta p : propuestasPorEstado.get("Todas")) {
+             if ("INGRESADA".equalsIgnoreCase(p.getEstadoAct().toString())) {
+                 continue; // no agregar las ingresadas
+             }
+             todasLasPropuestas.add(p);
+             
+         }
+         propuestasPorEstado.put("Todas",todasLasPropuestas);
 
-        String filtro = request.getParameter("filtro");
-        if (filtro == null) filtro = "";
-        
-        List<String> estados = new ArrayList<>();
-        estados.add("Todas");
-        for (String estado : propuestasPorEstado.keySet()) {
-            if (!"Todas".equals(estado))
-                estados.add(estado);
-        }
-    %>
+         Integer cantidadPropuestas = todasLasPropuestas.size();
+
+         String filtro = request.getParameter("filtro");
+         if (filtro == null) filtro = "";
+
+         List<String> estados = new ArrayList<>();
+         estados.add("Todas");
+         for (String estado : propuestasPorEstado.keySet()) {
+             if (!"Todas".equals(estado))
+                 estados.add(estado);
+         }
+     %>
+
 
     <!-- Contenido principal -->
     <section>
@@ -111,9 +122,10 @@
       <div class="tab-content mt-3" id="estadoTabsContent">            
         <%
           for (String estado : estados) {
-              if ("INGRESADA".equalsIgnoreCase(estado)) continue; // para que no me traiga las ingresadas
+              if ("INGRESADA".equalsIgnoreCase(estado)) continue; // para que no me traiga ingresada
               boolean isActive = (estado == estados.get(0));
         %>
+
           <div class="tab-pane fade <%= isActive ? "show active" : "" %>"
                id="<%= estado %>" role="tabpanel"
                aria-labelledby="<%= estado %>-tab">
@@ -122,6 +134,7 @@
                 List<DTOPropuesta> lista = propuestasPorEstado.get(estado);
                 if (lista != null && !lista.isEmpty()) {
                   for (DTOPropuesta pro : lista) {
+                     
               %>
                 <div class="propuesta-card">
                   <% if (pro.getImagen() != null && !"".equals(pro.getImagen())) { %>
