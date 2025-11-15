@@ -19,6 +19,8 @@ import java.util.List;
 import webservices.ControllerWS;
 import webservices.ControllerWS_Service;
 import webservices.DtoColaboracion;
+import webservices.DtoPropuesta;
+import webservices.Estado;
 
 /**
  *
@@ -47,6 +49,28 @@ public class ListarColaboracionesAPagar extends HttpServlet
         }
     }
     
+    private List<DtoColaboracion> eliminarPropuestasCanceladas(List<DtoColaboracion> inputProp)
+    {
+        List<DtoColaboracion> temp = new ArrayList();
+        ControllerWS controllerPort = obtenerPuerto();
+        
+        if(inputProp != null && !inputProp.isEmpty())           
+        {
+            for(DtoColaboracion input : inputProp)
+            {
+                DtoPropuesta temp1 = controllerPort.getPropuestaDTO(input.getPropuesta());
+                
+                if(!temp1.getEstadoAct().equals(Estado.CANCELADA))
+                {
+                    temp.add(input);
+                }
+                
+            }
+        }
+        
+        return temp;
+    }
+    
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException 
@@ -67,6 +91,7 @@ public class ListarColaboracionesAPagar extends HttpServlet
         {  
             List<DtoColaboracion> temp = controllerPort.colaboraciones(uid);
             List<DtoColaboracion> pendientesDePago = new ArrayList();
+            temp = eliminarPropuestasCanceladas(temp);
             
             for(DtoColaboracion ct : temp)
             {
