@@ -28,7 +28,7 @@
             <%
             
             List<DtoPropuesta> prop = (List<DtoPropuesta>) request.getAttribute("propuestasACancelar");
-            if (prop == null) 
+            if (prop == null || prop.isEmpty()) 
             {
                 %>
                     <div class="alert alert-warning m-3">No se encontraron propuestas para cancelar.</div>
