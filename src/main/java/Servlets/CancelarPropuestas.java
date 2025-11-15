@@ -65,7 +65,7 @@ public class CancelarPropuestas extends HttpServlet {
            {
                 
                 List<DtoPropuesta> props = controllerPort.getPropuestasCreadasPorProponente(usrPerfil);
-
+                
                 List<DtoPropuesta> p = new ArrayList();
 
                 for(DtoPropuesta ct : props)
