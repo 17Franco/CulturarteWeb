@@ -3,7 +3,6 @@
     Created on : 19 oct 2025, 22:04:03
     Author     : klaas
 --%>
-<%@page import="java.util.Set"%>
 <%@page import="webservices.DtoPropuesta"%>
 <%@page import="java.util.List"%>
 <%@ page import="java.time.LocalDate" %>
@@ -29,20 +28,30 @@
             <%
             
             List<DtoPropuesta> prop = (List<DtoPropuesta>) request.getAttribute("propuestasACancelar");
-            
+            if (prop == null) 
+            {
+                %>
+                    <div class="alert alert-warning m-3">No se encontraron propuestas para cancelar.</div>
+                <%
+                    return;
+                }
+                %>
             %>
             <div class="propuestas-contenedor">
                 <%for(DtoPropuesta p:prop){%>
-                
                     <%if((UsuarioLogueado != null && UsuarioLogueado.equals(nick))) {%>
                             <div class="tarjeta-propuesta-horizontal"> 
 
                             <div class="imagen-area">
-                                <%if(p.getImagen()!=null && !"".equals(p.getImagen())){%>
-                                    <img src="Img?ruta=<%= p.getImagen() %>" alt="<%= p.getTitulo() %>" class="propuesta-img">
-                                <%}else{ %>
-                                    <!--le agrego una img generica si no tiene imagen -->
-                                    <img class="propuesta-img" src="https://alunarte.com/wp-content/uploads/2017/07/la-propuesta.png" alt="Imagen de propuesta>">
+                                <%  String ruta = "https://raw.githubusercontent.com/17Franco/Culturarte/refs/heads/main/propAssets/" + p.getTitulo().replace(" ", "%2B") + ".jpg";
+                                    if(p.getImagen()!=null && !"".equals(p.getImagen())){%>
+                                    
+                                    <img src="Img?ruta=<%= p.getImagen() %>" alt="<%= p.getTitulo() %>" class="propuesta-img" onerror="this.onerror=null; this.src='<%= ruta %>';">
+                                <%}
+                                    else
+                                    { %>
+                                    
+                                    <img class="propuesta-img" src="<%=ruta%>" alt="Imagen de propuesta>">
                                 <%}%>
                             </div>
 

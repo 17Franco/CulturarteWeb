@@ -40,10 +40,11 @@
                             <div class="tarjeta-propuesta-horizontal" data-objetivo="<%= colab.getId()%>"> 
 
                                 <div class="imagen-area">
-                                    <% if (colab.getImgDePropuesta() != null && !"".equals(colab.getImgDePropuesta())) {%>
-                                    <img src="Img?ruta=<%= colab.getImgDePropuesta()%>" alt="<%= colab.getPropuesta()%>" class="propuesta-img">
+                                    <% String ruta = "https://raw.githubusercontent.com/17Franco/Culturarte/refs/heads/main/propAssets/" + colab.getPropuesta().replace(" ", "%2B") + ".jpg"; 
+                                    if (colab.getImgDePropuesta() != null && !"".equals(colab.getImgDePropuesta())) {%>
+                                    <img src="Img?ruta=<%= colab.getImgDePropuesta()%>" alt="<%= colab.getPropuesta()%>" class="propuesta-img" onerror="this.onerror=null; this.src='<%= ruta %>';">
                                     <% } else { %>
-                                    <img class="propuesta-img" src="https://alunarte.com/wp-content/uploads/2017/07/la-propuesta.png" alt="Imagen de propuesta">
+                                    <img class="propuesta-img" src="<%=ruta%>" alt="Imagen de propuesta">
                                     <% }%>
                                 </div>
 
