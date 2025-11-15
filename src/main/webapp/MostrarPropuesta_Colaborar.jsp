@@ -103,16 +103,16 @@
                     <%
                          if (propuesta.getImagen() != null && !propuesta.getImagen().isEmpty()) 
                     {%>    
-                        String ruta = "https://github.com/17Franco/Culturarte/blob/main/propAssets/?raw=true/" + URLEncoder.encode(propuesta.getTitulo(), StandardCharsets.UTF_8); + ".jpg?raw=true";
+                        String ruta = "https://github.com/17Franco/Culturarte/blob/main/propAssets/" + URLEncoder.encode(propuesta.getTitulo(), "UTF-8") + ".jpg?raw=true";
                        <!-- <img src="Img?ruta=<%= propuesta.getImagen()%>" class="img-fluid rounded shadow mb-3" alt="Imagen Propuesta">  --> 
-                            <img class="propuesta-img rounded shadow mb-3 w-100" src=ruta alt="Imagen Propuesta">
+                            <img class="propuesta-img rounded shadow mb-3 w-100" src="<%= ruta %>" alt="Imagen Propuesta">
                     <%  } 
                         else 
                         { 
                     %> 
-                            String ruta = "https://github.com/17Franco/Culturarte/blob/main/propAssets/?raw=true/" + URLEncoder.encode(propuesta.getTitulo(), StandardCharsets.UTF_8); + ".jpg?raw=true";
+                            String ruta = "https://github.com/17Franco/Culturarte/blob/main/propAssets/" + URLEncoder.encode(propuesta.getTitulo(), "UTF-8") + ".jpg?raw=true";
                             <!--  <img src="imagenes/default-propuesta.png" class="img-fluid rounded shadow mb-3" alt="Sin Imagen">  --> 
-                            <img class="propuesta-img rounded shadow mb-3 w-100" src=ruta alt="Imagen Propuesta">
+                            <img class="propuesta-img rounded shadow mb-3 w-100" src="<%= ruta %>" alt="Imagen Propuesta">
                     <% 
                         }
                     %>
