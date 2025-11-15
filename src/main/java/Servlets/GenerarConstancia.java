@@ -12,9 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Base64;
-import logica.Colaboracion.GeneradorPDF;
-import logica.DTO.DTOColaboracion;
-import logica.Manejadores.ManejadorColaboracion;
+
 import webservices.ControllerWS;
 import webservices.ControllerWS_Service;
 
