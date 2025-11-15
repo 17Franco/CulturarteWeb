@@ -105,8 +105,8 @@
                          String ruta = "https://raw.githubusercontent.com/17Franco/Culturarte/refs/heads/main/propAssets/" + propuesta.getTitulo().replace(" ", "%2B") + ".jpg";
                          if (propuesta.getImagen() != null && !propuesta.getImagen().isEmpty()) 
                     {%>    
-                       <!-- <img src="Img?ruta=<%= propuesta.getImagen()%>" class="img-fluid rounded shadow mb-3" alt="Imagen Propuesta">  --> 
-                            <img class="propuesta-img rounded shadow mb-3 w-100" src="<%=ruta%>" alt="Imagen Propuesta">
+                        <img src="Img?ruta=<%= propuesta.getImagen()%>" class="img-fluid rounded shadow mb-3" alt="Imagen Propuesta" onerror="this.onerror=null; this.src='<%= ruta %>';">  
+                           
                     <%  } 
                         else 
                         { 
