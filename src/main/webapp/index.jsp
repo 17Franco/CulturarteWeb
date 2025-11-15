@@ -136,10 +136,11 @@
                      
               %>
                 <div class="propuesta-card">
-                  <% if (pro.getImagen() != null && !"".equals(pro.getImagen())) { %>
-                    <img src="Img?ruta=<%= pro.getImagen() %>" alt="Imagen de <%= pro.getTitulo() %>">
+                  <% String ruta = "https://raw.githubusercontent.com/17Franco/Culturarte/refs/heads/main/propAssets/" + pro.getTitulo().replace(" ", "%2B") + ".jpg";
+                    if (pro.getImagen() != null && !"".equals(pro.getImagen())) { %>
+                    <img src="Img?ruta=<%= pro.getImagen() %>" onerror="this.onerror=null; this.src='<%= ruta %>';">
                   <% } else { %>
-                    <img class="propuesta-img" src="https://alunarte.com/wp-content/uploads/2017/07/la-propuesta.png" alt="Imagen de propuesta">
+                    <img class="propuesta-img rounded shadow mb-3 w-100" src="<%=ruta%>" alt="Imagen Propuesta">
                   <% } %>
 
                   <div class="card-body">
