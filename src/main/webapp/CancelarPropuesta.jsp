@@ -36,7 +36,7 @@
                     return;
                 }
                 %>
-            %>
+           
             <div class="propuestas-contenedor">
                 <%for(DtoPropuesta p:prop){%>
                     <%if((UsuarioLogueado != null && UsuarioLogueado.equals(nick))) {%>
