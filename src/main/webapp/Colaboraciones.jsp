@@ -1,5 +1,5 @@
 <%@page import="webservices.DtoColaboracion"%>
-<%@page import="logica.DTO.DTOColaboracion"%>
+
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

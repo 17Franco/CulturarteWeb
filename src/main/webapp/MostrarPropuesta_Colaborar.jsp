@@ -165,14 +165,14 @@
                         boolean retornoEntradaGratis = false;
                         boolean retornoPorcentajeGanancia = false;
 
-                        for(TipoRetorno ct : propuesta.getRetorno())
+                        for(String ct : propuesta.getRetornoString())
                         {
-                            if(ct.equals(TipoRetorno.ENTRADA_GRATIS))
+                            if(ct.equals("EntradaGratis"))
                             {
                                 retornoEntradaGratis = true;
                             }
                             
-                            if(ct.equals(TipoRetorno.PORCENTAJE_GANANCIA))
+                            if(ct.equals("PorcentajeGanancia"))
                             {
                                 retornoPorcentajeGanancia = true;
                             }

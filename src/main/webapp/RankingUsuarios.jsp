@@ -1,6 +1,6 @@
 
 <%@page import="webservices.DtoUsuario"%>
-<%@page import="logica.DTO.DTOUsuario"%>
+
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

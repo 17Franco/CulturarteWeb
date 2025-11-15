@@ -1,6 +1,6 @@
 <%@page import="webservices.DtoPropuesta"%>
 <%@page import="java.util.Set"%>
-<%@page import="logica.DTO.DTOPropuesta"%>
+
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

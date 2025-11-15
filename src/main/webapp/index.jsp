@@ -2,10 +2,9 @@
 <%@page import="java.util.Comparator"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="java.util.Map"%>
-<%@page import="logica.DTO.Estado"%>
+
 <%@page import="java.util.List"%>
-<%@page import="logica.DTO.DTOPropuesta"%>
-<%@page import="logica.DTO.DTOCategoria"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>

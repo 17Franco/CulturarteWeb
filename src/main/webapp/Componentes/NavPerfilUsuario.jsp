@@ -1,8 +1,6 @@
 
 
-<%@page import="logica.DTO.DTOProponente"%>
-<%@page import="logica.DTO.DTOUsuario"%>
-<%@page import="logica.DTO.DTOColaborador"%>
+
 <aside class="sidebar siderbarUsuario">
     <%
         //genero variables para quedame con nick del usuario que consulto perfiol tipo y tambien el que inicio sesion

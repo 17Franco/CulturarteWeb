@@ -1,6 +1,6 @@
 
 <%@page import="webservices.DtoPropuesta"%>
-<%@page import="logica.DTO.DTOPropuesta"%>
+
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -42,7 +42,7 @@
                             <h5 class="card-title"><%=p.getTitulo()%> </h5>
                             <p><strong>Categoria</strong> <%=p.getCategoria()%></p>
                             <p><strong>Estado</strong> <%=p.getEstadoAct() %></p>
-                            <p><strong>Fecha Publicacion</strong> <%=p.getFechaPublicacion()%></p>
+                            <p><strong>Fecha Publicacion</strong> <%=p.getFechaPublicacionString()%></p>
                             <a href="${pageContext.request.contextPath}/DetallesDePropuesta?id=<%= p.getTitulo()%>" class="btn btn-primary">Ver Detalle</a>
                         </div>
 
