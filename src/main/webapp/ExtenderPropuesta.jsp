@@ -38,11 +38,12 @@
                             <div class="tarjeta-propuesta-horizontal"> 
 
                             <div class="imagen-area">
-                                <%if(p.getImagen()!=null && !"".equals(p.getImagen())){%>
-                                    <img src="Img?ruta=<%= p.getImagen() %>" alt="<%= p.getTitulo() %>" class="propuesta-img">
+                                <%  String ruta = "https://raw.githubusercontent.com/17Franco/Culturarte/refs/heads/main/propAssets/" + p.getTitulo().replace(" ", "%2B") + ".jpg";
+                                    if(p.getImagen()!=null && !"".equals(p.getImagen())){%>
+                                    <img src="Img?ruta=<%= p.getImagen() %>" alt="<%= p.getTitulo() %>" class="propuesta-img" onerror="this.onerror=null; this.src='<%= ruta %>';">
                                 <%}else{ %>
-                                    <!--le agrego una img generica si no tiene imagen -->
-                                    <img class="propuesta-img" src="https://alunarte.com/wp-content/uploads/2017/07/la-propuesta.png" alt="Imagen de propuesta>">
+                                    
+                                   <img class="propuesta-img" src="<%=ruta%>" alt="Imagen de propuesta>">
                                 <%}%>
                             </div>
 
