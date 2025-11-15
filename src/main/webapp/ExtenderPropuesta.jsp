@@ -29,7 +29,14 @@
             <%
             
             List<DtoPropuesta> prop = (List<DtoPropuesta>) request.getAttribute("propuestasAExtender");
-            
+            if (prop == null || prop.isEmpty()) 
+            {
+                %>
+                    <div class="alert alert-warning m-5">No se encontraron propuestas para extender.</div>
+                <%
+                    return;
+            }
+                
             %>
             <div class="propuestas-contenedor">
                 <%for(DtoPropuesta p:prop){%>
