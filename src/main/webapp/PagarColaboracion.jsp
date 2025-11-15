@@ -7,6 +7,7 @@
 <%@page import="webservices.DtoColaboracion"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -51,8 +52,7 @@
                 .texto-area {padding: 12px;}
                 .texto-area h5 {font-size: 1rem;}
                 .texto-area p {font-size: 1.10rem;}
-                .texto-area p strong {display: block;margin-bottom: 2px;}
-                
+                .texto-area p strong {display: block;margin-bottom: 2px;}  
             }
             
         </style>
@@ -128,8 +128,5 @@
 </div>
         </div>
 
-        <script src="JS/InteraccionColaboracion.js"></script>
-        <script src="JS/bajaColaboracion.js"></script>
-        <script src="JS/formatoPopUpPago.js"></script>
     </body>
 </html>
