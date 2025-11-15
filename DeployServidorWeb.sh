@@ -27,7 +27,7 @@ DeployServidorWeb(){
 		fi
 		
 		echo "Tomcat encontrado en: $TOMCAT_HOME"
-		NAME_WAR="Lab2PA-1.0-SNAPSHOT.war"
+		NAME_WAR="Culturarte.war"
 		
 		echo "Desplegando Proyecto web"
 		cp target/$NAME_WAR $TOMCAT_HOME/webapps
@@ -40,7 +40,7 @@ DeployServidorWeb(){
 		echo "-------Desplegando WAR remotamente en $WEB_HOST-------"
 		SSH_PORT=22
 	 	SSH_OPTS="-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
-	 	NAME_WAR="Lab2PA-1.0-SNAPSHOT.war"
+	 	NAME_WAR="Culturarte.war"
 	 	
 	 	
 		REMOTE_TOMCAT_HOME=$(ssh $SSH_OPTS -p $SSH_PORT "$WEB_USER@$WEB_HOST" \

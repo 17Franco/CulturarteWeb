@@ -50,6 +50,7 @@
         </dependency>
     </dependencies>
     <build>
+        <finalName>Culturarte</finalName>
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
