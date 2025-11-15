@@ -31,7 +31,7 @@
             if (prop == null || prop.isEmpty()) 
             {
                 %>
-                    <div class="alert alert-warning m-3">No se encontraron propuestas para cancelar.</div>
+                    <div class="alert alert-warning m-5">No se encontraron propuestas para cancelar.</div>
                 <%
                     return;
                 }
