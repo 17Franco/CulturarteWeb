@@ -287,7 +287,7 @@
                 <h4 class="mb-3">COMENTARIOS</h4>
 <%
                     //Si el usuario es colaborador de esta propuestsa
-                    if(permisos == 2 && propuesta.getEstadoAct().equals(Estado.FINANCIADA))
+                    if((permisos == 2 || permisos == 4) && propuesta.getEstadoAct().equals(Estado.FINANCIADA))
                     {
                 %>  
                         <div class="col-md-12">
