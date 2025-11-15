@@ -12,7 +12,6 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Constancia de Colaboraciones</title>
         <link rel="stylesheet" href="cssBootstrap/bootstrap.min.css"/>
         <link rel="stylesheet" href="CssPersonalizado/Styles.css"/>
         <link rel="stylesheet" href="CssPersonalizado/propuestas.css"/>
@@ -20,159 +19,48 @@
         <script src="jsBoostrap/bootstrap.bundle.min.js"></script>
         
         <style>
-            /* Estilos responsive personalizados */
-            .propuestas-contenedor {
-                padding: 15px;
+            
+            #conteneedor_Colaboracion .propuestas-contenedor {padding: 15px;max-width: 100%;} 
+            #conteneedor_Colaboracion .tarjeta-propuesta-horizontal {display: flex;background: white;border-radius: 8px;box-shadow: 0 2px 8px rgba(0,0,0,0.1);overflow: hidden;height: 100%;transition: transform 0.2s;} 
+            #conteneedor_Colaboracion .tarjeta-propuesta-horizontal:hover {transform: translateY(-2px);box-shadow: 0 4px 12px rgba(0,0,0,0.15);}
+            #conteneedor_Colaboracion .imagen-area {flex: 0 0 200px; min-height: 200px;}       
+            #conteneedor_Colaboracion .propuesta-img {width: 100%;height: 100%;object-fit: cover;}
+            
+            .texto-area {flex: 1;padding: 20px;display: flex;flex-direction: column;}
+            .texto-area h5 {margin-bottom: 15px;color: #333;}
+            .texto-area p {margin-bottom: 10px;font-size: 0.95rem;}
+            .btn-group {margin-top: auto;display: flex;gap: 10px;flex-wrap: wrap;}
+            .btn-group .btn {flex: 1;min-width: 120px;padding: 8px 16px;font-size: 0.95rem;white-space: nowrap;text-align: center;}
+            
+            
+            @media (max-width: 768px) 
+            {
+                #conteneedor_Colaboracion .propuestas-contenedor {padding: 10px;margin: 0;width: 100%;}
+                #conteneedor_Colaboracion .p-2 {flex: 0 0 100% !important;max-width: 100% !important;padding: 5px !important;box-sizing: border-box;}
+                #conteneedor_Colaboracion .tarjeta-propuesta-horizontal {flex-direction: column;margin-bottom: 15px;width: 100%;box-sizing: border-box;} 
+                #conteneedor_Colaboracion .imagen-area {flex: 0 0 auto;min-height: 200px;max-height: 250px;} 
+                #conteneedor_Colaboracion .texto-area {padding: 15px;}
+                
+                .texto-area h5 {font-size: 1.1rem;margin-bottom: 12px;}
+                .texto-area p {font-size: 0.9rem; margin-bottom: 8px;}
+                .btn-group {flex-direction: column;gap: 8px;}
+                .btn-group .btn {width: 100%;min-width: auto;padding: 10px 16px;font-size: 0.95rem;}
             }
             
-            .tarjeta-propuesta-horizontal {
-                display: flex;
-                background: white;
-                border-radius: 8px;
-                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-                overflow: hidden;
-                height: 100%;
-                transition: transform 0.2s;
+            
+            @media (max-width: 480px) 
+            {
+                .main-container {padding: 0;}
+                .propuestas-contenedor {padding: 5px;}
+                .imagen-area { min-height: 180px;max-height: 200px;}
+                .texto-area {padding: 12px;}
+                .texto-area h5 {font-size: 1rem;}
+                .texto-area p {font-size: 1.10rem;}
+                .texto-area p strong {display: block;margin-bottom: 2px;}
             }
             
-            .tarjeta-propuesta-horizontal:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            }
-            
-            .imagen-area {
-                flex: 0 0 200px;
-                min-height: 200px;
-            }
-            
-            .propuesta-img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-            }
-            
-            .texto-area {
-                flex: 1;
-                padding: 20px;
-                display: flex;
-                flex-direction: column;
-            }
-            
-            .texto-area h5 {
-                margin-bottom: 15px;
-                color: #333;
-            }
-            
-            .texto-area p {
-                margin-bottom: 10px;
-                font-size: 0.95rem;
-            }
-            
-            .btn-group {
-                margin-top: auto;
-                display: flex;
-                gap: 10px;
-                flex-wrap: wrap;
-            }
-            
-            .btn-group .btn {
-                flex: 1;
-                min-width: 120px;
-            }
-            
-            /* Responsive para tablets */
-            @media (max-width: 992px) {
-                .p-2[style*="flex: 0 0 50%"] {
-                    flex: 0 0 100% !important;
-                    max-width: 100%;
-                }
-                
-                .imagen-area {
-                    flex: 0 0 180px;
-                }
-            }
-            
-            /* Responsive para móviles */
-            @media (max-width: 768px) {
-                .propuestas-contenedor {
-                    padding: 10px;
-                }
-                
-                .p-2[style*="flex: 0 0 50%"] {
-                    flex: 0 0 100% !important;
-                    max-width: 100%;
-                    padding: 0.5rem !important;
-                }
-                
-                .tarjeta-propuesta-horizontal {
-                    flex-direction: column;
-                    margin-bottom: 15px;
-                }
-                
-                .imagen-area {
-                    flex: 0 0 auto;
-                    min-height: 200px;
-                    max-height: 250px;
-                }
-                
-                .texto-area {
-                    padding: 15px;
-                }
-                
-                .texto-area h5 {
-                    font-size: 1.1rem;
-                    margin-bottom: 12px;
-                }
-                
-                .texto-area p {
-                    font-size: 0.9rem;
-                    margin-bottom: 8px;
-                }
-                
-                .btn-group {
-                    flex-direction: column;
-                    gap: 8px;
-                }
-                
-                .btn-group .btn {
-                    width: 100%;
-                    min-width: auto;
-                }
-            }
-            
-            /* Responsive para móviles pequeños */
-            @media (max-width: 480px) {
-                .main-container {
-                    padding: 0;
-                }
-                
-                .propuestas-contenedor {
-                    padding: 5px;
-                }
-                
-                .imagen-area {
-                    min-height: 180px;
-                    max-height: 200px;
-                }
-                
-                .texto-area {
-                    padding: 12px;
-                }
-                
-                .texto-area h5 {
-                    font-size: 1rem;
-                }
-                
-                .texto-area p {
-                    font-size: 0.85rem;
-                }
-                
-                .texto-area p strong {
-                    display: block;
-                    margin-bottom: 2px;
-                }
-            }
         </style>
+        
     </head>
 
     <body class="bg-body-secondary">
@@ -189,15 +77,13 @@
             <%
                 List<DtoColaboracion> pendientesDePago = (List<DtoColaboracion>) request.getAttribute("colaboracionesAPagar");
             %>
-
             <div class="propuestas-contenedor d-flex flex-wrap" id="conteneedor_Colaboracion">
     <% for(DtoColaboracion colab : pendientesDePago) { %>
         <div class="p-2" style="flex: 0 0 50%;">
             <div class="tarjeta-propuesta-horizontal" data-objetivo="<%= colab.getId() %>"> 
 
                 <div class="imagen-area">
-                    <% String ruta = "https://raw.githubusercontent.com/17Franco/Culturarte/refs/heads/main/propAssets/" 
-                                    + colab.getPropuesta().replace(" ", "%2B") + ".jpg"; 
+                    <% String ruta = "https://raw.githubusercontent.com/17Franco/Culturarte/refs/heads/main/propAssets/" + colab.getPropuesta().replace(" ", "%2B") + ".jpg"; 
                     if (colab.getImgDePropuesta() != null && !"".equals(colab.getImgDePropuesta())) { %>
                         <img src="Img?ruta=<%= colab.getImgDePropuesta()%>" alt="<%= colab.getPropuesta()%>" 
                              class="propuesta-img" onerror="this.onerror=null; this.src='<%= ruta %>';">
@@ -207,7 +93,7 @@
                 </div>
 
                 <div class="texto-area">
-                    <h5 class="card-title">Colaboración</h5>
+                    
                     <p><strong>Título:</strong> <%= colab.getPropuesta()%></p>
                     <p><strong>Monto Colaborado:</strong> <%= colab.getMonto()%></p>
 
