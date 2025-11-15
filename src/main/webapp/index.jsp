@@ -65,12 +65,12 @@
     </aside>
        
         <%
-         Map<String, List<DTOPropuesta>> propuestasPorEstado =
-             (Map<String, List<DTOPropuesta>>) request.getAttribute("propuestasPorEstado");
+         Map<String, List<webservices.DtoPropuesta>> propuestasPorEstado =
+             (Map<String, List<webservices.DtoPropuesta>>) request.getAttribute("propuestasPorEstado");
 
          // FILTRAR PROPUESTAS PARA EXCLUIR ESTADO "INGRESADA" 
-         List<DTOPropuesta> todasLasPropuestas = new ArrayList<>();
-         for (DTOPropuesta p : propuestasPorEstado.get("Todas")) {
+         List<webservices.DtoPropuesta> todasLasPropuestas = new ArrayList<>();
+         for (webservices.DtoPropuesta p : propuestasPorEstado.get("Todas")) {
              if ("INGRESADA".equalsIgnoreCase(p.getEstadoAct().toString())) {
                  continue; // no agregar las ingresadas
              }
@@ -131,9 +131,9 @@
                aria-labelledby="<%= estado %>-tab">
             <div class="propuestas-container">
               <%
-                List<DTOPropuesta> lista = propuestasPorEstado.get(estado);
+                List<webservices.DtoPropuesta> lista = propuestasPorEstado.get(estado);
                 if (lista != null && !lista.isEmpty()) {
-                  for (DTOPropuesta pro : lista) {
+                  for (webservices.DtoPropuesta pro : lista) {
                      
               %>
                 <div class="propuesta-card">
@@ -156,7 +156,7 @@
                     %>
                     </p>
                     <div class="info"><b>Lugar:</b> <%= pro.getLugar() %></div>
-                    <div class="info"><b>Fecha:</b> <%= pro.getFecha() %></div>
+                    <div class="info"><b>Fecha:</b> <%= pro.getFechaString() %></div>
                     <div class="precio"><b>Precio:$</b> <%= pro.getPrecio() %></div>
 
                     <a href="${pageContext.request.contextPath}/DetallesDePropuesta?id=<%= pro.getTitulo() %>"
