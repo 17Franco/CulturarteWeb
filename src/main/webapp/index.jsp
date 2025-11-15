@@ -70,7 +70,7 @@
          // FILTRAR PROPUESTAS PARA EXCLUIR ESTADO "INGRESADA" 
          List<webservices.DtoPropuesta> todasLasPropuestas = new ArrayList<>();
          for (webservices.DtoPropuesta p : propuestasPorEstado.get("Todas")) {
-             if ("INGRESADA".equalsIgnoreCase(p.getEstadoAct().toString())) {
+             if ("INGRESADA".equalsIgnoreCase(p.getEstadoAct().toString())  || "CANCELADA".equalsIgnoreCase(p.getEstadoAct().toString())) {
                  continue; // no agregar las ingresadas
              }
              todasLasPropuestas.add(p);
@@ -100,7 +100,7 @@
       <ul class="nav nav-tabs d-none d-lg-flex" id="estadoTabs" role="tablist">
         <%
           for (String estado : estados) {
-              if ("INGRESADA".equalsIgnoreCase(estado)) continue; // 🚫 Ocultar pestaña Ingresada
+              if ("INGRESADA".equalsIgnoreCase(estado) || "CANCELADA".equalsIgnoreCase(estado)) continue; // 🚫 Ocultar pestaña Ingresada
               boolean isActive = (estado == estados.get(0));
         %>
           <li class="nav-item">
@@ -121,7 +121,8 @@
       <div class="tab-content mt-3" id="estadoTabsContent">            
         <%
           for (String estado : estados) {
-              if ("INGRESADA".equalsIgnoreCase(estado)) continue; // para que no me traiga ingresada
+              if ("INGRESADA".equalsIgnoreCase(estado)) continue;// para que no me traiga ingresada
+              if ("CANCELADA".equalsIgnoreCase(estado)) continue;// para que no me traiga canceladas
               boolean isActive = (estado == estados.get(0));
         %>
 
