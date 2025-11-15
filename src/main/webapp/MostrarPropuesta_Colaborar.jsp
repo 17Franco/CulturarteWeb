@@ -109,8 +109,9 @@
                         else 
                         { 
                     %> 
+                             String ruta = "https://github.com/17Franco/Culturarte/blob/main/propAssets/?raw=true/" + URLEncoder.encode(propuesta.getTitulo(), StandardCharsets.UTF_8); + ".jpg?raw=true";
                             <!--  <img src="imagenes/default-propuesta.png" class="img-fluid rounded shadow mb-3" alt="Sin Imagen">  --> 
-                            <img class="propuesta-img rounded shadow mb-3 w-100" src="https://alunarte.com/wp-content/uploads/2017/07/la-propuesta.png" alt="Imagen Propuesta">
+                            <img class="propuesta-img rounded shadow mb-3 w-100" src=ruta alt="Imagen Propuesta">
                     <% 
                         }
                     %>
