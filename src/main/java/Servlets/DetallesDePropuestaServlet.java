@@ -70,7 +70,8 @@ public class DetallesDePropuestaServlet extends HttpServlet
             throws ServletException, IOException 
     {
         response.setContentType("text/html;charset=UTF-8");
-        
+        String userAgentString = request.getHeader("User-Agent").toLowerCase(); //Obtengo el tipo de dispositivo, entre otras cosas.
+        boolean modoMovil = false;
         String titulo = request.getParameter("id"); //Se obtiene el parámetro del titulo desde el jsp que muestra las propuestas.
         ControllerWS controllerPort = obtenerPuerto();
         
@@ -78,8 +79,13 @@ public class DetallesDePropuestaServlet extends HttpServlet
         int permisos = 0;   //Si es visitante, queda en 0
         String tipoUsuario = (String) sesionActual.getAttribute("tipoUser");
         boolean esFavorita = false;
-
+        
         String nickUsr = obtenerNickUsr(sesionActual);  //La función la dejé arriba del doGet.
+        
+        if(userAgentString.contains("mobile") || userAgentString.contains("android") || userAgentString.contains("iphone") || userAgentString.contains("ipad"))
+        {
+            modoMovil = true;
+        }
         
         try
         {
@@ -131,12 +137,10 @@ public class DetallesDePropuestaServlet extends HttpServlet
             case "CANCELADA":estado= " Cancelada";break;
             default:estado= " Desconocido";break;
         }
-            
-            
-
 
             if (propuestaSel != null && sesionActual != null)                       //Si no pasó nada raro se envían datos para que puedan ser mostrados.
             {
+                request.setAttribute("modoMovil", modoMovil);
                 request.setAttribute("esFavorita", esFavorita);
                 request.setAttribute("estadoFormateado", estado);
                 request.setAttribute("propuesta", propuestaSel);                                                //Se envian datos de la propuesta elegida al jsp.      
@@ -144,8 +148,7 @@ public class DetallesDePropuestaServlet extends HttpServlet
                 request.setAttribute("tipoUsuario",tipoUsuario);
                 
                 request.getRequestDispatcher("/MostrarPropuesta_Colaborar.jsp").forward(request, response);         //Se envían datos a front y se redirige al user hacia la pagina de muestra.
-            } 
-            
+            }    
         }
         catch (ServletException | IOException e)
         {

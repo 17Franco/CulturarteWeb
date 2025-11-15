@@ -30,6 +30,7 @@
         <%@ include file="Componentes/Header.jsp" %>
 
         <%
+            boolean modoMovil = (boolean) request.getAttribute("modoMovil");
             int permisos = (Integer) request.getAttribute("permisos");
             DtoPropuesta propuesta = (DtoPropuesta) request.getAttribute("propuesta");
             Boolean esFavorita = (Boolean) request.getAttribute("esFavorita");
@@ -141,7 +142,7 @@
                         
                                 <%
                                     // Solo para colaboradores que aún no pagaron, permisos == 4
-                                    if (permisos == 4) {
+                                    if (permisos == 4 && modoMovil == true) {
                                 %>
                                 <div class="col-12 col-md-6">
                               <h4 class="mb-3">Acreditar pago</h4>
