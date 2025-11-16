@@ -13,10 +13,8 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLEncoder;
-
 import webservices.ControllerWS;
 import webservices.ControllerWS_Service;
-import webservices.DtoColaboracion;
 
 /**
  *
@@ -70,8 +68,7 @@ public class DetallesDePropuestaServlet extends HttpServlet
             throws ServletException, IOException 
     {
         response.setContentType("text/html;charset=UTF-8");
-        String userAgentString = request.getHeader("User-Agent").toLowerCase(); //Obtengo el tipo de dispositivo, entre otras cosas.
-        boolean modoMovil = false;
+
         String titulo = request.getParameter("id"); //Se obtiene el parámetro del titulo desde el jsp que muestra las propuestas.
         ControllerWS controllerPort = obtenerPuerto();
         
@@ -81,11 +78,6 @@ public class DetallesDePropuestaServlet extends HttpServlet
         boolean esFavorita = false;
         
         String nickUsr = obtenerNickUsr(sesionActual);  //La función la dejé arriba del doGet.
-        
-        if(userAgentString.contains("mobile") || userAgentString.contains("android") || userAgentString.contains("iphone") || userAgentString.contains("ipad"))
-        {
-            modoMovil = true;
-        }
         
         try
         {
@@ -140,7 +132,6 @@ public class DetallesDePropuestaServlet extends HttpServlet
 
             if (propuestaSel != null && sesionActual != null)                       //Si no pasó nada raro se envían datos para que puedan ser mostrados.
             {
-                request.setAttribute("modoMovil", modoMovil);
                 request.setAttribute("esFavorita", esFavorita);
                 request.setAttribute("estadoFormateado", estado);
                 request.setAttribute("propuesta", propuestaSel);                                                //Se envian datos de la propuesta elegida al jsp.      
