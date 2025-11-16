@@ -81,11 +81,17 @@ public class ListarColaboracionesAPagar extends HttpServlet
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
-        
+        String userAgentString = request.getHeader("User-Agent").toLowerCase(); //Obtengo el tipo de dispositivo, entre otras cosas.
+        boolean modoMovil = false;
         String uid = request.getParameter("nick");
         String tipoUsuario = request.getParameter("tipo");
         
         ControllerWS controllerPort = obtenerPuerto();
+        
+        if(userAgentString.contains("mobile") || userAgentString.contains("android") || userAgentString.contains("iphone") || userAgentString.contains("ipad"))
+        {
+            modoMovil = true;
+        }
         
         if(!uid.isEmpty())
         {  
@@ -106,7 +112,18 @@ public class ListarColaboracionesAPagar extends HttpServlet
             request.setAttribute("tipo", tipoUsuario);
             request.setAttribute("colaboracionesAPagar", pendientesDePago);
             request.setAttribute("pagina", "PagarColaboracion");
-            request.getRequestDispatcher("/PagarColaboracion.jsp").forward(request, response);     
+            
+            
+            if(modoMovil == true)
+            {
+                request.getRequestDispatcher("/PagarColaboracion.jsp").forward(request, response);
+            }
+            
+            if(modoMovil == false)
+            {
+                request.getRequestDispatcher("/PagarColaboracionDesktop.jsp").forward(request, response);
+            }
+                     
         }  
     }
 

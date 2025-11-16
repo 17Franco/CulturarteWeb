@@ -105,8 +105,8 @@
                          String ruta = "https://raw.githubusercontent.com/17Franco/Culturarte/refs/heads/main/propAssets/" + propuesta.getTitulo().replace(" ", "%2B") + ".jpg";
                          if (propuesta.getImagen() != null && !propuesta.getImagen().isEmpty()) 
                     {%>    
-                        <img src="Img?ruta=<%= propuesta.getImagen()%>" class="img-fluid rounded shadow mb-3" alt="Imagen Propuesta" onerror="this.onerror=null; this.src='<%= ruta %>';">  
-                           
+                       <!-- <img src="Img?ruta=<%= propuesta.getImagen()%>" class="img-fluid rounded shadow mb-3" alt="Imagen Propuesta">  --> 
+                            <img class="propuesta-img rounded shadow mb-3 w-100" src="<%=ruta%>" alt="Imagen Propuesta">
                     <%  } 
                         else 
                         { 
@@ -287,7 +287,7 @@
                 <h4 class="mb-3">COMENTARIOS</h4>
 <%
                     //Si el usuario es colaborador de esta propuestsa
-                    if((permisos == 2 || permisos == 4) && propuesta.getEstadoAct().equals(Estado.FINANCIADA))
+                    if(permisos == 2 && propuesta.getEstadoAct().equals(Estado.FINANCIADA))
                     {
                 %>  
                         <div class="col-md-12">

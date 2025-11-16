@@ -13,10 +13,8 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLEncoder;
-
 import webservices.ControllerWS;
 import webservices.ControllerWS_Service;
-import webservices.DtoColaboracion;
 
 /**
  *
@@ -70,7 +68,7 @@ public class DetallesDePropuestaServlet extends HttpServlet
             throws ServletException, IOException 
     {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         String titulo = request.getParameter("id"); //Se obtiene el parámetro del titulo desde el jsp que muestra las propuestas.
         ControllerWS controllerPort = obtenerPuerto();
         
@@ -78,7 +76,7 @@ public class DetallesDePropuestaServlet extends HttpServlet
         int permisos = 0;   //Si es visitante, queda en 0
         String tipoUsuario = (String) sesionActual.getAttribute("tipoUser");
         boolean esFavorita = false;
-
+        
         String nickUsr = obtenerNickUsr(sesionActual);  //La función la dejé arriba del doGet.
         
         try
@@ -131,9 +129,6 @@ public class DetallesDePropuestaServlet extends HttpServlet
             case "CANCELADA":estado= " Cancelada";break;
             default:estado= " Desconocido";break;
         }
-            
-            
-
 
             if (propuestaSel != null && sesionActual != null)                       //Si no pasó nada raro se envían datos para que puedan ser mostrados.
             {
@@ -144,8 +139,7 @@ public class DetallesDePropuestaServlet extends HttpServlet
                 request.setAttribute("tipoUsuario",tipoUsuario);
                 
                 request.getRequestDispatcher("/MostrarPropuesta_Colaborar.jsp").forward(request, response);         //Se envían datos a front y se redirige al user hacia la pagina de muestra.
-            } 
-            
+            }    
         }
         catch (ServletException | IOException e)
         {
