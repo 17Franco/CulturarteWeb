@@ -1,7 +1,7 @@
 
 
 
-<aside class="sidebar siderbarUsuario">
+<aside class="sidebar siderbarUsuario d-none d-lg-block">
     <%
         //genero variables para quedame con nick del usuario que consulto perfiol tipo y tambien el que inicio sesion
         String nick= (String)request.getAttribute("nick");

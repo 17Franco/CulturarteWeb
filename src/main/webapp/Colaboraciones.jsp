@@ -51,7 +51,8 @@
 
                         <% if (session.getAttribute("logueado") != null && UsuarioLogueado.equals(colab.getColaborador())) { %>
                             <button class="btn btn-primary accion me-2">Eliminar</button>
-
+                        <% } %>   
+                        <% if (session.getAttribute("logueado") != null && UsuarioLogueado.equals(colab.getColaborador()) && colab.getDatosPago()!=null) { %>
                             <!-- 🔽 Nuevo botón que abre el modal -->
                             <button 
                                 type="button"
@@ -63,7 +64,7 @@
                                 data-monto="<%= colab.getMonto() %>"
                                 data-retorno="<%= colab.getTipoRetorno() %>"
                                 data-creado="<%= colab.getCreadoString() %>">
-                                Generar constancia de pago
+                                Generar PDF de pago
                             </button>
                         <% } %>
                     </div>
