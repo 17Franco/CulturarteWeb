@@ -3,6 +3,7 @@
     Created on : 15 nov 2025, 21:51:42
     Author     : klaas
 --%>
+
 <%@page import="webservices.DtoColaboracion"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
