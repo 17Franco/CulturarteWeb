@@ -59,8 +59,9 @@
                 <li class="nav-item bg-primary-subtle-hover d" >
                     <a class="nav-link" href="<%=request.getContextPath() + "/" %>">ConsultarPropuestas</a>
                 </li>
+                
                 <li class="nav-item bg-primary-subtle-hover " >
-                    <a class="nav-link" href="ListarColaboracionesAPagar?nick=<%=session.getAttribute("logueado")%>&tipo=<%=session.getAttribute("tipoUser")%>">Pagar Colaboración</a>
+                    <a class="nav-link" href="ListarColaboracionesAPagar?nick=<%=session.getAttribute("logueado")%>&tipo=<%=session.getAttribute("tipoUser")%>">Pagar Colaboracion</a>
                 </li>
                 
                 <li class="nav-item bg-primary-subtle-hover " >
