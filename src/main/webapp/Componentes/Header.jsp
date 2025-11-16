@@ -106,7 +106,7 @@
                     <% }%>
                     <% if(("Colaborador").equals(session.getAttribute("tipoUser"))) { %>
                     <li><a class="dropdown-item" href="Colaboraciones?nick=<%=session.getAttribute("logueado")%>&tipo=<%=session.getAttribute("tipoUser")%>">Colaboracion</a></li>
-                    
+                    <li><a class="dropdown-item" href="ListarColaboracionesAPagar?nick=<%=session.getAttribute("logueado")%>&tipo=<%=session.getAttribute("tipoUser")%>">Pagar Colaboración</a></li>
                     <% }%>
                     <!-- este campo solo estara si es Proponente -->
                    
