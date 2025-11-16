@@ -26,6 +26,7 @@
                 <%}%>
             <%}else if (("Colaborador").equals(tipoUsr)) {%>
                 <a class="navPefil" href="Colaboraciones?nick=<%=nick%>&tipo=<%=tipoUsr%>"><li class="ItemUsuario <%= "Colaboraciones".equals(paginaAct) ? " Activo" : "" %> ">Colaboraciones</li></a>
+                <a class="navPefil" href="ListarColaboracionesAPagar?nick=<%=nick%>&tipo=<%=tipoUsr%>"><li class="ItemUsuario <%= "PagarColaboracion".equals(paginaAct) ? " Activo" : "" %> ">Pagar Colaboración</li></a>
             <%}%>
         </ul>
     </nav>
