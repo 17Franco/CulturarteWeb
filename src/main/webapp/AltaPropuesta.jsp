@@ -121,7 +121,7 @@
 
                     <div class="col-12 mb-3">
                         <label for="formFile" class="form-label">Subir Imagen</label>
-                        <input class="form-control border-secondary" type="file" id="formFile" name="img">
+                        <input class="form-control border-secondary" type="file" id="formFile" name="imagen">
                     </div>
 
                     <div class="col-12 text-center mt-4">
