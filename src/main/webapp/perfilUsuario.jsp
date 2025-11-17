@@ -70,9 +70,20 @@
                     <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                         Eliminar Cuenta
                     </button>
+                        <button type="button" onclick="crear()" class="btn btn-outline-primary" id="ButtonTrello">
+                        Generar Trello
+                    </button>    
                     </div>
                     <%}%>
-                    
+                    <script>
+                        function crear() {
+                            const nick = "<%= UsuarioLogueado %>";
+                            fetch("TrelloApi?nick=" + nick)
+                                .then(r => r.json())
+                                .then(data => console.log(data))
+                                .catch(err => console.log("Error: " + err));
+                        }
+                    </script>
                     <!-- Modal -->
                     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                       <div class="modal-dialog">
