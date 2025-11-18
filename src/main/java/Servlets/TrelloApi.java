@@ -133,7 +133,7 @@ public class TrelloApi extends HttpServlet {
                 String tituloLista = propuesta.get("Titulo").getAsString();
 
                 String fecha = propuesta.get("FechaPublicacionString").getAsString();
-
+                
                 kong.unirest.HttpResponse<String> responseList = Unirest.post("https://api.trello.com/1/lists")
                 .queryString("name", tituloLista + " " +fecha)
                 .queryString("idBoard", boardId)
@@ -210,7 +210,28 @@ public class TrelloApi extends HttpServlet {
                     .queryString("token", apiToken)
                     .asJson();
                 }
-               //System.out.println(response.getBody());
+                //quiero el array de aporte para obtener los nick de los colaboradores
+                JsonArray AportesDePropuesta = propuesta.getAsJsonArray("aporte");
+                //recorro cada aporte 
+                for (JsonElement aporte : AportesDePropuesta) {
+                    
+                    //me quedo con un elemento del array
+                    JsonObject aport = aporte.getAsJsonObject();
+                    //me quedo con el nick
+                    String nickColaborador = aport.get("colaborador").getAsString();
+                    
+                    //creo tarjeta
+                    
+                    kong.unirest.HttpResponse<JsonNode> responseTarjeta = Unirest.post("https://api.trello.com/1/cards")
+                    .header("Accept", "application/json")
+                    .queryString("name",nickColaborador )
+                    .queryString("idList",ListId )
+                    .queryString("key", apiKey)
+                    .queryString("token", apiToken)
+                    .asJson();
+                
+                }
+                 
 
             }
 
