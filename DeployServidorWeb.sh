@@ -63,6 +63,7 @@ DeployServidorWeb(){
 		  
 		  echo
 		  echo "-------Copiando WAR al servidor remoto-------"
+		  
         scp $SSH_OPTS -P $SSH_PORT "target/$NAME_WAR" "$WEB_USER@$WEB_HOST:$REMOTE_TOMCAT_HOME/webapps/"
         
         echo
