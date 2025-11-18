@@ -220,12 +220,23 @@ public class TrelloApi extends HttpServlet {
                     //me quedo con el nick
                     String nickColaborador = aport.get("colaborador").getAsString();
                     
-                    //creo tarjeta
+                    String montoC = aport.get("monto").getAsString();
                     
+                    String tipoRetorno= aport.get("tipoRetorno").getAsString();
+                    
+                    String fechaColaborado= aport.get("creadoString").getAsString();
+                    String descripcion = 
+                    "Monto: " + montoC + "\n" +
+                    "Tipo de retorno: " + tipoRetorno + "\n" +
+                    "Fecha colaborado: " + fechaColaborado;
+                    
+                    
+                    //creo tarjeta
                     kong.unirest.HttpResponse<JsonNode> responseTarjeta = Unirest.post("https://api.trello.com/1/cards")
                     .header("Accept", "application/json")
                     .queryString("name",nickColaborador )
                     .queryString("idList",ListId )
+                    .queryString("desc", descripcion) 
                     .queryString("key", apiKey)
                     .queryString("token", apiToken)
                     .asJson();
