@@ -8,42 +8,42 @@ StopTomcat() {
 }
 
 DeployServidorWeb(){
-	config="$HOME/.Culturarte/config.properties"
-	
-	WEB_HOST=$(grep '^WEB_HOST=' "$config" | cut -d'=' -f2)
-	WEB_USER=$(grep '^USER_HOST_WEB=' "$config" | cut -d'=' -f2)
+    config="$HOME/.Culturarte/config.properties"
+    
+    WEB_HOST=$(grep '^WEB_HOST=' "$config" | cut -d'=' -f2)
+    WEB_USER=$(grep '^USER_HOST_WEB=' "$config" | cut -d'=' -f2)
 
-	echo -e "Compilación de servidor-web y despliegue"
-	
-	mvn clean install
-	
-	if [ "$WEB_HOST" == "localhost" ]; then
-		#busco donde esta tomcat
-		TOMCAT_HOME=$(find "$HOME" /usr /opt /var / -type f -name "catalina.sh" 2>/dev/null | sed 's/\/bin\/catalina.sh//' | head -n 1)
-		#talves no lo tiene intalado o yqc
-		if [ -z "$TOMCAT_HOME" ]; then
-		 echo "No se encontró ninguna instalación de Tomcat en el sistema."
-		 exit 1
-		fi
-		
-		echo "Tomcat encontrado en: $TOMCAT_HOME"
-		NAME_WAR="Culturarte.war"
-		
-		echo "Desplegando Proyecto web"
-		cp target/$NAME_WAR $TOMCAT_HOME/webapps
-		
-		"$TOMCAT_HOME/bin/startup.sh"
-		
-		StopTomcat
+    echo -e "Compilación de servidor-web y despliegue"
+    
+    mvn clean install
+    
+    if [ "$WEB_HOST" == "localhost" ]; then
+        #busco donde esta tomcat
+        TOMCAT_HOME=$(find "$HOME" /usr /opt /var / -type f -name "catalina.sh" 2>/dev/null | sed 's/\/bin\/catalina.sh//' | head -n 1)
+        #talves no lo tiene intalado o yqc
+        if [ -z "$TOMCAT_HOME" ]; then
+         echo "No se encontró ninguna instalación de Tomcat en el sistema."
+         exit 1
+        fi
+        
+        echo "Tomcat encontrado en: $TOMCAT_HOME"
+        NAME_WAR="Culturarte.war"
+        
+        echo "Desplegando Proyecto web"
+        cp target/$NAME_WAR $TOMCAT_HOME/webapps
+        
+        "$TOMCAT_HOME/bin/startup.sh"
+        
+        StopTomcat
 
-	else
-		echo "-------Desplegando WAR remotamente en $WEB_HOST-------"
-		SSH_PORT=22
-	 	SSH_OPTS="-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
-	 	NAME_WAR="Culturarte.war"
-	 	
-	 	
-		REMOTE_TOMCAT_HOME=$(ssh $SSH_OPTS -p $SSH_PORT "$WEB_USER@$WEB_HOST" \
+    else
+        echo "-------Desplegando WAR remotamente en $WEB_HOST-------"
+        SSH_PORT=22
+         SSH_OPTS="-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
+         NAME_WAR="Culturarte.war"
+         
+         
+        REMOTE_TOMCAT_HOME=$(ssh $SSH_OPTS -p $SSH_PORT "$WEB_USER@$WEB_HOST" \
             "find ~ /usr /opt /var -type f -name 'catalina.sh' 2>/dev/null | sed 's/\/bin\/catalina.sh//' | head -n 1")
             
         if [ -z "$REMOTE_TOMCAT_HOME" ]; then
@@ -55,33 +55,40 @@ DeployServidorWeb(){
         echo
         #cosas a tener en cuenta debe generar la clave privada en el host origen sino pide pass en cada conexion
         echo "-------Creando carpeta remota ~/.Culturarte si no existe-------"
-		  ssh $SSH_OPTS -p $SSH_PORT "$WEB_USER@$WEB_HOST" "mkdir -p ~/.Culturarte"
-		  
-		  echo
-		  echo "-------Copiando config al servidor remoto-------"
-		  scp $SSH_OPTS -P $SSH_PORT "$config" "$WEB_USER@$WEB_HOST:~/.Culturarte/"
-		  
-		  echo
-		  echo "-------Copiando WAR al servidor remoto-------"
-		  
+          ssh $SSH_OPTS -p $SSH_PORT "$WEB_USER@$WEB_HOST" "mkdir -p ~/.Culturarte"
+          
+          echo
+          echo "-------Copiando config al servidor remoto-------"
+          scp $SSH_OPTS -P $SSH_PORT "$config" "$WEB_USER@$WEB_HOST:~/.Culturarte/"
+          
+          echo
+          echo "-------Copiando WAR al servidor remoto-------"
         scp $SSH_OPTS -P $SSH_PORT "target/$NAME_WAR" "$WEB_USER@$WEB_HOST:$REMOTE_TOMCAT_HOME/webapps/"
         
         echo
-        ssh $SSH_OPTS -p $SSH_PORT "$WEB_USER@$WEB_HOST" \
-            "cd '$REMOTE_TOMCAT_HOME/bin' && ./shutdown.sh 2>/dev/null; sleep 2; ./startup.sh"
+    ssh $SSH_OPTS -p $SSH_PORT "$WEB_USER@$WEB_HOST" \
+        "export JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64; \
+         export PATH=\$JAVA_HOME/bin:\$PATH; \
+         cd '$REMOTE_TOMCAT_HOME/bin'; \
+         ./shutdown.sh 2>/dev/null; sleep 2; \
+         ./startup.sh"
             
-		  echo
-	     echo "--------------Despliegue remoto completado.--------------"
-	     
-	     read -p "Presiona Enter para detener Tomcat remoto..."
+          echo
+         echo "--------------Despliegue remoto completado.--------------"
+         
+         read -p "Presiona Enter para detener Tomcat remoto..."
 
-		  echo "Deteniendo Tomcat remoto..."
-		  ssh $SSH_OPTS -p $SSH_PORT "$WEB_USER@$WEB_HOST" \
-				 "cd '$REMOTE_TOMCAT_HOME/bin' && ./shutdown.sh"
-		
-	fi
-	
+          echo "Deteniendo Tomcat remoto..."
+         
+        ssh $SSH_OPTS -p $SSH_PORT "$WEB_USER@$WEB_HOST" \
+        "export JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64; \
+         export PATH=\$JAVA_HOME/bin:\$PATH; \
+         cd '$REMOTE_TOMCAT_HOME/bin'; ./shutdown.sh"
+        
+    fi
+    
 }
+
 
 DeployProject(){
 	config="$HOME/.Culturarte/config.properties"
