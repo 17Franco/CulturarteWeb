@@ -9,6 +9,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.URL;
 import java.time.LocalDate;
@@ -91,9 +94,32 @@ public class AltaPropuesta extends HttpServlet {
                 request.getRequestDispatcher("/index.jsp").forward(request, response);
                 return;
             }
+            Part filePart = request.getPart("imagen"); // el name del input file
+
+            byte[] contenido = null;
+            String fileName = null;
+
+            if (filePart != null && filePart.getSize() > 0) {
+                fileName = filePart.getSubmittedFileName();
+
+                try (InputStream input = filePart.getInputStream(); ByteArrayOutputStream buffer = new ByteArrayOutputStream()) {
+
+                    byte[] data = new byte[1024];
+                    int nRead;
+                    while ((nRead = input.read(data, 0, data.length)) != -1) {
+                        buffer.write(data, 0, nRead);
+                    }
+                    contenido = buffer.toByteArray();
+                }
+            } else {
+                request.setAttribute("error", "Debe subir una imagen.");
+                request.setAttribute("categorias", portU.getCategorias());
+                request.getRequestDispatcher("/AltaPropuesta.jsp").forward(request, response);
+                return;
+            }
             String titulo = request.getParameter("titulo");
             String descripcion = request.getParameter("descripcion");
-            String imagen = request.getParameter("imagen");
+            //String imagen = request.getParameter("imagen");
             String lugar = request.getParameter("lugar");
             String fecha = request.getParameter("fecha");
             String precioStr = request.getParameter("precio");
@@ -145,7 +171,7 @@ public class AltaPropuesta extends HttpServlet {
                 request.getRequestDispatcher("/AltaPropuesta.jsp").forward(request, response);
                 return;
             }
-            portU.altaPropuesta(titulo,descripcion,imagen,lugar,fechaFormat.toString(),precio,montoTotal,LocalDate.now().toString(),listaRetornos,categoria,nick,webservices.Estado.INGRESADA);
+            portU.altaPropuestaNew(titulo,descripcion,fileName,contenido,lugar,fechaFormat.toString(),precio,montoTotal,LocalDate.now().toString(),listaRetornos,categoria,nick,webservices.Estado.INGRESADA);
 
             sesion.setAttribute("exito", "Propuesta creada correctamente.");
             response.sendRedirect("AltaPropuesta");
