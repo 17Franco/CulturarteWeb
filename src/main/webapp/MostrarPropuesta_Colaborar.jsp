@@ -159,7 +159,7 @@
                             
                 <%
                         // Solo si es 3, usuario que no propuso puede colaborar.
-                    if (permisos == 3 && !propuesta.getEstadoAct().equals(Estado.CANCELADA) && !propuesta.getEstadoAct().equals(Estado.INGRESADA)) 
+                    if (permisos == 3 && !propuesta.getEstadoAct().equals(Estado.CANCELADA) && !propuesta.getEstadoAct().equals(Estado.INGRESADA) && !propuesta.getEstadoAct().equals(Estado.FINANCIADA)) 
                     {
                     
                         boolean retornoEntradaGratis = false;
@@ -287,6 +287,7 @@
                 <h4 class="mb-3">COMENTARIOS</h4>
 <%
                     //Si el usuario es colaborador de esta propuestsa
+                    
                     if(permisos == 2 && propuesta.getEstadoAct().equals(Estado.FINANCIADA))
                     {
                 %>  
